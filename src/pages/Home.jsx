@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react"
-import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { RegisterForm } from "../components/RegisterForm.jsx";
 import coffeman from "../assets/img/hombrePC.jpg"
 import { useNavigate, useParams } from "react-router-dom";
+
+
 
 export const Home = () => {
 

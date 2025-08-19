@@ -1,18 +1,15 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import '../src/styles/index.css'
-import Home from './pages/Home.jsx'
-import { BrowserRouter, Routes, Route } from "react-router";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes";
 import { StoreProvider } from './hooks/useGlobalReducer.jsx';
+import React from 'react';
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <BrowserRouter>
-      <StoreProvider>
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </StoreProvider>
-    </BrowserRouter>
-  </StrictMode>
+  <React.StrictMode>
+    <StoreProvider>
+      <RouterProvider router={router}>
+      </RouterProvider>
+    </StoreProvider>
+  </React.StrictMode>
 )
