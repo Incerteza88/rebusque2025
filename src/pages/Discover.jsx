@@ -5,20 +5,47 @@ import { useNavigate } from "react-router";
 
 export const Discover = () => {
 
+    const navigate = useNavigate()
     const { store, dispatch } = useGlobalReducer()
 
     const [searchValue, setSearchValue] = useState(store.searching)
-
-    const navigate = useNavigate()
+    const [workersList, setWorkersList] = useState(store.workers.map((w) => Object.values(w)))
 
     async function handleSubmit(e) {
         e.preventDefault()
 
         dispatch({ type: 'searchThis', payload: searchValue })
 
-        window.location.reload()
+        navigate("/discover")
 
     }
+
+    function filterSearch() {
+        let workers = []
+        if (searchValue != "") {
+            store.workers.map((worker, index) => {
+                let ignoreImage = { ...worker, image: "" }
+                let showWorker = false
+                Object.values(ignoreImage).map((value) => {
+                    if (value.toString().toLowerCase().includes(searchValue.toLowerCase())) {
+                        showWorker = true;
+                        return;
+                    }
+                })
+                if (showWorker) {
+                    workers.push(worker)
+                }
+            })
+
+            setWorkersList(workers)
+        }
+        else {
+
+            setWorkersList(store.workers)
+        }
+    }
+
+    useEffect(() => filterSearch(), [store.searching])
 
     return (
         <div className="text-center mt-5 container">
@@ -28,7 +55,7 @@ export const Discover = () => {
                 <button className="btn btn-dark btn-lg me-2 rounded-5" type="submit">Buscar</button>
             </form>
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
-                {store.workers.map((w) => <WorkerCard key={w.id} id={w.id} />)}
+                {workersList.map((w) => <WorkerCard key={w.id} id={w.id} />)}
             </div>
         </div>
     );
