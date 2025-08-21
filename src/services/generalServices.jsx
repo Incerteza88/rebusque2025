@@ -1,8 +1,3 @@
-import useGlobalReducer from "../hooks/useGlobalReducer";
-
-export async function handleSearch(event) {
-
-    const { store, dispatch } = useGlobalReducer()
-
-    dispatch({ type: "searchValue", payload: event.target.value })
+export function fullNormalize(string) {
+    return string.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
 }

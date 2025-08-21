@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { WorkerCard } from "../components/WorkerCard.jsx";
 import { useNavigate } from "react-router";
+import { fullNormalize } from "../services/generalServices.jsx";
 
 export const Discover = () => {
 
@@ -27,7 +28,7 @@ export const Discover = () => {
                 let ignoreImage = { ...worker, image: "" }
                 let showWorker = false
                 Object.values(ignoreImage).map((value) => {
-                    if (value.toString().toLowerCase().includes(searchValue.toLowerCase())) {
+                    if (fullNormalize(value.toString()).includes(fullNormalize(searchValue))) {
                         showWorker = true;
                         return;
                     }
