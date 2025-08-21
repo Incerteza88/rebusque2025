@@ -1,4 +1,29 @@
-.prueba{
-    background-color: aqua;
-    
+input[type="radio"] {
+  -webkit-appearance: none; 
+  -moz-appearance: none;    
+  appearance: none;         
+  width: 16px;
+  height: 16px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  position: relative;
 }
+
+input[type="radio"]:checked::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  background: #000;
+  border-radius: 50%;
+  border: 5px solid white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+
+
