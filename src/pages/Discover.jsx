@@ -9,7 +9,7 @@ export const Discover = () => {
     const { store, dispatch } = useGlobalReducer()
 
     const [searchValue, setSearchValue] = useState(store.searching)
-    const [workersList, setWorkersList] = useState(store.workers.map((w) => Object.values(w)))
+    const [workersList, setWorkersList] = useState(store.workers)
 
     async function handleSubmit(e) {
         e.preventDefault()

@@ -7,7 +7,6 @@ export const WorkerCard = ({ id }) => {
 
     let worker = store.workers.filter((w) => w.id === id)[0]
 
-
     return (
         <div className="col align-items-start text-start">
             <div className="d-flex align-items-start border border-primary rounded-4 rounded-bottom-0 p-3 w-100">

@@ -118,8 +118,6 @@ export default function storeReducer(store, action = {}) {
       };
 
     case "searchThis":
-      console.log(action.payload);
-
       return {
         ...store,
         searching: action.payload,
