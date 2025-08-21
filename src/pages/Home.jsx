@@ -23,13 +23,12 @@ export const Home = () => {
 				<div className="row">
 					<section className="col-6 d-flex justify-content-center align-items-center flex-column">
 						<div className="col-12 ps-3">
-							<h1 className="text-start mb-3">{params.type == "login" ? "Login" : "Sign Up"}</h1>
-							<h6 className="text-start mb-3">Join top freelancers on Freelance</h6>
+							<h1 className="text-start mb-3">{params.type == "login" ? "Iniciar sesión" : "Registrarse"}</h1>
 						</div>
 						<RegisterForm isLoginType = {params.type == "login"}/>
 					</section>
 
-					<section className="col-6">
+					<section className="col-6 d-none d-md-block">
 						<img style={{ width: 500, height: "auto" }} src={coffeman} />
 					</section>
 
