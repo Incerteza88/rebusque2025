@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <h1 className='prueba text-success'>Prueba</h1>
-      <button className='btn btn-success' onClick={() => dispatch({ type: "prueba", payload: "hola" })}></button>
+      <button className='btn btn-primary' onClick={() => dispatch({ type: "prueba", payload: "hola" })}>hola </button>
     </>
   )
 }
