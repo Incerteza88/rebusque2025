@@ -1,8 +1,22 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useGlobalReducer from "../hooks/useGlobalReducer";
+import { useState } from "react";
 
 export const Navbar = () => {
     const { store, dispatch } = useGlobalReducer()
+
+    const [searchValue, setSearchValue] = useState("")
+
+    const navigate = useNavigate()
+
+    async function handleSubmit(e) {
+        e.preventDefault()
+
+        dispatch({ type: 'searchThis', payload: searchValue })
+
+        navigate("/discover")
+
+    }
 
     const profileDrop = store.authState === 0 ?
         <div>< button className="btn btn-primary rounded-5 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
@@ -52,8 +66,8 @@ export const Navbar = () => {
                             <Link className="nav-link " to="#contact">Contacto</Link>
                         </li>
                     </ul>
-                    <form className="d-flex mb-2 mb-lg-0" role="search">
-                        <input className="form-control me-2 rounded-5" type="search" placeholder="Buscar" aria-label="Search" />
+                    <form className="d-flex mb-2 mb-lg-0" role="search" onSubmit={handleSubmit}>
+                        <input className="form-control me-2 rounded-5" type="search" placeholder="Buscar" aria-label="Search" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
                         <button className="btn btn-dark rounded-5 me-2" type="submit">Buscar</button>
                     </form>
                     <li className="nav-link dropdown text-end">

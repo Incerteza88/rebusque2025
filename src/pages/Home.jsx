@@ -1,12 +1,24 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link, useNavigate } from "react-router";
-import { handleSearch } from "../services/generalServices.jsx";
 
 
 export const Home = () => {
 
   const { store, dispatch } = useGlobalReducer()
+
+  const [searchValue, setSearchValue] = useState("")
+
+  const navigate = useNavigate()
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+
+    dispatch({ type: 'searchThis', payload: searchValue })
+
+    navigate("/discover")
+
+  }
 
 
   const bannerButtons = store.authState === 0 ?
@@ -30,8 +42,8 @@ export const Home = () => {
             <h1 className="fw-bold lh-1 mb-3">¡Encuentra un profesional en segundos!</h1>
             <p className="lead"> Aquí podrás encontrar en un par de pasos un profesional que relice el servicio que necesitas. ¡Registrate para contratar servicios o para poder ofrecerlos!</p>
             <div className="d-grid gap-2 d-md-flex justify-content-md-start  mb-3">
-              <form className="d-flex w-100 mb-lg-0" role="search" onSubmit={() => useNavigate("/discover")}>
-                <input className="form-control me-2 rounded-5" type="search" placeholder="Buscar un servicio" aria-label="Search" />
+              <form className="d-flex w-100 mb-lg-0" role="search" onSubmit={handleSubmit}>
+                <input className="form-control me-2 rounded-5" type="search" placeholder="Buscar un servicio" aria-label="Search" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
                 <button className="btn btn-dark btn-lg rounded-5 me-2" type="submit">Buscar</button>
               </form>
               <Link className="btn btn-light btn-lg rounded-5 me-2" to="/discover">Explorar</Link>

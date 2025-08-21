@@ -1,6 +1,7 @@
 export const initialStore = () => {
   return {
-    authState: 0
+    authState: 0,
+    searching: ""
   }
 }
 
@@ -24,6 +25,15 @@ export default function storeReducer(store, action = {}) {
         ...store,
         authState: 0,
       };
+
+    case "searchThis":
+      console.log(action.payload);
+
+      return {
+        ...store,
+        searching: action.payload,
+      };
+
 
     default:
       throw Error('Unknown action.');
