@@ -1,6 +1,7 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from "react-router";
 import { Layout } from "./pages/Layout";
 import { Home } from "./pages/Home";
+import { Discover } from "./pages/Discover";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -9,6 +10,7 @@ export const router = createBrowserRouter(
         <Route path="/" element={<Layout />} errorElement={<h1>Not found!</h1>} >
 
             <Route path="/" element={<Home />} />
+            <Route path="/discover" element={<Discover />} />
         </Route>
     )
 );
