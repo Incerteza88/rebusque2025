@@ -26,7 +26,7 @@ export const Home = () => {
 					</section>
 
 					<section className="col-md-6 d-none d-md-block mt-5">
-						<img style={{ width: 500, height: "auto" }} src={coffeman} />
+						<img className="img-fluid" style={{ width: 500, height: "auto" }} src={coffeman} />
 					</section>
 
 				</div>
