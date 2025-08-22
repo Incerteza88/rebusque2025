@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 
-export const WorkerCard = ({ id }) => {
+export const CategoryCard = ({ id }) => {
 
     const { store, dispatch } = useGlobalReducer()
 

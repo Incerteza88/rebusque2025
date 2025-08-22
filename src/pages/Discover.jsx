@@ -6,11 +6,19 @@ import { fullNormalize } from "../services/generalServices.jsx";
 
 export const Discover = () => {
 
+
+
     const navigate = useNavigate()
     const { store, dispatch } = useGlobalReducer()
 
+    const categoriasPorOrden = store.categories.map((cat, indexCat) => store.workers.filter((worker) => worker.works.includes(indexCat)))
+    // categoriasPorOrden = categoriasPorOrden.toSorted()
+    console.log(categoriasPorOrden);
+
     const [searchValue, setSearchValue] = useState(store.searching)
     const [workersList, setWorkersList] = useState(store.workers)
+
+    const tagsLimpieza = ["limpio", "sucio"]
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -25,9 +33,9 @@ export const Discover = () => {
         let workers = []
         if (searchValue != "") {
             store.workers.map((worker, index) => {
-                let ignoreImage = { ...worker, image: "" }
+                let searchableWorker = { ...worker, image: "", works: worker.works.map((w) => store.categories[w]) }
                 let showWorker = false
-                Object.values(ignoreImage).map((value) => {
+                Object.values(searchableWorker).map((value) => {
                     if (fullNormalize(value.toString()).includes(fullNormalize(searchValue))) {
                         showWorker = true;
                         return;
