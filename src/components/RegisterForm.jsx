@@ -45,7 +45,9 @@ export const RegisterForm = ({ isLoginType }) => {
   return (
     <div className='container d-flex justify-content-center'>
 
-      <form className='w-100 w-md-75 w-lg-50 p-4 rounded bg-white' onSubmit={sendData}>
+      <form className='w-100 rounded bg-white mx-auto'
+        style={{ maxWidth: "400px" }}
+        onSubmit={sendData}>
 
         <h1 className="mb-4 text-start" style={{ color: "#000" }}>
           {isLoginType ? "Iniciar sesión" : "Registrarse"}

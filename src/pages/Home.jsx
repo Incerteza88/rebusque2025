@@ -25,9 +25,13 @@ export const Home = () => {
 						<RegisterForm isLoginType = {params.type == "login"}/>
 					</section>
 
-					<section className="col-md-6 d-none d-md-block mt-5">
-						<img className="img-fluid" style={{ width: 500, height: "auto" }} src={coffeman} />
-					</section>
+<section className="col-md-6 d-none d-md-flex justify-content-center">
+  <img 
+    src={coffeman} 
+    className="img-fluid mt-5 mb-5 rounded-5" 
+    alt="Persona con portátil" 
+  />
+</section>
 
 				</div>
 
