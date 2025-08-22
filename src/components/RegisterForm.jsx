@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { auth } from '../services/fetch';
+import { width } from '@fortawesome/free-solid-svg-icons/fa0';
 
 export const RegisterForm = ({ isLoginType }) => {
 
@@ -9,6 +10,8 @@ export const RegisterForm = ({ isLoginType }) => {
     email: '',
     password: ''
   });
+
+  const [numberPrefix, setNumberPrefix] = useState("+57")
 
   function sendData(e) {
     e.preventDefault()
@@ -35,36 +38,70 @@ export const RegisterForm = ({ isLoginType }) => {
     setInputs({ ...inputs, [name]: value })
   }
 
+  const choosePrefix = (e) => {
+    setNumberPrefix(e.target.name)
+  }
+
   return (
-    <div className='container'>
+    <div className='container d-flex justify-content-center'>
 
-      <form className=' me-5 w-50' onSubmit={sendData}>
+      <form className='w-100 w-md-75 w-lg-50 p-4 rounded bg-white' onSubmit={sendData}>
 
-        <div className="row g-3">
-      
-          <div className="col-6">
-          
-            <label className="card p-3 bg-primary text-white position-relative">
-              <div className="d-flex justify-content-between">
-                <i className="bi bi-person fs-2 text-white"></i>
-                <input type="radio" className="form-check-input" name="user_type" value="cliente" />
+        <h1 className="mb-4 text-start" style={{ color: "#000" }}>
+          {isLoginType ? "Iniciar sesión" : "Registrarse"}
+        </h1>
+
+        <div className="row g-3 mb-2">
+
+          <div className="col col-lg-6" >
+
+            {!isLoginType ?
+
+              <label className="card p-3  text-white position-relative" style={{ backgroundColor: "#004aad", borderColor: "#004aad", color: "#fff" }}>
+                <div className="d-flex justify-content-between align-items-center">
+                  <i className="bi bi-person fs-2 text-white"></i>
+                  <input type="radio" className="form-check-input radio-register" name="user_type" value="cliente" />
+                </div>
+
+
+                <div className="mt-3">
+                  <small>Soy un cliente que necesita un servicio realizado por un profesional.</small>
+                </div>
+              </label> :
+              <div>
+                <button
+                  className="btn rounded-pill w-100"
+                  style={{ color: "#004aad", border: "solid 1px #004aad" }}
+                >
+                  <input
+                    type="radio"
+                    className="form-check-input me-3 radio-login"
+                    style={{ accentColor: "#004aad" }}
+                    name="user_type"
+                    value="cliente"
+                  />
+                  Soy cliente
+                </button>
               </div>
-              <div className="mt-3">
-                <small>Soy un cliente que necesita un servicio realizado por un profesional.</small>
-              </div>
-            </label>
+            }
+
           </div>
 
-          <div className="col-6">
-            <label className="card p-3 bg-primary text-white position-relative">
-              <div className="d-flex justify-content-between">
-                <i className="bi bi-briefcase fs-2"></i>
-                <input type="radio" className="form-check-input" name="user_type" value="profesional" />
-              </div>
-              <div className="mt-3">
-                <small>Soy un profesional independiente que busca visibilidad.</small>
-              </div>
-            </label>
+          <div className="col col-lg-6">
+
+            {!isLoginType ?
+              <label className="card p-3 text-white position-relative h-100" style={{ backgroundColor: "#004aad", borderColor: "#004aad", color: "#fff" }}>
+                <div className="d-flex justify-content-between align-items-center">
+                  <i className="bi bi-briefcase fs-2"></i>
+                  <input type="radio" className="form-check-input radio-register" name="user_type" value="profesional" />
+                </div>
+                <div className="mt-3">
+                  <small>Soy un profesional independiente que busca visibilidad.</small>
+                </div>
+              </label> :
+              <button className='btn rounded-pill w-100' style={{ color: "#004aad", border: "solid 1px #004aad" }}><input type="radio" className="form-check-input me-3 radio-login" name="user_type" value="cliente" />Soy profesional</button>
+            }
+
           </div>
         </div>
 
@@ -89,34 +126,56 @@ export const RegisterForm = ({ isLoginType }) => {
                 type="text" className="form-control rounded-pill" id="exampleInputApellidos1" placeholder='Apellidos' required />
             </div>
 
-<div className="mb-4">
-  <label htmlFor="exampleInputTelefono1" className="form-label">Teléfono</label>
-  <div className="input-group">
-    <select
-      className="form-select bg-primary text-white rounded-start-pill border-primary"
-      style={{ maxWidth: "90px" }}
-      defaultValue="+57"
-    >
-      <option value="+57">+57</option>
-      <option value="+34">+34</option>
-      <option value="+1">+1</option>
-    </select>
-    <input
-      name="telefono"
-      value={inputs.telefono}
-      onChange={handleChange}
-      type="text"
-      className="form-control rounded-end-pill"
-      id="exampleInputTelefono1"
-      placeholder="601 23456789"
-      required
-    />
-  </div>
-</div>
+            <div className="mb-4">
+              <label htmlFor="exampleInputTelefono1" className="form-label">Teléfono</label>
+              <div className="input-group">
+
+                <div className="dropdown custom-dropdown dropdown text-white rounded-start-pill border-primary d-flex align-items-center" style={{ backgroundColor: "#004aad", borderColor: "#004aad", color: "#fff" }}>
+                  <a className="btn  dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{numberPrefix}
+                  </a>
+
+                  <ul className="dropdown-menu overflow-auto" style={{ maxWidth: "90px", maxHeight: "150px" }}>
+                    <li><a className="dropdown-item" href="#" name="+57" onClick={choosePrefix}>+57 - Colombia</a></li>
+                    <li><a className="dropdown-item" href="#" name="+34" onClick={choosePrefix}>+34 - España</a></li>
+                    <li><a className="dropdown-item" href="#" name="+52" onClick={choosePrefix}>+52 - México</a></li>
+                    <li><a className="dropdown-item" href="#" name="+55" onClick={choosePrefix}>+55 - Brasil</a></li>
+                    <li><a className="dropdown-item" href="#" name="+54" onClick={choosePrefix}>+54 - Argentina</a></li>
+                    <li><a className="dropdown-item" href="#" name="+56" onClick={choosePrefix}>+56 - Chile</a></li>
+                    <li><a className="dropdown-item" href="#" name="+51" onClick={choosePrefix}>+51 - Perú</a></li>
+                    <li><a className="dropdown-item" href="#" name="+593" onClick={choosePrefix}>+593 - Ecuador</a></li>
+                    <li><a className="dropdown-item" href="#" name="+58" onClick={choosePrefix}>+58 - Venezuela</a></li>
+                    <li><a className="dropdown-item" href="#" name="+595" onClick={choosePrefix}>+595 - Paraguay</a></li>
+                    <li><a className="dropdown-item" href="#" name="+598" onClick={choosePrefix}>+598 - Uruguay</a></li>
+                    <li><a className="dropdown-item" href="#" name="+591" onClick={choosePrefix}>+591 - Bolivia</a></li>
+                    <li><a className="dropdown-item" href="#" name="+502" onClick={choosePrefix}>+502 - Guatemala</a></li>
+                    <li><a className="dropdown-item" href="#" name="+503" onClick={choosePrefix}>+503 - El Salvador</a></li>
+                    <li><a className="dropdown-item" href="#" name="+504" onClick={choosePrefix}>+504 - Honduras</a></li>
+                    <li><a className="dropdown-item" href="#" name="+505" onClick={choosePrefix}>+505 - Nicaragua</a></li>
+                    <li><a className="dropdown-item" href="#" name="+506" onClick={choosePrefix}>+506 - Costa Rica</a></li>
+                    <li><a className="dropdown-item" href="#" name="+507" onClick={choosePrefix}>+507 - Panamá</a></li>
+                    <li><a className="dropdown-item" href="#" name="+53" onClick={choosePrefix}>+53 - Cuba</a></li>
+                    <li><a className="dropdown-item" href="#" name="+1" onClick={choosePrefix}>+1 - República Dominicana</a></li>
+                  </ul>
+
+                  <p id="selected"></p>
+
+                </div>
+
+                <input
+                  name="telefono"
+                  value={inputs.telefono}
+                  onChange={handleChange}
+                  type="text"
+                  className="form-control rounded-end-pill"
+                  id="exampleInputTelefono1"
+                  placeholder="601 23456789"
+                  required
+                />
+              </div>
+            </div>
 
           </>
           )}
-
 
         <div className="mb-4">
           <label for="exampleInputEmail1" className="form-label">Email</label>
@@ -137,13 +196,13 @@ export const RegisterForm = ({ isLoginType }) => {
         </div>
 
         <div className="d-grid gap-2 mb-3">
-          <button type="submit" className="btn btn-primary rounded-pill">{isLoginType ? "Iniciar sesión" : "Registrarse"}</button>
+          <button type="submit" className="btn rounded-pill" style={{ backgroundColor: "#004aad", borderColor: "#004aad", color: "#fff" }}>{isLoginType ? "Iniciar sesión" : "Registrarse"}</button>
         </div>
 
         {isLoginType ?
-          <p>¿Todavía no tienes cuenta? <Link to="/auth/signup">Regístrate</Link></p> :
+          <p>¿Todavía no tienes cuenta? <Link to="/auth/signup" style={{ fontWeight: "bold", color: "#004aad", textDecoration: "none" }}>Regístrate</Link></p> :
 
-          <p>¿Ya tienes cuenta? <Link to="/auth/login">Inicia Sesión</Link></p>
+          <p>¿Ya tienes cuenta? <Link to="/auth/login" style={{ fontWeight: "bold", color: "#004aad", textDecoration: "none" }}>Inicia Sesión</Link></p>
         }
 
       </form>

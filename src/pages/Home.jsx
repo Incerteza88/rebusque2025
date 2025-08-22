@@ -21,14 +21,11 @@ export const Home = () => {
 			<div className="container">
 
 				<div className="row">
-					<section className="col-6 d-flex justify-content-center align-items-center flex-column">
-						<div className="col-12 ps-3">
-							<h1 className="text-start mb-3">{params.type == "login" ? "Iniciar sesión" : "Registrarse"}</h1>
-						</div>
+					<section className="col col-md-6 d-flex justify-content-center align-items-center flex-column">
 						<RegisterForm isLoginType = {params.type == "login"}/>
 					</section>
 
-					<section className="col-6 d-none d-md-block">
+					<section className="col-md-6 d-none d-md-block mt-5">
 						<img style={{ width: 500, height: "auto" }} src={coffeman} />
 					</section>
 
