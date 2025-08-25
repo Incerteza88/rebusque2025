@@ -101,7 +101,15 @@ export const RegisterForm = ({ isLoginType }) => {
                   <small>Soy un profesional independiente que busca visibilidad.</small>
                 </div>
               </label> :
-              <button className='btn rounded-pill w-100' style={{ color: "#004aad", border: "solid 1px #004aad" }}><input type="radio" className="form-check-input me-3 radio-login" name="user_type" value="cliente" />Soy profesional</button>
+              <button className='btn rounded-pill w-100'
+                style={{ color: "#004aad", border: "solid 1px #004aad" }}>
+                <input 
+                    type="radio"
+                    className="form-check-input me-3 radio-login"
+                    style={{ accentColor: "#004aad" }}
+                    name="user_type"
+                    value="profesional"
+                />Soy profesional</button>
             }
 
           </div>
