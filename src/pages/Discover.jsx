@@ -6,14 +6,16 @@ import { fullNormalize } from "../services/generalServices.jsx";
 
 export const Discover = () => {
 
-
-
     const navigate = useNavigate()
     const { store, dispatch } = useGlobalReducer()
 
-    const categoriasPorOrden = store.categories.map((cat, indexCat) => store.workers.filter((worker) => worker.works.includes(indexCat)))
-    // categoriasPorOrden = categoriasPorOrden.toSorted()
-    console.log(categoriasPorOrden);
+    const sortedCategories = store.categories.map((cat, indexCat) => store.workers
+        .filter((worker) => worker.works.includes(indexCat))
+        .map((catWorker) => catWorker = indexCat))
+        .toSorted((a, b) => b.length - a.length)
+        .map((catNum) => catNum = { category: store.categories[catNum[0]], workersCount: catNum.length })
+
+    console.log(sortedCategories);
 
     const [searchValue, setSearchValue] = useState(store.searching)
     const [workersList, setWorkersList] = useState(store.workers)
