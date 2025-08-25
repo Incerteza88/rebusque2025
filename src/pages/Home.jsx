@@ -23,8 +23,8 @@ export const Home = () => {
 
   const bannerButtons = store.authState === 0 ?
     <div className="lead d-flex">
-      <Link className="btn btn-outline-light rounded-5 ms-auto me-2" to="/login">Iniciar Sesión</Link>
-      <Link className="btn btn-outline-light rounded-5 me-auto ms-2" to="/signup">Registrarse</Link>
+      <Link className="btn btn-outline-light rounded-5 ms-auto me-2" to="/auth/login">Iniciar Sesión</Link>
+      <Link className="btn btn-outline-light rounded-5 me-auto ms-2" to="/auth/signup">Registrarse</Link>
     </div>
     :
     <div className="lead d-flex">

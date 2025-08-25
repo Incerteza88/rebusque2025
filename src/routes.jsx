@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { Layout } from "./pages/Layout";
 import { Home } from "./pages/Home";
-import { Demo } from "./pages/Demo";
+import { Login } from "./pages/Login";
 import { Single } from "./pages/Single";
 
 export const router = createBrowserRouter(
@@ -15,8 +15,8 @@ export const router = createBrowserRouter(
    
       <Route path="/" element={<Layout />} errorElement={<h1>Not found!</h1>} >
 
-        <Route path= "/" element={<Demo />} />
-        <Route path= "/auth/:type" element={<Home />} />
+        <Route path= "/" element={<Home />} />
+        <Route path= "/auth/:type" element={<Login />} />
         <Route path= "/panel" element={<Single/>} />
       </Route>
     )
