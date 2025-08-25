@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { WorkerCard } from "../components/WorkerCard.jsx";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { fullNormalize } from "../services/generalServices.jsx";
 import { CategoryCard } from "../components/CategoryCard.jsx";
 
@@ -62,24 +62,61 @@ export const Discover = () => {
     return (
         <div className="text-center mt-5 container">
             <form className="d-flex w-100 mb-3" role="search" onSubmit={handleSubmit}>
-                <input className="form-control me-2 rounded-5 border border-primary" type="search" placeholder="Buscar un servicio" aria-label="Search"
+                <input className="form-control me-2 rounded-pill border border-primary" type="search" placeholder="Buscar un servicio" aria-label="Search"
                     value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
-                <button className="btn btn-dark btn-lg me-2 rounded-5" type="submit">Buscar</button>
+                <button className="btn btn-dark btn-lg me-2 rounded-pill" type="submit">Buscar</button>
             </form>
             <div className="d-flex w-100 mb-3" role="search" onSubmit={handleSubmit}>
-                <div className="form-control me-2 rounded-5 text-bg-primary d-flex">
+                <div className="form-control me-2 rounded-pill text-bg-primary d-flex">
                     <div className="d-flex align-items-center">
                         <p className="my-0 text-nowrap">Filtros de búsqueda</p>
                         <div className="ms-3 border border-light h-100"></div>
                     </div>
                     <div className="mx-auto h-100 d-flex align-items-center">
-                        <p className="my-0 mx-3 text-nowrap">Filtro 1</p>
-                        <p className="my-0 mx-3 text-nowrap">Filtro 2</p>
+                        <div className="d-flex align-items-center">
+                            <p className="my-0 mx-3 text-nowrap">Ordenar por:</p>
+                            <select className="form-select rounded-pill" aria-label="Default select example">
+                                <option selected value="0">Por defecto</option>
+                                <option value="1">Valoración ↑</option>
+                                <option value="2">Valoración ↓</option>
+                                <option value="3">Distancia ↑</option>
+                                <option value="4">Distancia ↓</option>
+                                <option value="5">Precio ↑</option>
+                                <option value="6">Precio ↓</option>
+                            </select>
+                        </div>
+                        <div className="d-flex align-items-center">
+                            <p className="my-0 mx-3 text-nowrap">Categoría:</p>
+                            <div className="dropdown-center">
+                                < button className="form-select rounded-pill" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                                    Mostrar...
+                                </button >
+                                <ul className="dropdown-menu p-2">
+                                    <li>
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="radio" name="radioDefault" id="radioDefault2" checked />
+                                            <label className="form-check-label" htmlFor="radioDefault2">
+                                                Todas
+                                            </label>
+                                        </div>
+                                    </li>
+                                    {sortedCategories.map((cat) =>
+                                        <li key={store.categories.indexOf(cat.category)}>
+                                            <div className="form-check">
+                                                <input className="form-check-input" type="checkbox" value="" id="checkDefault" />
+                                                <label className="form-check-label text-nowrap" htmlFor="checkDefault">
+                                                    {cat.category.charAt(0).toUpperCase() + cat.category.slice(1)}
+                                                </label>
+                                            </div>
+                                        </li>)}
+                                </ul>
+                            </div>
+                        </div>
                         <p className="my-0 mx-3 text-nowrap">Filtro 3</p>
                         <p className="my-0 mx-3 text-nowrap">Filtro 4</p>
                     </div>
                 </div>
-                <button className="btn btn-dark btn-lg me-2 rounded-5 text-nowrap">Reiniciar filtros</button>
+                <button className="btn btn-dark btn-lg me-2 rounded-pill text-nowrap">Reiniciar filtros</button>
             </div>
             <div className="d-flex my-2">
                 <h3 className="text-nowrap">Categorías</h3>
