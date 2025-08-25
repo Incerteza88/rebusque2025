@@ -3,6 +3,7 @@ import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { WorkerCard } from "../components/WorkerCard.jsx";
 import { useNavigate } from "react-router";
 import { fullNormalize } from "../services/generalServices.jsx";
+import { CategoryCard } from "../components/CategoryCard.jsx";
 
 export const Discover = () => {
 
@@ -65,7 +66,18 @@ export const Discover = () => {
                     value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
                 <button className="btn btn-dark btn-lg me-2 rounded-5" type="submit">Buscar</button>
             </form>
-            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+            <div className="d-flex my-2">
+                <h3>Categorías</h3>
+                <div className="text-bg-dark ms-2 w-100 align-self-center" style={{ height: "1px" }}> </div>
+            </div>
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 pb-1 flex-nowrap hide-scroll overflow-auto">
+                {sortedCategories.map((cat) => <CategoryCard key={store.categories.indexOf(cat.category)} id={store.categories.indexOf(cat.category)} />)}
+            </div>
+            <div className="d-flex mb-2 mt-4">
+                <h3>Trabajadores</h3>
+                <div className="text-bg-dark ms-2 w-100 align-self-center" style={{ height: "1px" }}> </div>
+            </div>
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
                 {workersList.map((w) => <WorkerCard key={w.id} id={w.id} />)}
             </div>
         </div>

@@ -5,27 +5,19 @@ export const CategoryCard = ({ id }) => {
 
     const { store, dispatch } = useGlobalReducer()
 
-    let worker = store.workers.filter((w) => w.id === id)[0]
+    let category = store.categories[id]
 
     return (
-        <div className="col align-items-start text-start">
-            <div className="d-flex align-items-start border border-primary rounded-4 rounded-bottom-0 p-3 w-100">
-                <div className="text-center">
-                    <img src={worker.image} width="50" className="rounded-5 border border-dark" />
-                    <p className="my-0">{worker.rating}/5</p>
-                    <i className="bi bi-star-fill text-warning"></i>
-                </div>
-                <div className="ms-2 inline-limit">
-                    <h3 className="fw-bold mb-0 fs-4 inline-limit">{worker.name}</h3>
-                    <h3 className="fw-bold mb-0 fs-4 inline-limit">{worker.surname}</h3>
-                    <p className="mb-0">{worker.phone}</p>
-                    <p className="mb-0 inline-limit">{worker.works.map((w) => <span key={w} className=" mx-1 badge rounded-pill border border-primary text-primary">{store.categories[w]}</span>)}</p>
-                </div>
-            </div>
-            <div className="d-flex text-bg-primary border-top-0 rounded-4 rounded-top-0 p-3 py-2 w-100">
-
-                <p className="mb-0 ms-2 pt-1"><i className="bi bi-geo"></i> {worker.distance} km</p>
-                <Link className="ms-auto btn btn-light rounded-pill">Contratar</Link>
+        <div className="col">
+            <div className="col btn border border-primary rounded-4 p-0 position-relative">
+                <img src={"src/assets/categoriesImages/" + id + ".jpg"} className="rounded-4 p-0 w-100" />
+                <h2 className="position-absolute top-50 start-50 translate-middle"
+                    style={{
+                        textShadow: "2px 0 30px white, -2px 0 30px white, 0 2px 30px white, 0 -2px 30px white, " +
+                            "2px 2px 30px white, -2px -2px 30px white, 2px -2px 30px white, -2px 2px 30px white"
+                    }}>
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                </h2>
             </div>
         </div>
     )

@@ -9,3 +9,13 @@
     /*Controlo mejor el contenido y el tamaño de las cards si todo está en una sola línea y controlo el overflow*/
     text-overflow: ellipsis;
 }
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #004aad;
+    border-radius: 5px;
+}
