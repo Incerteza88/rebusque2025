@@ -9,6 +9,7 @@ import { Layout } from "./pages/Layout";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Single } from "./pages/Single";
+import Dashboard from "./pages/Dashboard";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -17,7 +18,7 @@ export const router = createBrowserRouter(
 
         <Route path= "/" element={<Home />} />
         <Route path= "/auth/:type" element={<Login />} />
-        <Route path= "/panel" element={<Single/>} />
+        <Route path= "/auth/dashboard" element={<Dashboard/>} />
       </Route>
     )
 );
