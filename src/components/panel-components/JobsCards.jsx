@@ -2,7 +2,6 @@ import React from 'react'
 
 function JobsCards() {
     return (
-
         <div className='flex justify-content text-align border border-end-0 p-3'>
 
             <div className='row align-items-center text-start'>
@@ -27,8 +26,6 @@ function JobsCards() {
                 <div className='col-3'>
                     <button className='btn rounded-pill text-white' style={{ backgroundColor: "#004aad" }}>Aceptar Trabajo</button>
                 </div>
-
-
             </div>
 
 
