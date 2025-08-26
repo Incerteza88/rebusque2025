@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { WorkerCard } from "../components/WorkerCard.jsx";
 import { Link, useNavigate } from "react-router";
-import { fullNormalize } from "../services/generalServices.jsx";
+import { fullNormalize, starsVisual } from "../services/generalServices.jsx";
 import { CategoryCard } from "../components/CategoryCard.jsx";
 
 export const Discover = () => {
@@ -135,7 +135,7 @@ export const Discover = () => {
                                 </button >
                                 <ul className="dropdown-menu p-2">
                                     <li>
-                                        <label htmlFor="ratingRange" className="form-label">{ratingRange} <i className="bi bi-star-fill text-warning"></i> o más</label>
+                                        <label htmlFor="ratingRange" className="form-label">{starsVisual(ratingRange)}</label>
                                         <input type="range" className="form-range" id="ratingRange" min="0" max="5" step="0.5" value={ratingRange} onChange={(e) => setRatingRange(e.target.value)} />
                                     </li>
                                 </ul>
