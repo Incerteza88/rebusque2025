@@ -16,12 +16,19 @@ export const Discover = () => {
         .toSorted((a, b) => b.length - a.length)
         .map((catNum) => catNum = { category: store.categories[catNum[0]], workersCount: catNum.length })
 
-    console.log(sortedCategories);
+    // console.log(sortedCategories);
 
     const [searchValue, setSearchValue] = useState(store.searching)
     const [workersList, setWorkersList] = useState(store.workers)
 
-    const tagsLimpieza = ["limpio", "sucio"]
+    const [distanceRange, setDistanceRange] = useState(10)
+    const [ratingRange, setRatingRange] = useState(4)
+    const [priceRange, setPriceRange] = useState(20)
+
+
+    // const tagsLimpieza = ["limpio", "sucio"]
+
+
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -74,8 +81,8 @@ export const Discover = () => {
                     </div>
                     <div className="mx-auto h-100 d-flex align-items-center">
                         <div className="d-flex align-items-center">
-                            <p className="my-0 mx-3 text-nowrap">Ordenar por:</p>
-                            <select className="form-select rounded-pill" aria-label="Default select example">
+                            <p className="my-0 mx-1 text-nowrap">Ordenar por:</p>
+                            <select className="mx-1 form-select rounded-pill" aria-label="Default select example">
                                 <option selected value="0">Por defecto</option>
                                 <option value="1">Valoración ↑</option>
                                 <option value="2">Valoración ↓</option>
@@ -86,8 +93,8 @@ export const Discover = () => {
                             </select>
                         </div>
                         <div className="d-flex align-items-center">
-                            <p className="my-0 mx-3 text-nowrap">Categoría:</p>
-                            <div className="dropdown-center">
+                            <p className="my-0 mx-1 text-nowrap">Categoría:</p>
+                            <div className="dropdown-center mx-1">
                                 < button className="form-select rounded-pill" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
                                     Mostrar...
                                 </button >
@@ -111,9 +118,40 @@ export const Discover = () => {
                                         </li>)}
                                 </ul>
                             </div>
+                            <div className="dropdown-center mx-1">
+                                < button className="form-select rounded-pill" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                                    Distancia
+                                </button >
+                                <ul className="dropdown-menu p-2">
+                                    <li>
+                                        <label htmlFor="distanceRange" className="form-label">{distanceRange} km máximo</label>
+                                        <input type="range" className="form-range" id="distanceRange" value={distanceRange} onChange={(e) => setDistanceRange(e.target.value)} />
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="dropdown-center mx-1">
+                                < button className="form-select rounded-pill" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                                    Valoración
+                                </button >
+                                <ul className="dropdown-menu p-2">
+                                    <li>
+                                        <label htmlFor="ratingRange" className="form-label">{ratingRange} <i className="bi bi-star-fill text-warning"></i> o más</label>
+                                        <input type="range" className="form-range" id="ratingRange" min="0" max="5" step="0.5" value={ratingRange} onChange={(e) => setRatingRange(e.target.value)} />
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <p className="my-0 mx-3 text-nowrap">Filtro 3</p>
-                        <p className="my-0 mx-3 text-nowrap">Filtro 4</p>
+                        <div className="dropdown-center mx-1">
+                            < button className="form-select rounded-pill" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                                Precio
+                            </button >
+                            <ul className="dropdown-menu p-2">
+                                <li>
+                                    <label htmlFor="distanceRange" className="form-label">Hasta {priceRange} €</label>
+                                    <input type="range" className="form-range" id="distanceRange" value={priceRange} onChange={(e) => setPriceRange(e.target.value)} />
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <button className="btn btn-dark btn-lg me-2 rounded-pill text-nowrap">Reiniciar filtros</button>
