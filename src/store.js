@@ -1,6 +1,6 @@
 export const initialStore = () => {
   return {
-    authState: 0,
+    authState: localStorage.getItem("authState") == null ? 0 : parseInt(localStorage.getItem("authState")), // 0 = no logueado, 1 = user, 2 = worker
     searching: "",
     // "workers" y "categories" son simplemente para hacer pruebas con las card y los filtros, cuando el back esté completo, se deben eliminar
     categories: ["piscinas", "limpieza", "pintura", "fontanería", "decoración", "cocina", "carpintería", "jardinería", "albañilería", "cuidado infantil", "cuidado de mayores"],
@@ -101,18 +101,21 @@ export default function storeReducer(store, action = {}) {
   switch (action.type) {
 
     case "LOGIN_USER":
+      localStorage.setItem("authState", 1)
       return {
         ...store,
         authState: 1,
       };
 
     case "LOGIN_WORKER":
+      localStorage.setItem("authState", 2)
       return {
         ...store,
         authState: 2,
       };
 
     case "LOGOUT":
+      localStorage.removeItem("authState")
       return {
         ...store,
         authState: 0,

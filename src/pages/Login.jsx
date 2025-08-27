@@ -10,7 +10,7 @@ export const Login = () => {
 
 	const params = useParams()
 	const navigate = useNavigate()
-	useEffect(()=>{
+	useEffect(() => {
 		if (params.type != "login" && params.type != "signup") {
 			navigate("/")
 		}
@@ -22,19 +22,20 @@ export const Login = () => {
 
 				<div className="row">
 					<section className="col col-md-6 d-flex justify-content-center align-items-center flex-column">
-						<RegisterForm isLoginType = {params.type == "login"}/>
+						<RegisterForm isLoginType={params.type == "login"} />
 					</section>
 
-<section className="col-md-6 d-none d-md-flex justify-content-center">
-  <img 
-    src={coffeman} 
-    className="img-fluid mt-5 mb-5 rounded-5" 
-    alt="Persona con portátil" 
-  />
-</section>
+					<section className="col-md-6 d-none d-md-flex justify-content-center">
+						<img
+							src={coffeman}
+							className="img-fluid mt-5 mb-5 rounded-5"
+							alt="Persona con portátil"
+						/>
+					</section>
 
 				</div>
 
 			</div>
 		</>
-	);}
+	);
+}
