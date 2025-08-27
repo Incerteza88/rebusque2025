@@ -1,4 +1,58 @@
-.prueba{
-    background-color: aqua;
-    
+.radio-register {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #004aad;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.radio-register:checked::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  background: #000;
+  border-radius: 50%;
+  border: 5px solid white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.radio-login {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #004aad;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.radio-login:checked::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  background: #004aad;
+  border-radius: 50%;
+  border: 5px solid white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.custom-dropdown .dropdown-item:active,
+.custom-dropdown .dropdown-item:focus,
+.custom-dropdown .dropdown-item:hover {
+  background-color: #004aad !important;
+  color: #fff !important;
 }
