@@ -23,8 +23,8 @@ export const Navbar = () => {
             <i className="fa-regular fa-user"></i>
         </button >
             <ul className="dropdown-menu dropdown-menu-end">
-                <li><Link className="dropdown-item" to="/login">Iniciar sesión</Link></li>
-                <li><Link className="dropdown-item" to="/signup">Registrarse</Link></li>
+                <li><Link className="dropdown-item" to="/auth/login">Iniciar sesión</Link></li>
+                <li><Link className="dropdown-item" to="/auth/signup">Registrarse</Link></li>
             </ul>
         </div>
         :
