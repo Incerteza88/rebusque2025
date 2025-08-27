@@ -23,8 +23,8 @@ export const Navbar = () => {
             <i className="fa-regular fa-user"></i>
         </button >
             <ul className="dropdown-menu dropdown-menu-end">
-                <li><Link className="dropdown-item" to="/login">Iniciar sesión</Link></li>
-                <li><Link className="dropdown-item" to="/signup">Registrarse</Link></li>
+                <li><Link className="dropdown-item" to="/auth/login">Iniciar sesión</Link></li>
+                <li><Link className="dropdown-item" to="/auth/signup">Registrarse</Link></li>
             </ul>
         </div>
         :
@@ -40,7 +40,7 @@ export const Navbar = () => {
                 <li><Link className="dropdown-item pt-2" to="#">Mensajes</Link></li>
                 <li><Link className="dropdown-item pt-2" to="#">Notificaciones</Link></li>
                 <li><hr className="dropdown-divider mb-0" /></li>
-                <li><Link className="btn btn-danger w-100 rounded-top-0 py-2 ps-3 text-start" href="#">Cerrar sesión</Link></li>
+                <li><Link className="btn btn-danger w-100 rounded-top-0 py-2 ps-3 text-start" onClick={() => dispatch({ type: "LOGOUT" })}>Cerrar sesión</Link></li>
             </ul>
         </div>
 

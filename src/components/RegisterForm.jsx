@@ -103,12 +103,12 @@ export const RegisterForm = ({ isLoginType }) => {
               </label> :
               <button className='btn rounded-pill w-100'
                 style={{ color: "#004aad", border: "solid 1px #004aad" }}>
-                <input 
-                    type="radio"
-                    className="form-check-input me-3 radio-login"
-                    style={{ accentColor: "#004aad" }}
-                    name="user_type"
-                    value="profesional"
+                <input
+                  type="radio"
+                  className="form-check-input me-3 radio-login"
+                  style={{ accentColor: "#004aad" }}
+                  name="user_type"
+                  value="profesional"
                 />Soy profesional</button>
             }
 

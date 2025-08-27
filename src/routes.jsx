@@ -7,17 +7,21 @@ import {
 } from "react-router-dom";
 import { Layout } from "./pages/Layout";
 import { Home } from "./pages/Home";
+import { Discover } from "./pages/Discover";
 import { Login } from "./pages/Login";
 import { Single } from "./pages/Single";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
-   
-      <Route path="/" element={<Layout />} errorElement={<h1>Not found!</h1>} >
 
-        <Route path= "/" element={<Home />} />
-        <Route path= "/auth/:type" element={<Login />} />
-        <Route path= "/panel" element={<Single/>} />
-      </Route>
+        <Route path="/" element={<Layout />} errorElement={<h1>Not found!</h1>} >
+
+        // Root Route: All navigation will start from here.
+
+            <Route path="/" element={<Home />} />
+            <Route path="/discover" element={<Discover />} />
+            <Route path="/auth/:type" element={<Login />} />
+            <Route path="/panel" element={<Single />} />
+        </Route>
     )
 );
