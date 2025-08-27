@@ -1,6 +1,12 @@
 import React from 'react'
 
 function JobsCards() {
+
+
+
+
+
+    
     return (
         <div className='flex justify-content text-align border border-end-0 p-3'>
 

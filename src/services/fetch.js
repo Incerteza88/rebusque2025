@@ -1,4 +1,4 @@
-const backendURL = import.meta.env.VITE_BACKEND_URL;
+const backendURL = "http://127.0.0.1:3001";
 
 export const auth = async (formData, endpoint) => {
   try {
