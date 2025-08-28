@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useState } from "react";
 
@@ -9,6 +9,9 @@ export const Navbar = () => {
 
     const navigate = useNavigate()
 
+    const location = useLocation();
+    console.log(location);
+
     async function handleSubmit(e) {
         e.preventDefault()
 
@@ -18,15 +21,24 @@ export const Navbar = () => {
 
     }
 
-    const profileDrop = store.authState === 0 ?
-        <div>< button className="btn btn-primary rounded-5 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
-            <i className="fa-regular fa-user"></i>
-        </button >
-            <ul className="dropdown-menu dropdown-menu-end">
-                <li><Link className="dropdown-item" to="/auth/login">Iniciar sesión</Link></li>
-                <li><Link className="dropdown-item" to="/auth/signup">Registrarse</Link></li>
-            </ul>
+    const sesionButtons = store.authState === 0 ?
+        <div className="lead d-flex">
+            <Link className="btn btn-outline-light rounded-5 ms-auto me-2" to="/auth/login">Iniciar Sesión</Link>
+            <Link className="btn btn-outline-light rounded-5 me-auto ms-2" to="/auth/signup">Registrarse</Link>
         </div>
+        :
+        <div className="lead d-flex">
+            <Link className="btn btn-outline-light rounded-5 mx-auto" to="/panel">Ir a mi Panel de Control</Link>
+        </div>
+
+    const profileDrop = store.authState === 0 ?
+
+        location.pathname === "/auth/login" || location.pathname === "/auth/signup" ? "" :
+
+            <div className="lead d-flex">
+                <Link className="btn btn-outline-primary rounded-5 me-1 text-nowrap" to="/auth/login">Iniciar Sesión</Link>
+                <Link className="btn btn-outline-primary rounded-5 ms-1 text-nowrap" to="/auth/signup">Registrarse</Link>
+            </div>
         :
         <div>
             <button className="btn btn-primary rounded-5 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -43,6 +55,12 @@ export const Navbar = () => {
                 <li><Link className="btn btn-danger w-100 rounded-top-0 py-2 ps-3 text-start" onClick={() => dispatch({ type: "LOGOUT" })}>Cerrar sesión</Link></li>
             </ul>
         </div>
+
+    const searchBar = location.pathname === "/discover" ? "" : location.pathname === "/" ? "" :
+        <form className="d-flex mb-2 mb-lg-0" role="search" onSubmit={handleSubmit}>
+            <input className="form-control me-2 rounded-5" type="search" placeholder="Buscar" aria-label="Search" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+            <button className="btn btn-dark rounded-5 me-2" type="submit">Buscar</button>
+        </form>
 
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -66,10 +84,7 @@ export const Navbar = () => {
                             <Link className="nav-link " to="#contact">Contacto</Link>
                         </li>
                     </ul>
-                    <form className="d-flex mb-2 mb-lg-0" role="search" onSubmit={handleSubmit}>
-                        <input className="form-control me-2 rounded-5" type="search" placeholder="Buscar" aria-label="Search" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
-                        <button className="btn btn-dark rounded-5 me-2" type="submit">Buscar</button>
-                    </form>
+                    {searchBar}
                     <li className="nav-link dropdown text-end">
                         {profileDrop}
                     </li>

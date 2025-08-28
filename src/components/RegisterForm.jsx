@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { auth } from '../services/fetch';
-import { width } from '@fortawesome/free-solid-svg-icons/fa0';
 
 export const RegisterForm = ({ isLoginType }) => {
 
