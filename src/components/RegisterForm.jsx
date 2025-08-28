@@ -67,7 +67,7 @@ export const RegisterForm = ({ isLoginType }) => {
 
 
                 <div className="mt-3">
-                  <small>Soy un cliente que necesita un servicio realizado por un profesional.</small>
+                  <small style={{ fontSize: "18px" }}>Soy un cliente que necesita un servicio realizado por un profesional.</small>
                 </div>
               </label> :
               <div>
@@ -98,7 +98,7 @@ export const RegisterForm = ({ isLoginType }) => {
                   <input type="radio" className="form-check-input radio-register" name="user_type" value="profesional" />
                 </div>
                 <div className="mt-3">
-                  <small>Soy un profesional independiente que busca visibilidad.</small>
+                  <small style={{ fontSize: "18px" }}>Soy un profesional independiente que busca visibilidad.</small>
                 </div>
               </label> :
               <button className='btn rounded-pill w-100'
