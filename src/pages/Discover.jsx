@@ -132,7 +132,7 @@ export const Discover = () => {
                             <ul className="dropdown-menu p-2">
                                 <li>
                                     <label htmlFor="ratingRange" className="form-label">{starsVisual(ratingRange)}</label>
-                                    <input type="range" className="form-range" id="ratingRange" min="0" max="5" step="0.5" value={ratingRange} onChange={(e) => setRatingRange(e.target.value)} />
+                                    <input type="range" className="form-range" id="ratingRange" min="0" max="5" step="0.5" value={ratingRange} onChange={(e) => setRatingRange(parseFloat(e.target.value))} />
                                 </li>
                             </ul>
                         </div>
