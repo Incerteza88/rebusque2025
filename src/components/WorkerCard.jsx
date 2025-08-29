@@ -19,7 +19,7 @@ export const WorkerCard = ({ id }) => {
                     <h3 className="fw-bold mb-0 fs-4 inline-limit">{worker.name}</h3>
                     <h3 className="fw-bold mb-0 fs-4 inline-limit">{worker.surname}</h3>
                     <p className="mb-0">{worker.phone}</p>
-                    <p className="mb-0 inline-limit">{worker.works.map((w) => <span key={w} className=" mx-1 badge rounded-pill border border-primary text-primary">{store.categories[w]}</span>)}</p>
+                    {/* <p className="mb-0 inline-limit">{worker.works.map((w) => <span key={w} className=" mx-1 badge rounded-pill border border-primary text-primary">{store.categories.find((cat) => cat.id === w)[0].name}</span>)}</p> */}
                 </div>
             </div>
             <div className="d-flex text-bg-primary border-top-0 rounded-4 rounded-top-0 p-3 py-2 w-100">
