@@ -77,7 +77,7 @@ export const Discover = () => {
                 <div className="py-1 px-3 rounded-start-5 text-bg-primary d-flex align-items-center">
                     <p className="my-0 inline-limit">Filtros de búsqueda</p>
                 </div>
-                <div className="mx-1 py-1 px-3 text-bg-primary d-flex w-100">
+                <div className="mx-1 py-1 px-3 text-bg-primary rounded-end-5 d-flex w-100">
                     <div className="row mx-auto h-100 d-flex align-items-center">
                         <p className="col my-0 px-1 text-nowrap">Ordenar por:</p>
                         <select className="col mx-1 form-select rounded-pill w-auto mx-auto" aria-label="Default select example">
@@ -149,7 +149,7 @@ export const Discover = () => {
                         </div>
                     </div>
                 </div>
-                <button className="btn btn-dark rounded-start-0 rounded-end-5 text-nowrap">Reiniciar filtros</button>
+                <button className="btn btn-dark rounded-5 text-nowrap">Reiniciar filtros</button>
             </div>
             <div className="d-flex my-2">
                 <h3 className="text-nowrap">Categorías</h3>
