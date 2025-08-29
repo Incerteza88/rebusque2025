@@ -1,7 +1,9 @@
 export const initialStore = () => {
   return {
     authState: 0,
-    searching: ""
+    searching: "",
+    isLogin: localStorage.getItem("accessToken") ? true : false,
+    // localStorage.removeItem()  => para el logOut
   }
 }
 

@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router";
 export const Home = () => {
 
   const { store, dispatch } = useGlobalReducer()
-
+console.log(store)
   const [searchValue, setSearchValue] = useState("")
 
   const navigate = useNavigate()
