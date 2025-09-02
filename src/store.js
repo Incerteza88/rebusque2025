@@ -4,6 +4,9 @@ export const initialStore = () => {
     searching: "",
     isLogin: localStorage.getItem("accessToken") ? true : false,
     // localStorage.removeItem()  => para el logOut
+    isAuth: null,
+    estadoModal: false,
+    trabajo: ""
   }
 }
 
@@ -30,6 +33,23 @@ export default function storeReducer(store, action = {}) {
 
     case "searchThis":
       console.log(action.payload);
+
+    case "is_auth" : 
+    return{
+      ...store,
+      isAuth: action.payload
+    }
+    
+    case 'stateModal':
+      return{
+        ...store,
+        estadoModal : action.payload
+      }
+      case 'saveJob':
+      return{
+        ...store,
+        trabajo : action.payload
+      }
 
       return {
         ...store,

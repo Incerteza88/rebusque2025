@@ -23,7 +23,7 @@ const backendURL = "http://127.0.0.1:3001";
 
 export const registerUser = async (payload) => {
   try {
-    const resp = await fetch(`${backendURL}/api/register`, {
+    const resp = await fetch(`${backendURL}/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -42,7 +42,7 @@ export const registerUser = async (payload) => {
 
 export const loginUser = async (credentialsUser) => {
   try {
-    const resp = await fetch(`${backendURL}/api/login`, {
+    const resp = await fetch(`${backendURL}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(credentialsUser),
@@ -52,6 +52,7 @@ export const loginUser = async (credentialsUser) => {
       throw new Error(err.msg || `Login error (${resp.status})`);
     }
     const data = await resp.json();
+    console.log(data.user)
     if (data?.access_token) localStorage.setItem("accessToken", data.access_token);
     return data;
   } catch (error) {
@@ -59,3 +60,22 @@ export const loginUser = async (credentialsUser) => {
     throw error;
   }
 };
+
+export const sendWork = async () => {
+  try {
+    const resp = await fetch(`${backendURL}/auth/dashboard`, {  
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({  }), 
+    });
+
+    
+    const data = await resp.json();
+    return data;
+
+  } catch (error) {  
+    console.error("Login error:", error);
+    throw error;
+  }
+};
+

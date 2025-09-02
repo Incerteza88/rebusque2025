@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser, registerUser } from '../services/fetch';
+import useGlobalReducer from '../hooks/useGlobalReducer';
 
 export const RegisterForm = ({ isLoginType }) => {
   const navigate = useNavigate();
-
-  // Alinea con el backend
+  const { store, dispatch } = useGlobalReducer()
+  console.log(store.isAuth)
   const [inputs, setInputs] = useState({
     name: "",
     email: "",
     password: "",
     role: "cliente", // default
     photo_url: "",
-    // opcionales sólo para UI:
+    //opcional
     apellidos: "",
     telefono: "",
   });
@@ -26,47 +27,49 @@ export const RegisterForm = ({ isLoginType }) => {
 
   const choosePrefix = (e) => setNumberPrefix(e.target.name);
 
- async function sendData(e) {
-  e.preventDefault();
+  async function sendData(e) {
+    e.preventDefault();
 
-  try {
-    if (isLoginType) {
-      const payload = { email: inputs.email, password: inputs.password };
-      const data = await loginUser(payload);
-      navigate("/auth/dashboard");
-    } else {
-      
-      const name = inputs.apellidos
-        ? `${inputs.name} ${inputs.apellidos}`.trim()
-        : inputs.name;
+    try {
+      if (isLoginType) {
+        const payload = { email: inputs.email, password: inputs.password };
+        const data = await loginUser(payload);
+        dispatch({ type: "is_auth", payload: data.user })
+        console.log(data)
+        navigate("/auth/dashboard");
+      } else {
 
-      const payload = {
-        name,
-        email: inputs.email,
-        password: inputs.password,
-        role: inputs.role,        // "cliente" | "proveedor"
-        photo_url: inputs.photo_url || "",
-      };
+        const name = inputs.apellidos
+          ? `${inputs.name} ${inputs.apellidos}`.trim()
+          : inputs.name;
 
-      const data = await registerUser(payload); // <-- aquí el cambio
+        const payload = {
+          name,
+          email: inputs.email,
+          password: inputs.password,
+          role: inputs.role,        // "cliente" | "proveedor"
+          photo_url: inputs.photo_url || "",
+        };
 
-      navigate("/auth/login");
+        const data = await registerUser(payload); // <-- aquí el cambio
+
+        navigate("/auth/login");
+      }
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setInputs({
+        name: "",
+        email: "",
+        password: "",
+        role: "cliente",
+        photo_url: "",
+        apellidos: "",
+        telefono: "",
+      });
     }
-  } catch (err) {
-    alert(err.message);
-  } finally {
-    setInputs({
-      name: "",
-      email: "",
-      password: "",
-      role: "cliente",
-      photo_url: "",
-      apellidos: "",
-      telefono: "",
-    });
   }
-}
-
+  console.log(isLoginType)
 
   return (
     <div className='container d-flex justify-content-center'>
@@ -77,7 +80,7 @@ export const RegisterForm = ({ isLoginType }) => {
 
         <div className="row g-3 mb-2">
           <div className="col col-lg-6">
-            {!isLoginType ? (
+            {!isLoginType && (
               <label className="card p-3 text-white position-relative"
                 style={{ backgroundColor: "#004aad", borderColor: "#004aad" }}>
                 <div className="d-flex justify-content-between align-items-center">
@@ -97,29 +100,11 @@ export const RegisterForm = ({ isLoginType }) => {
                   </small>
                 </div>
               </label>
-            ) : (
-              <button
-                type="button"
-                className="btn rounded-pill w-100"
-                style={{ color: "#004aad", border: "solid 1px #004aad" }}
-                onClick={() => setInputs((p) => ({ ...p, role: "cliente" }))}
-              >
-                <input
-                  type="radio"
-                  className="form-check-input me-3 radio-login"
-                  style={{ accentColor: "#004aad" }}
-                  name="role"
-                  value="cliente"
-                  checked={inputs.role === "cliente"}
-                  readOnly
-                />
-                Soy cliente
-              </button>
             )}
           </div>
 
           <div className="col col-lg-6">
-            {!isLoginType ? (
+            {!isLoginType && (
               <label className="card p-3 text-white position-relative h-100"
                 style={{ backgroundColor: "#004aad", borderColor: "#004aad" }}>
                 <div className="d-flex justify-content-between align-items-center">
@@ -128,7 +113,7 @@ export const RegisterForm = ({ isLoginType }) => {
                     type="radio"
                     className="form-check-input radio-register"
                     name="role"
-                    value="proveedor" 
+                    value="proveedor"
                     checked={inputs.role === "proveedor"}
                     onChange={handleChange}
                   />
@@ -139,24 +124,6 @@ export const RegisterForm = ({ isLoginType }) => {
                   </small>
                 </div>
               </label>
-            ) : (
-              <button
-                type="button"
-                className='btn rounded-pill w-100'
-                style={{ color: "#004aad", border: "solid 1px #004aad" }}
-                onClick={() => setInputs((p) => ({ ...p, role: "proveedor" }))}
-              >
-                <input
-                  type="radio"
-                  className="form-check-input me-3 radio-login"
-                  style={{ accentColor: "#004aad" }}
-                  name="role"
-                  value="proveedor"
-                  checked={inputs.role === "proveedor"}
-                  readOnly
-                />
-                Soy profesional
-              </button>
             )}
           </div>
         </div>
@@ -200,27 +167,27 @@ export const RegisterForm = ({ isLoginType }) => {
                   <button className="btn dropdown-toggle text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     {numberPrefix}
                   </button>
-                  <ul className="dropdown-menu overflow-auto" style={{ maxWidth: "90px", maxHeight: "150px" }}> 
-                  <li><a className="dropdown-item" href="#" name="+57" onClick={choosePrefix}>+57 - Colombia</a></li> 
-                  <li><a className="dropdown-item" href="#" name="+34" onClick={choosePrefix}>+34 - España</a></li> 
-                  <li><a className="dropdown-item" href="#" name="+52" onClick={choosePrefix}>+52 - México</a></li> 
-                  <li><a className="dropdown-item" href="#" name="+55" onClick={choosePrefix}>+55 - Brasil</a></li> 
-                  <li><a className="dropdown-item" href="#" name="+54" onClick={choosePrefix}>+54 - Argentina</a></li> 
-                  <li><a className="dropdown-item" href="#" name="+56" onClick={choosePrefix}>+56 - Chile</a></li> 
-                  <li><a className="dropdown-item" href="#" name="+51" onClick={choosePrefix}>+51 - Perú</a></li> 
-                  <li><a className="dropdown-item" href="#" name="+593" onClick={choosePrefix}>+593 - Ecuador</a></li> 
-                  <li><a className="dropdown-item" href="#" name="+58" onClick={choosePrefix}>+58 - Venezuela</a></li> 
-                  <li><a className="dropdown-item" href="#" name="+595" onClick={choosePrefix}>+595 - Paraguay</a></li> 
-                  <li><a className="dropdown-item" href="#" name="+598" onClick={choosePrefix}>+598 - Uruguay</a></li> 
-                  <li><a className="dropdown-item" href="#" name="+591" onClick={choosePrefix}>+591 - Bolivia</a></li> 
-                  <li><a className="dropdown-item" href="#" name="+502" onClick={choosePrefix}>+502 - Guatemala</a></li> 
-                  <li><a className="dropdown-item" href="#" name="+503" onClick={choosePrefix}>+503 - El Salvador</a></li> 
-                  <li><a className="dropdown-item" href="#" name="+504" onClick={choosePrefix}>+504 - Honduras</a></li> 
-                  <li><a className="dropdown-item" href="#" name="+505" onClick={choosePrefix}>+505 - Nicaragua</a></li> 
-                  <li><a className="dropdown-item" href="#" name="+506" onClick={choosePrefix}>+506 - Costa Rica</a></li> 
-                  <li><a className="dropdown-item" href="#" name="+507" onClick={choosePrefix}>+507 - Panamá</a></li> 
-                  <li><a className="dropdown-item" href="#" name="+53" onClick={choosePrefix}>+53 - Cuba</a></li> 
-                  <li><a className="dropdown-item" href="#" name="+1" onClick={choosePrefix}>+1 - República Dominicana</a></li> </ul>
+                  <ul className="dropdown-menu overflow-auto" style={{ maxWidth: "90px", maxHeight: "150px" }}>
+                    <li><a className="dropdown-item" href="#" name="+57" onClick={choosePrefix}>+57 - Colombia</a></li>
+                    <li><a className="dropdown-item" href="#" name="+34" onClick={choosePrefix}>+34 - España</a></li>
+                    <li><a className="dropdown-item" href="#" name="+52" onClick={choosePrefix}>+52 - México</a></li>
+                    <li><a className="dropdown-item" href="#" name="+55" onClick={choosePrefix}>+55 - Brasil</a></li>
+                    <li><a className="dropdown-item" href="#" name="+54" onClick={choosePrefix}>+54 - Argentina</a></li>
+                    <li><a className="dropdown-item" href="#" name="+56" onClick={choosePrefix}>+56 - Chile</a></li>
+                    <li><a className="dropdown-item" href="#" name="+51" onClick={choosePrefix}>+51 - Perú</a></li>
+                    <li><a className="dropdown-item" href="#" name="+593" onClick={choosePrefix}>+593 - Ecuador</a></li>
+                    <li><a className="dropdown-item" href="#" name="+58" onClick={choosePrefix}>+58 - Venezuela</a></li>
+                    <li><a className="dropdown-item" href="#" name="+595" onClick={choosePrefix}>+595 - Paraguay</a></li>
+                    <li><a className="dropdown-item" href="#" name="+598" onClick={choosePrefix}>+598 - Uruguay</a></li>
+                    <li><a className="dropdown-item" href="#" name="+591" onClick={choosePrefix}>+591 - Bolivia</a></li>
+                    <li><a className="dropdown-item" href="#" name="+502" onClick={choosePrefix}>+502 - Guatemala</a></li>
+                    <li><a className="dropdown-item" href="#" name="+503" onClick={choosePrefix}>+503 - El Salvador</a></li>
+                    <li><a className="dropdown-item" href="#" name="+504" onClick={choosePrefix}>+504 - Honduras</a></li>
+                    <li><a className="dropdown-item" href="#" name="+505" onClick={choosePrefix}>+505 - Nicaragua</a></li>
+                    <li><a className="dropdown-item" href="#" name="+506" onClick={choosePrefix}>+506 - Costa Rica</a></li>
+                    <li><a className="dropdown-item" href="#" name="+507" onClick={choosePrefix}>+507 - Panamá</a></li>
+                    <li><a className="dropdown-item" href="#" name="+53" onClick={choosePrefix}>+53 - Cuba</a></li>
+                    <li><a className="dropdown-item" href="#" name="+1" onClick={choosePrefix}>+1 - República Dominicana</a></li> </ul>
                 </div>
 
                 <input
