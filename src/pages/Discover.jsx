@@ -73,46 +73,52 @@ export const Discover = () => {
                     value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
                 <button className="btn btn-dark btn-lg me-2 rounded-pill" type="submit">Buscar</button>
             </form>
-            <div className="d-flex w-100 mb-3">
-                <div className="py-1 px-3 rounded-start-5 text-bg-primary d-flex align-items-center">
-                    <p className="my-0 inline-limit">Filtros de búsqueda</p>
+            <div className="navbar navbar-expand-lg d-flex w-100 mb-3">
+                <div className="mx-auto">
+                    <div className="py-2 px-3 rounded-pill text-bg-primary d-flex align-items-center">
+                        <p className="my-1 inline-limit">Filtros de búsqueda</p>
+                    </div>
                 </div>
-                <div className="mx-1 py-1 px-3 text-bg-primary rounded-end-5 d-flex w-100">
-                    <div className="row mx-auto h-100 d-flex align-items-center">
-                        <p className="col my-0 px-1 text-nowrap">Ordenar por:</p>
-                        <select className="col mx-1 form-select rounded-pill w-auto mx-auto" aria-label="Default select example">
-                            <option selected value="0">Por defecto</option>
-                            <option value="1">Valoración ↑</option>
-                            <option value="2">Valoración ↓</option>
-                            <option value="3">Distancia ↑</option>
-                            <option value="4">Distancia ↓</option>
-                            <option value="5">Precio ↑</option>
-                            <option value="6">Precio ↓</option>
-                        </select>
-                        <p className="col my-0 px-1 text-nowrap">Categoría:</p>
-                        <div className="col dropdown-center px-1 ">
-                            < button className="form-select rounded-pill w-auto mx-auto" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
-                                Mostrar...
-                            </button >
-                            <ul className="dropdown-menu p-2">
-                                <li>
-                                    <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="radioDefault" id="radioDefault2" checked />
-                                        <label className="form-check-label" htmlFor="radioDefault2">
-                                            Todas
-                                        </label>
-                                    </div>
-                                </li>
-                                {store.categories.map((cat) =>
-                                    <li key={cat.id}>
+                <div className="mx-1 py-1 px-3 text-bg-primary rounded-5 d-flex w-100">
+                    <div className="row cols-2 mx-auto h-100 d-flex align-items-center">
+                        <div className="col d-flex px-1" style={{ minWidth: "fit-content", maxWidth: "fit-content" }}>
+                            <p className="col my-auto px-1 text-nowrap">Ordenar por:</p>
+                            <select id="orderBy" className="col form-select rounded-pill mx-auto text-nowrap">
+                                <option value="0">Por defecto</option>
+                                <option value="1">Valoración ↑</option>
+                                <option value="2">Valoración ↓</option>
+                                <option value="3">Distancia ↑</option>
+                                <option value="4">Distancia ↓</option>
+                                <option value="5">Precio ↑</option>
+                                <option value="6">Precio ↓</option>
+                            </select>
+                        </div>
+                        <div className="col d-flex px-1">
+                            <p className="my-auto px-1 text-nowrap">Categoría:</p>
+                            <div className="px-1 dropdown-center px-1 ">
+                                <button className="form-select rounded-pill w-auto mx-auto" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                                    Mostrar...
+                                </button >
+                                <ul className="dropdown-menu p-2" >
+                                    <li>
                                         <div className="form-check">
-                                            <input className="form-check-input" type="checkbox" value="" id="checkDefault" />
-                                            <label className="form-check-label text-nowrap" htmlFor="checkDefault">
-                                                {cat.name.charAt(0).toUpperCase() + cat.name.slice(1)}
+                                            <input className="form-check-input" type="radio" name="radioDefault" id="radioDefault2" />
+                                            <label className="form-check-label" htmlFor="radioDefault2">
+                                                Todas
                                             </label>
                                         </div>
-                                    </li>)}
-                            </ul>
+                                    </li>
+                                    {store.categories.map((cat) =>
+                                        <li key={cat.id}>
+                                            <div className="form-check">
+                                                <input className="form-check-input" type="checkbox" value="" id="checkDefault" />
+                                                <label className="form-check-label text-nowrap" htmlFor="checkDefault">
+                                                    {cat.name.charAt(0).toUpperCase() + cat.name.slice(1)}
+                                                </label>
+                                            </div>
+                                        </li>)}
+                                </ul>
+                            </div>
                         </div>
                         <div className="col dropdown-center px-1">
                             < button className="form-select rounded-pill w-auto mx-auto" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
@@ -149,7 +155,9 @@ export const Discover = () => {
                         </div>
                     </div>
                 </div>
-                <button className="btn btn-dark rounded-5 text-nowrap">Reiniciar filtros</button>
+                <div className="mx-auto">
+                    <button className="btn btn-dark py-2 rounded-pill text-nowrap"><p className="my-1">Reiniciar filtros</p></button>
+                </div>
             </div>
             <div className="d-flex my-2">
                 <h3 className="text-nowrap">Categorías</h3>
