@@ -151,11 +151,11 @@ export async function validAuth() {
         method: "GET",
         headers: myHeaders
     };
-    try {
+    // try {
         const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/valid-auth", requestOptions);
 
-        return response.ok
-    } catch (error) {
-        console.error(error);
-    };
+        return response
+    // } catch (error) {
+    //     console.error(error);
+    // };
 }

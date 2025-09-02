@@ -10,7 +10,6 @@ export const Navbar = () => {
     const navigate = useNavigate()
 
     const location = useLocation();
-    console.log(location);
 
     async function handleSubmit(e) {
         e.preventDefault()

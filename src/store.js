@@ -122,6 +122,7 @@ export default function storeReducer(store, action = {}) {
 
     case "LOGOUT":
       localStorage.removeItem("authState")
+      localStorage.removeItem("token")
       return {
         ...store,
         authState: 0,
