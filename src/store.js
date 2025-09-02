@@ -94,6 +94,7 @@ export const initialStore = () => {
         distance: 1,
       },
     ],
+    services: []
   }
 }
 
@@ -104,6 +105,12 @@ export default function storeReducer(store, action = {}) {
       return {
         ...store,
         categories: action.payload,
+      };
+
+    case "setServices":
+      return {
+        ...store,
+        services: action.payload,
       };
 
     case "LOGIN_USER":

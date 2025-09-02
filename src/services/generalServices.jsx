@@ -156,6 +156,21 @@ export async function validAuth() {
 
         return response
     } catch (error) {
-        console.error(error);
-    };
+        console.error(error)
+    }
+}
+
+//obtener los servicios desde el backend
+export async function getServices() {
+    try {
+        const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/search/professionals");
+        const data = await response.json()
+        let services = []
+        data.map((professional) =>professional.services.map((serv) => services.push(serv)) )
+        console.log(services);
+
+        return data
+    } catch (error) {
+        console.error(error)
+    }
 }

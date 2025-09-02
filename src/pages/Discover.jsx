@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { WorkerCard } from "../components/WorkerCard.jsx";
 import { Link, useNavigate } from "react-router";
-import { fullNormalize, starsVisual } from "../services/generalServices.jsx";
+import { fullNormalize, getServices, starsVisual } from "../services/generalServices.jsx";
 import { CategoryCard } from "../components/CategoryCard.jsx";
 import { getCategories } from "../services/fetch.js";
 
@@ -19,7 +19,7 @@ export const Discover = () => {
 
 
     const [searchValue, setSearchValue] = useState(store.searching)
-    const [workersList, setWorkersList] = useState(store.workers)
+    const [servicesList, setServicesList] = useState(store.workers)
 
     const [distanceRange, setDistanceRange] = useState(10)
     const [ratingRange, setRatingRange] = useState(4)
@@ -28,7 +28,7 @@ export const Discover = () => {
 
     // const tagsLimpieza = ["limpio", "sucio"]
 
-
+    getServices()
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -56,11 +56,11 @@ export const Discover = () => {
                 }
             })
 
-            setWorkersList(workers)
+            setServicesList(workers)
         }
         else {
 
-            setWorkersList(store.workers)
+            setServicesList(store.workers)
         }
     }
     useEffect(() => () => getCategories().then((cats) => dispatch({ type: 'setCategories', payload: cats })), [])
@@ -171,7 +171,7 @@ export const Discover = () => {
                 <div className="text-bg-dark ms-2 w-100 align-self-center" style={{ height: "1px" }}> </div>
             </div>
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
-                {workersList.map((w) => <WorkerCard key={w.id} id={w.id} />)}
+                {servicesList.map((w) => <WorkerCard key={w.id} id={w.id} />)}
             </div>
         </div >
     );
