@@ -40,6 +40,21 @@ export const registerUser = async (payload) => {
   }
 };
 
+
+export async function getCategories() {
+    try {
+        let response = await fetch(`${backendURL}/categories`)
+        let data = await response.json()
+        if (response.ok) {
+            // data = data.map((item) => { return { ...item, uid: item.url.match(/(\d+)/)[0], page: "/ships/" + item.url.match(/(\d+)/)[0] } })
+            localStorage.setItem("categories", JSON.stringify(data))
+            return (data)
+        }
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
 export const loginUser = async (credentialsUser) => {
   try {
     const resp = await fetch(`${backendURL}/login`, {

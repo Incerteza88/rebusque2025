@@ -20,17 +20,6 @@ console.log(store)
 
   }
 
-
-  const bannerButtons = store.authState === 0 ?
-    <div className="lead d-flex">
-      <Link className="btn btn-outline-light rounded-5 ms-auto me-2" to="/auth/login">Iniciar Sesión</Link>
-      <Link className="btn btn-outline-light rounded-5 me-auto ms-2" to="/auth/signup">Registrarse</Link>
-    </div>
-    :
-    <div className="lead d-flex">
-      <Link className="btn btn-outline-light rounded-5 mx-auto" to="/panel">Ir a mi Panel de Control</Link>
-    </div>
-
   return (
     <div className="text-center mt-5">
       <div className="container col-xxl-8 px-4 py-5 text-bg-primary rounded-5" >
@@ -48,7 +37,6 @@ console.log(store)
               </form>
               <Link className="btn btn-light btn-lg rounded-5 me-2" to="/discover">Explorar</Link>
             </div>
-            {bannerButtons}
           </div>
         </div>
       </div>
