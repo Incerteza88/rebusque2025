@@ -11,7 +11,11 @@ export const WorkerCard = ({ id }) => {
         <div className="col align-items-start text-start">
             <div className="d-flex align-items-start border border-primary rounded-4 rounded-bottom-0 p-3 w-100">
                 <div className="text-center">
-                    <img src={worker.image} width="50" className="rounded-5 border border-dark" />
+                    <img src={worker.image} width="50" className="rounded-5 border border-dark"
+                        onError={({ currentTarget }) => {
+                            currentTarget.onerror = null;
+                            currentTarget.src = "src/assets/img/default_user.jpg";
+                        }} />
                     <p className="my-0">{worker.rating}/5</p>
                     <i className="bi bi-star-fill text-warning"></i>
                 </div>
