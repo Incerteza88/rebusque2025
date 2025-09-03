@@ -78,3 +78,17 @@
   background-color: #004aad !important;
   color: #fff !important;
 }
+
+.miModal{
+  position: fixed;    
+  top: 40%;
+  left: 50%;
+
+}
+
+.texTarea{
+  width: 500px;
+  height: 300px;
+}
+
+
