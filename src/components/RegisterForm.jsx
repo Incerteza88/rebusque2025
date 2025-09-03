@@ -32,19 +32,20 @@ export const RegisterForm = ({ isLoginType }) => {
 
     try {
       if (isLoginType) {
-        const payload = { email: inputs.email, password: inputs.password };
+       
+        let aux = inputs.email.includes("@") ? "email" : "phone"
+
+        const payload = { [aux]: inputs.email, password: inputs.password };
+
         const data = await loginUser(payload);
         dispatch({ type: "is_auth", payload: data.user })
         console.log(data)
         navigate("/auth/dashboard");
       } else {
 
-        const name = inputs.apellidos
-          ? `${inputs.name} ${inputs.apellidos}`.trim()
-          : inputs.name;
-
         const payload = {
-          name,
+          name: inputs.name,
+          last_name: inputs.apellidos,
           email: inputs.email,
           phone: inputs.telefono,
           password: inputs.password,
@@ -206,12 +207,12 @@ export const RegisterForm = ({ isLoginType }) => {
         )}
 
         <div className="mb-4">
-          <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
+          <label htmlFor="exampleInputEmail1" className="form-label">Email o Teléfono</label>
           <input
             name="email"
             value={inputs.email}
             onChange={handleChange}
-            type="email"
+            type="text"
             className="form-control rounded-pill"
             id="exampleInputEmail1"
             placeholder='alguien@dominio.com'
@@ -248,3 +249,4 @@ export const RegisterForm = ({ isLoginType }) => {
     </div>
   );
 };
+
