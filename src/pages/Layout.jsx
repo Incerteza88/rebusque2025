@@ -35,7 +35,7 @@ export const Layout = () => {
                         }
                     })
 
-                } else if (value.status === 401) {
+                } else {
                     handleShowModal()
                     dispatch({ type: 'LOGOUT' })
                 }

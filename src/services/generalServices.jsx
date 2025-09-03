@@ -166,10 +166,11 @@ export async function getServices() {
         const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/search/professionals");
         const data = await response.json()
         let services = []
-        data.map((professional) =>professional.services.map((serv) => services.push(serv)) )
-        console.log(services);
+        data.map((professional) => professional.services.map((serv) => services.push(serv)))
 
-        return data
+        // console.log(services);
+
+        return services
     } catch (error) {
         console.error(error)
     }

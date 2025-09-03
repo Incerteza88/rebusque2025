@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
-import { WorkerCard } from "../components/WorkerCard.jsx";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { fullNormalize, getServices, starsVisual } from "../services/generalServices.jsx";
 import { CategoryCard } from "../components/CategoryCard.jsx";
 import { getCategories } from "../services/fetch.js";
+import { ServiceCard } from "../components/ServiceCard.jsx";
 
 export const Discover = () => {
 
@@ -19,16 +19,11 @@ export const Discover = () => {
 
 
     const [searchValue, setSearchValue] = useState(store.searching)
-    const [servicesList, setServicesList] = useState(store.workers)
+    const [servicesList, setServicesList] = useState(store.services)
 
     const [distanceRange, setDistanceRange] = useState(10)
     const [ratingRange, setRatingRange] = useState(4)
     const [priceRange, setPriceRange] = useState(20)
-
-
-    // const tagsLimpieza = ["limpio", "sucio"]
-
-    getServices()
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -63,8 +58,13 @@ export const Discover = () => {
             setServicesList(store.workers)
         }
     }
-    useEffect(() => () => getCategories().then((cats) => dispatch({ type: 'setCategories', payload: cats })), [])
+    useEffect(() => () => {
+        getCategories().then((cats) => dispatch({ type: 'setCategories', payload: cats }))
+        getServices().then((servs) => dispatch({ type: 'setServices', payload: servs }))
+    }, [])
     useEffect(() => filterSearch(), [store.searching])
+    useEffect(() => setServicesList(store.services), [store.services])
+
 
     return (
         <div className="text-center mt-5 container">
@@ -167,11 +167,11 @@ export const Discover = () => {
                 {store.categories.map((cat) => <CategoryCard key={cat.id} id={cat.id} />)}
             </div>
             <div className="d-flex mb-2 mt-4">
-                <h3 className="text-nowrap">Profesionales recomendados</h3>
+                <h3 className="text-nowrap">Servicios recomendados</h3>
                 <div className="text-bg-dark ms-2 w-100 align-self-center" style={{ height: "1px" }}> </div>
             </div>
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
-                {servicesList.map((w) => <WorkerCard key={w.id} id={w.id} />)}
+                {servicesList.map((s) => <ServiceCard key={s.id} id={s.id} />)}
             </div>
         </div >
     );
