@@ -6,7 +6,7 @@ import useGlobalReducer from '../hooks/useGlobalReducer';
 export const RegisterForm = ({ isLoginType }) => {
   const navigate = useNavigate();
   const { store, dispatch } = useGlobalReducer()
-  console.log(store.isAuth)
+  // console.log(store.isAuth)
   const [inputs, setInputs] = useState({
     name: "",
     email: "",
@@ -35,7 +35,7 @@ export const RegisterForm = ({ isLoginType }) => {
         const payload = { email: inputs.email, password: inputs.password };
         const data = await loginUser(payload);
         dispatch({ type: "is_auth", payload: data.user })
-        console.log(data)
+        // console.log(data)
         navigate("/auth/dashboard");
       } else {
 
@@ -67,7 +67,7 @@ export const RegisterForm = ({ isLoginType }) => {
       });
     }
   }
-  console.log(isLoginType)
+  // console.log(isLoginType)
 
   return (
     <div className='container d-flex justify-content-center'>
