@@ -8,7 +8,6 @@ import { options } from "./PanelSideBarMenuContent"
 
 export const PanelContent = () => {
 
-
     return (
         <div className="col-9">
             <div className=" h-100">

@@ -7,6 +7,7 @@ export const initialStore = () => {
     isAuth: null,
     estadoModal: false,
     trabajo: ""
+    
   }
 }
 
