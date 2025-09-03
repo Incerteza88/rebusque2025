@@ -2,7 +2,8 @@ import { JobsContent } from "../panel-content-components/JobsContent"
 import { MessagesContent } from "../panel-content-components/MessagesContent"
 import { ServicesContent } from "../panel-content-components/ServicesContent"
 import { ProfileContent } from "../panel-content-components/ProfileContent"
-import { LogOutContent } from "../panel-content-components/LogOutContent"
+import LogOutContent from "../panel-content-components/LogOutContent"
+
 
 import { options } from "./PanelSideBarMenuContent"
 

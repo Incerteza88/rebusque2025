@@ -5,13 +5,14 @@ import useGlobalReducer from "../hooks/useGlobalReducer";
 import { faHourglass1 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import LogOutContent from "../components/panel-content-components/LogOutContent";
 
 const Dashboard = () => {
 
 	const { store } = useGlobalReducer()
 	const isLogin = store.isLogin
 	console.log(isLogin)
-	const roleType = store.isAuth.role
+	const roleType = store.isAuth?.role
 	console.log(roleType)
 
 	const navigate = useNavigate()
@@ -22,7 +23,7 @@ const Dashboard = () => {
 		}
 	}, [])
 
-	
+
 
 	return (
 		<>
@@ -33,7 +34,6 @@ const Dashboard = () => {
 						<div className="px-3 pt-2 pb-5 row g-4">
 							<PanelSideBar />
 							<PanelContent />
-
 						</div>
 					</div >
 				) : (

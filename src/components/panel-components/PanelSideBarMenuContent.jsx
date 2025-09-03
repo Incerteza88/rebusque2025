@@ -1,5 +1,5 @@
 
-export const options = ["Jobs", "Messages", "Services", "Profile", "Logout"]
+export const options = ["Trabajos", "Mensajes", "Servicios", "Perfil", "Cerrar sesión"]
 
 export const PanelSideBarMenuContent = () => {
 

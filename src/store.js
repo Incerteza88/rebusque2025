@@ -121,9 +121,12 @@ export default function storeReducer(store, action = {}) {
 
     case "LOGOUT":
       localStorage.removeItem("authState")
+      localStorage.removeItem("accessToken")
       return {
         ...store,
         authState: 0,
+        isLogin: false,
+        isAuth: null,
       };
 
     case "searchThis":

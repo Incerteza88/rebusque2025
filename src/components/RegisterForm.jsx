@@ -46,6 +46,7 @@ export const RegisterForm = ({ isLoginType }) => {
         const payload = {
           name,
           email: inputs.email,
+          phone: inputs.telefono,
           password: inputs.password,
           role: inputs.role,        // "cliente" | "proveedor"
           photo_url: inputs.photo_url || "",

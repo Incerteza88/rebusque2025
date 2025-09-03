@@ -1,6 +1,15 @@
+const LogOutContent = () => {
 
-export const LogOutContent = () => {
-  return (
-    <div>LogOutContent</div>
-  )
+
+    return(
+
+        <></>
+    )
+
+
+
+
+
 }
+
+export default LogOutContent
