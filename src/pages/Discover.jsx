@@ -60,7 +60,7 @@ export const Discover = () => {
     }
     useEffect(() => () => {
         getCategories().then((cats) => dispatch({ type: 'setCategories', payload: cats }))
-        getServices().then((servs) => dispatch({ type: 'setServices', payload: servs }))
+        getServices(searchValue).then((servs) => dispatch({ type: 'setServices', payload: servs }))
     }, [])
     useEffect(() => filterSearch(), [store.searching])
     useEffect(() => setServicesList(store.services), [store.services])

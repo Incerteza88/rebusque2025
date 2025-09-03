@@ -28,7 +28,7 @@ export const ServiceCard = ({ id }) => {
             </div>
             <div className="d-flex text-bg-primary border-top-0 rounded-4 rounded-top-0 p-3 py-2 w-100">
 
-                <p className="mb-0 ms-2 pt-1"><i className="bi bi-geo"></i> x km</p> {/* cambiar por service.distance cuando lo tengamos */}
+                <p className="mb-0 ms-2 pt-1">{service.price}$</p> {/* cambiar por service.distance cuando lo tengamos */}
                 <Link className="ms-auto btn btn-light rounded-pill">Contratar</Link>
             </div>
         </div>
