@@ -39,13 +39,11 @@ export const RegisterForm = ({ isLoginType }) => {
         navigate("/auth/dashboard");
       } else {
 
-        const name = inputs.apellidos
-          ? `${inputs.name} ${inputs.apellidos}`.trim()
-          : inputs.name;
-
         const payload = {
-          name,
+          name: inputs.name,
+          last_name: inputs.apellidos,
           email: inputs.email,
+          phone: inputs.telefono,
           password: inputs.password,
           role: inputs.role,        // "cliente" | "proveedor"
           photo_url: inputs.photo_url || "",
