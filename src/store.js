@@ -2,7 +2,7 @@ export const initialStore = () => {
   return {
     authState: localStorage.getItem("authState") == null ? 0 : parseInt(localStorage.getItem("authState")), // 0 = no logueado, 1 = user, 2 = worker
     searching: "",
-    isLogin: localStorage.getItem("accessToken") ? true : false,
+    isLogin: localStorage.getItem( "token") ? true : false,
     // localStorage.removeItem()  => para el logOut
     isAuth: null,
     estadoModal: false,

@@ -68,7 +68,7 @@ export const loginUser = async (credentialsUser) => {
     }
     const data = await resp.json();
     console.log(data.user)
-    if (data?.access_token) localStorage.setItem("accessToken", data.access_token);
+    if (data?.access_token) localStorage.setItem( "token", data.access_token);
     return data;
   } catch (error) {
     console.error("Login error:", error);

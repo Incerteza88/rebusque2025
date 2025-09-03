@@ -17,7 +17,7 @@ const Dashboard = () => {
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		if (!localStorage.getItem("accessToken")) {
+		if (!localStorage.getItem( "token")) {
 			navigate("/auth/login")
 		}
 	}, [])
