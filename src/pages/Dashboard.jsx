@@ -21,12 +21,11 @@ const Dashboard = () => {
   return (
     <>
       {isLogin ? (
-        <div className="container">
-          {roleType === "cliente" ? <h1>Cliente</h1> : <h1>Proveedor</h1>}
+     
           <div className="px-3 pt-2 pb-5 row g-4">
             <PanelSideBar />
             <PanelContent />
-          </div>
+         
         </div>
       ) : (
         <h1>No has iniciado sesión</h1>

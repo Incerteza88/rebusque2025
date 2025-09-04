@@ -1,9 +1,13 @@
-import { useState } from "react"
-import JobsCards from "../panel-components/JobsCards"
-import TextTareaSendJob from "../panel-components/TextTareaSendJob"
+import { useState } from "react";
+import useGlobalReducer from "../../hooks/useGlobalReducer";
+import JobsCards from "../panel-components/JobsCards";
+import TextTareaSendJob from "../panel-components/TextTareaSendJob";
 
 export const JobsContent = () => {
-  const [workStatus] = useState("a")
+  const [workStatus] = useState("a");
+  const { store } = useGlobalReducer();
+  const roleType = store?.isAuth?.role;
+  const counterpartLabel = roleType === "cliente" ? "Proveedor" : "Cliente";
 
   const services = [
     {
@@ -27,24 +31,21 @@ export const JobsContent = () => {
       customer: "Starbucks",
       avatar: "https://upload.wikimedia.org/wikipedia/sco/d/d3/Starbucks_Corporation_Logo_2011.svg"
     }
-  ]
+  ];
 
   return (
     <>
-      <h5 className="my-">Jobs</h5>
+      <h3 className="my- px-2 mb-3">Trabajos</h3>
 
-      
       <TextTareaSendJob />
 
-      
       <div className="row align-items-center w-100 fw-semibold fs-5 px-2 mb-2">
-        <div className="col-3">Cliente</div>
+        <div className="col-3">{counterpartLabel}</div>
         <div className="col-2">Tarea</div>
         <div className="col-1">Precio</div>
         <div className="col-3">Estado</div>
       </div>
 
-      
       {services.map((s, idx) => (
         <JobsCards
           key={idx}
@@ -56,5 +57,5 @@ export const JobsContent = () => {
         />
       ))}
     </>
-  )
-}
+  );
+};

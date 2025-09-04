@@ -1,24 +1,3 @@
-
-// export const auth = async (formData, endpoint) => {
-//   try {
-//     const resp = await fetch(`${backendURL}/api/${endpoint}`, {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(formData),
-//     });
-//     if (!resp.ok) {
-//       const err = await resp.json().catch(() => ({}));
-//       throw new Error(err.msg || `Error ${endpoint} (${resp.status})`);
-//     }
-//     const data = await resp.json();
-//     return data;
-//   } catch (error) {
-//     console.error(error);
-//     throw error;
-//   }
-// };
-
-
 const backendURL = "http://127.0.0.1:3001";
 
 export const registerUser = async (payload) => {
