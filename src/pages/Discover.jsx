@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from "react"
+import React, { use, useEffect, useState } from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { useNavigate } from "react-router";
 import { fullNormalize, starsVisual } from "../services/generalServices.jsx";
 import { CategoryCard } from "../components/CategoryCard.jsx";
 import { getCategories, getServices } from "../services/fetch.js";
 import { ServiceCard } from "../components/ServiceCard.jsx";
+import { func } from "prop-types";
 
 export const Discover = () => {
 
     const { store, dispatch } = useGlobalReducer()
-
-    // const sortedCategories = store.categories.map((cat, indexCat) => store.workers
-    //     .filter((worker) => worker.works.includes(indexCat))
-    //     .map((catWorker) => catWorker = indexCat))
-    //     .toSorted((a, b) => b.length - a.length)
-    //     .map((catNum) => catNum = { category: store.categories[catNum[0]], workersCount: catNum.length })
-
 
     const [searchValue, setSearchValue] = useState(store.searching)
     const [servicesList, setServicesList] = useState(store.services)
@@ -23,9 +17,13 @@ export const Discover = () => {
 
     const [sortBy, setSortBy] = useState("default")
 
+    const [maxPrice, setMaxPrice] = useState(100)
+
     // const [distanceRange, setDistanceRange] = useState(10)
-    const [ratingRange, setRatingRange] = useState(4)
-    const [priceRange, setPriceRange] = useState(20)
+    const [catRadio, setCatRadio] = useState(true)
+    const [checkedCategs, setCheckedCategs] = useState([])
+    const [ratingRange, setRatingRange] = useState(0)
+    const [priceRange, setPriceRange] = useState(maxPrice)
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -35,11 +33,21 @@ export const Discover = () => {
     }
 
     function filterSearch() {
-        getServices(searchValue).then((servs) => dispatch({ type: 'setServices', payload: servs }))
+        getServices(searchValue, checkedCategs, "", "", "").then((servs) => dispatch({ type: 'setServices', payload: servs }))
+    }
+
+    function resetFilters() {
+        setSearchValue("")
+        dispatch({ type: 'searchThis', payload: "" })
+        setCheckedCategs([])
+        setSortBy("default")
+        // setDistanceRange(10)
+        setRatingRange(0)
+        setPriceRange(maxPrice)
     }
 
     function sortServices() {
-        console.log(sortBy);
+        // console.log(sortBy);
         let sorted = []
 
         switch (sortBy) {
@@ -50,10 +58,10 @@ export const Discover = () => {
                 sorted = [...servicesList].sort((a, b) => a.rating - b.rating);
                 break;
             case "price_up":
-                sorted = [...servicesList].sort((a, b) => a.price - b.price);
+                sorted = [...servicesList].sort((a, b) => b.price - a.price);
                 break;
             case "price_down":
-                sorted = [...servicesList].sort((a, b) => b.price - a.price);
+                sorted = [...servicesList].sort((a, b) => a.price - b.price);
                 break;
             default:
                 sorted = servicesList;
@@ -65,12 +73,25 @@ export const Discover = () => {
 
     useEffect(() => () => {
         getCategories().then((cats) => dispatch({ type: 'setCategories', payload: cats }))
-        getServices(searchValue).then((servs) => dispatch({ type: 'setServices', payload: servs }))
+        getServices(searchValue, checkedCategs, "", "", "").then((servs) => dispatch({ type: 'setServices', payload: servs }))
     }, [])
-    useEffect(() => filterSearch(), [store.searching])
+    useEffect(() => filterSearch(), [store.searching, checkedCategs])
     useEffect(() => setServicesList(store.services), [store.services])
 
     useEffect(() => sortServices(), [sortBy, servicesList]);
+
+    useEffect(() => {
+        checkedCategs.length === 0 ? setCatRadio(true) : setCatRadio(false)
+    }, [checkedCategs]);
+
+    useEffect(() => { catRadio ? setCheckedCategs([]) : "" }, [catRadio]);
+    useEffect(() => {
+        let max = 0
+        store.services.map((s) => s.price > max ? max = s.price : "")
+        setMaxPrice(max)
+        setPriceRange(max)
+    }, [store.services]);
+
 
 
 
@@ -102,34 +123,46 @@ export const Discover = () => {
                             </select>
                         </div>
                         <div className="col d-flex px-1">
-                            <p className="my-auto px-1 text-nowrap">Categoría:</p>
+                            <p className="my-auto px-1 text-nowrap">Categorías:</p>
                             <div className="px-1 dropdown-center px-1 ">
-                                <button className="form-select rounded-pill w-auto mx-auto" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                                <button className="form-select rounded-pill w-auto mx-auto" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"
+                                >
                                     Mostrar...
                                 </button >
                                 <ul className="dropdown-menu p-2" >
                                     <li>
                                         <div className="form-check">
-                                            <input className="form-check-input" type="radio" name="radioDefault" id="radioDefault2" />
-                                            <label className="form-check-label" htmlFor="radioDefault2">
+                                            <input className="form-check-input" type="radio" name="radioDefault" id="allChecked" checked={catRadio}
+                                                onChange={(e) => setCatRadio(e.target.checked)} />
+                                            <label className="form-check-label" htmlFor="allChecked">
                                                 Todas
                                             </label>
                                         </div>
                                     </li>
                                     {store.categories.map((cat) =>
                                         <li key={cat.id}>
-                                            <div className="form-check">
-                                                <input className="form-check-input" type="checkbox" value="" id="checkDefault" />
-                                                <label className="form-check-label text-nowrap" htmlFor="checkDefault">
+                                            <div className="form-check" >
+                                                <input className="form-check-input" type="checkbox" value={cat.id} id={cat.id + "_checked"}
+                                                    checked={checkedCategs.includes(cat.id)} onChange={(e) => e.target.checked ?
+                                                        setCheckedCategs([...checkedCategs, cat.id])
+                                                        :
+                                                        setCheckedCategs(checkedCategs.filter((c) => c !== cat.id))
+                                                    }
+                                                />
+                                                <label className="form-check-label text-nowrap" htmlFor={cat.id + "_checked"}>
                                                     {cat.name.charAt(0).toUpperCase() + cat.name.slice(1)}
                                                 </label>
                                             </div>
-                                        </li>)}
+                                        </li>)
+                                    }
                                 </ul>
                             </div>
                         </div>
                         {/* <div className="col dropdown-center px-1">
-                            < button className="form-select rounded-pill w-auto mx-auto" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                            < button className="form-select rounded-pill w-auto mx-auto" role="button" 
+                                data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"
+                            >
                                 Distancia
                             </button >
                             <ul className="dropdown-menu p-2">
@@ -140,31 +173,37 @@ export const Discover = () => {
                             </ul>
                         </div> */}
                         <div className="col dropdown-center px-1">
-                            < button className="form-select rounded-pill w-auto mx-auto" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                            < button className="form-select rounded-pill w-auto mx-auto" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"
+                            >
                                 Valoración
                             </button >
                             <ul className="dropdown-menu p-2">
                                 <li>
                                     <label htmlFor="ratingRange" className="form-label">{starsVisual(ratingRange)}</label>
-                                    <input type="range" className="form-range" id="ratingRange" min="0" max="5" step="0.5" value={ratingRange} onChange={(e) => setRatingRange(parseFloat(e.target.value))} />
+                                    <input type="range" className="form-range" id="ratingRange" min="0" max="5" step="0.5"
+                                        value={ratingRange} onChange={(e) => setRatingRange(parseFloat(e.target.value))}
+                                    />
                                 </li>
                             </ul>
                         </div>
                         <div className="col dropdown-center px-1">
-                            < button className="form-select rounded-pill w-auto mx-auto" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                            < button className="form-select rounded-pill w-auto mx-auto" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"
+                            >
                                 Precio
                             </button >
                             <ul className="dropdown-menu p-2">
                                 <li>
                                     <label htmlFor="distanceRange" className="form-label">Hasta {priceRange} €</label>
-                                    <input type="range" className="form-range" id="distanceRange" value={priceRange} onChange={(e) => setPriceRange(e.target.value)} />
+                                    <input type="range" className="form-range" id="distanceRange" step={100} max={maxPrice} value={priceRange} onChange={(e) => setPriceRange(e.target.value)} />
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div className="mx-auto">
-                    <button className="btn btn-dark py-2 rounded-pill text-nowrap"><p className="my-1">Reiniciar filtros</p></button>
+                    <button className="btn btn-dark py-2 rounded-pill text-nowrap" onClick={resetFilters}><p className="my-1">Reiniciar filtros</p></button>
                 </div>
             </div>
             <div className="d-flex my-2">

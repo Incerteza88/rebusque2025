@@ -58,18 +58,26 @@ export async function validAuth() {
     console.error(error)
   }
 }
-
 //obtener los servicios desde el backend
-export async function getServices(query) {
+export async function getServices(search, categories, price_min, price_max, rating) {
+  categories ? categories = categories.join("-") : ""
+
+  // preparo los parametros para la url
+  let params = new URLSearchParams({
+    q: search,
+    categories: categories,
+    price_min: price_min,
+    price_max: price_max,
+    rating: rating
+  }).toString()
+
   try {
-    const response = await fetch(backendURL + "/search/professionals?q=" + query);
+    const response = await fetch(backendURL + "/search?" + params);
     const data = await response.json()
-    let services = []
-    data.map((professional) => professional.services.map((serv) => services.push(serv)))
 
-    // console.log(services);
+    // console.log(data);
 
-    return services
+    return data
   } catch (error) {
     console.error(error)
   }
