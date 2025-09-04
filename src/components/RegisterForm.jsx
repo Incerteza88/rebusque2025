@@ -34,7 +34,12 @@ export const RegisterForm = ({ isLoginType }) => {
       if (isLoginType) {
         const payload = { email: inputs.email, password: inputs.password };
         const data = await loginUser(payload);
-        dispatch({ type: "is_auth", payload: data.user })
+        dispatch({ type: "is_auth", payload: JSON.stringify(data.user) })
+        if (data.user.role === "cliente") {
+          dispatch({ type: "LOGIN_USER" })
+        } else if (data.user.role === "proveedor") {
+          dispatch({ type: "LOGIN_WORKER" })
+        }
         // console.log(data)
         navigate("/auth/dashboard");
       } else {

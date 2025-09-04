@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { useNavigate } from "react-router";
-import { fullNormalize, getServices, starsVisual } from "../services/generalServices.jsx";
+import { fullNormalize, starsVisual } from "../services/generalServices.jsx";
 import { CategoryCard } from "../components/CategoryCard.jsx";
-import { getCategories } from "../services/fetch.js";
+import { getCategories, getServices } from "../services/fetch.js";
 import { ServiceCard } from "../components/ServiceCard.jsx";
 
 export const Discover = () => {

@@ -33,7 +33,8 @@ export const PanelContent = () => {
                         }
 
                         return (
-                            <div key={index} className={`tab-pane fade show ${index == 0 && "active"}`} id={`v-pills-${lowerOption}`} role="tabpanel" aria-labelledby="v-pills-home-tab" tabIndex="0">
+                            <div key={index} className={`tab-pane fade show ${index == 0 && "active"}`} id={`v-pills-${lowerOption}`}
+                                role="tabpanel" aria-labelledby="v-pills-home-tab" tabIndex="0">
                                 {contenido}
                             </div>
                         )

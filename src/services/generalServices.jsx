@@ -140,38 +140,3 @@ export function starsVisual(rating) {
             );
     }
 }
-
-//declaracion de funcion para validar la autenticacion
-export async function validAuth() {
-    let token = localStorage.getItem("token")
-    const myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${token}`)
-
-    const requestOptions = {
-        method: "GET",
-        headers: myHeaders
-    };
-    try {
-        const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/valid-auth", requestOptions);
-
-        return response
-    } catch (error) {
-        console.error(error)
-    }
-}
-
-//obtener los servicios desde el backend
-export async function getServices(query) {
-    try {
-        const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/search/professionals?q=" + query);
-        const data = await response.json()
-        let services = []
-        data.map((professional) => professional.services.map((serv) => services.push(serv)))
-
-        // console.log(services);
-
-        return services
-    } catch (error) {
-        console.error(error)
-    }
-}

@@ -11,7 +11,7 @@ const Dashboard = () => {
 	const { store } = useGlobalReducer()
 	const isLogin = store.authState === 1 || store.authState === 2
 	// console.log(isLogin)
-	const roleType = store.authState === 1 ? "cliente" : store.authState === 2 ? "proveedor" : null
+	const roleType = store.isAuth.role
 	// console.log(roleType)
 
 	const navigate = useNavigate()
