@@ -6,7 +6,6 @@ import { Link, useNavigate } from "react-router";
 export const Home = () => {
 
   const { store, dispatch } = useGlobalReducer()
-console.log(store)
   const [searchValue, setSearchValue] = useState("")
 
   const navigate = useNavigate()
@@ -19,17 +18,6 @@ console.log(store)
     navigate("/discover")
 
   }
-
-
-  const bannerButtons = store.authState === 0 ?
-    <div className="lead d-flex">
-      <Link className="btn btn-outline-light rounded-5 ms-auto me-2" to="/auth/login">Iniciar Sesión</Link>
-      <Link className="btn btn-outline-light rounded-5 me-auto ms-2" to="/auth/signup">Registrarse</Link>
-    </div>
-    :
-    <div className="lead d-flex">
-      <Link className="btn btn-outline-light rounded-5 mx-auto" to="/panel">Ir a mi Panel de Control</Link>
-    </div>
 
   return (
     <div className="text-center mt-5">
@@ -48,7 +36,6 @@ console.log(store)
               </form>
               <Link className="btn btn-light btn-lg rounded-5 me-2" to="/discover">Explorar</Link>
             </div>
-            {bannerButtons}
           </div>
         </div>
       </div>

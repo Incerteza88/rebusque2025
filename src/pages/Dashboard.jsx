@@ -7,16 +7,18 @@ import { PanelContent } from "../components/panel-components/PanelContent";
 
 const Dashboard = () => {
   const { store } = useGlobalReducer();
-  const isLogin = store.isLogin;
-  const roleType = store.isAuth?.role;
+  const isLogin = store.authState === 1 || store.authState === 2
+  const roleType = store.isAuth?.role
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!localStorage.getItem("accessToken")) {
-      navigate("/auth/login");
-    }
-  }, [navigate]);
+	useEffect(() => {
+		if (!localStorage.getItem("access_token")) {
+			navigate("/auth/login")
+		}
+	}, [])
+
+
 
   return (
     <>

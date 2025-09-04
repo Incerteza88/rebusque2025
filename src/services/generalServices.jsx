@@ -140,22 +140,3 @@ export function starsVisual(rating) {
             );
     }
 }
-
-//declaracion de funcion para validar la autenticacion
-export async function validAuth() {
-    let token = localStorage.getItem("token")
-    const myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${token}`)
-
-    const requestOptions = {
-        method: "GET",
-        headers: myHeaders
-    };
-    try {
-        const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/valid-auth", requestOptions);
-
-        return response.ok
-    } catch (error) {
-        console.error(error);
-    };
-}

@@ -5,7 +5,8 @@ import useGlobalReducer from '../hooks/useGlobalReducer';
 
 export const RegisterForm = ({ isLoginType }) => {
   const navigate = useNavigate();
-  const { dispatch } = useGlobalReducer();
+  const { store, dispatch } = useGlobalReducer()
+  
   const [inputs, setInputs] = useState({
     name: "",
     email: "",
@@ -32,9 +33,16 @@ export const RegisterForm = ({ isLoginType }) => {
         const aux = inputs.email.includes("@") ? "email" : "phone";
         const payload = { [aux]: inputs.email, password: inputs.password };
         const data = await loginUser(payload);
-        dispatch({ type: "is_auth", payload: data.user });
+        dispatch({ type: "is_auth", payload: JSON.stringify(data.user) })
+        if (data.user.role === "cliente") {
+          dispatch({ type: "LOGIN_USER" })
+        } else if (data.user.role === "proveedor") {
+          dispatch({ type: "LOGIN_WORKER" })
+        }
+  
         navigate("/auth/dashboard");
       } else {
+
         const payload = {
           name: inputs.name,
           last_name: inputs.apellidos,
