@@ -8,7 +8,7 @@ export const ServiceCard = ({ id }) => {
 
     const { store, dispatch } = useGlobalReducer()
 
-    let service = store.services.filter((s) => s.id === id)[0]
+    const [service, setService] = useState(store.services.filter((s) => s.id === id)[0])
 
     const [show, setShow] = useState(false);
 

@@ -30,34 +30,14 @@ export const Discover = () => {
 
         dispatch({ type: 'searchThis', payload: searchValue })
 
-        navigate("/discover")
-
     }
 
     function filterSearch() {
-        let workers = []
-        if (searchValue != "") {
-            store.workers.map((worker, index) => {
-                let searchableWorker = { ...worker, image: "", works: worker.works.map((w) => store.categories[w]) }
-                let showWorker = false
-                Object.values(searchableWorker).map((value) => {
-                    if (fullNormalize(value.toString()).includes(fullNormalize(searchValue))) {
-                        showWorker = true;
-                        return;
-                    }
-                })
-                if (showWorker) {
-                    workers.push(worker)
-                }
-            })
+        getServices(searchValue).then((servs) => dispatch({ type: 'setServices', payload: servs }))
 
-            setServicesList(workers)
-        }
-        else {
-
-            setServicesList(store.workers)
-        }
+        // navigate("/discover")
     }
+
     useEffect(() => () => {
         getCategories().then((cats) => dispatch({ type: 'setCategories', payload: cats }))
         getServices(searchValue).then((servs) => dispatch({ type: 'setServices', payload: servs }))
@@ -171,8 +151,14 @@ export const Discover = () => {
                 <div className="text-bg-dark ms-2 w-100 align-self-center" style={{ height: "1px" }}> </div>
             </div>
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
-                {servicesList.map((s) => <ServiceCard key={s.id} id={s.id} />)}
-            </div>
+                {servicesList.length >= 1 ?
+                    servicesList.map((s) => <ServiceCard key={s.id} id={s.id} />)
+                    :
+                    <div className="text-center my-5">
+                        <h4>No se han encontrado resultados para "{fullNormalize(store.searching)}"</h4>
+                    </div>
+                }
+            </div >
         </div >
     );
 }; 
