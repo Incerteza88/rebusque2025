@@ -9,9 +9,9 @@ import { useNavigate } from "react-router";
 const Dashboard = () => {
 
 	const { store } = useGlobalReducer()
-	const isLogin = store.isLogin
+	const isLogin = store.authState === 1 || store.authState === 2
 	// console.log(isLogin)
-	const roleType = store.isAuth.role
+	const roleType = store.authState === 1 ? "cliente" : store.authState === 2 ? "proveedor" : null
 	// console.log(roleType)
 
 	const navigate = useNavigate()
