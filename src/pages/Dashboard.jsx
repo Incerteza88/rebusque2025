@@ -8,7 +8,6 @@ import { PanelContent } from "../components/panel-components/PanelContent";
 const Dashboard = () => {
   const { store } = useGlobalReducer();
   const isLogin = store.authState === 1 || store.authState === 2
-  const roleType = store.isAuth?.role
 
   const navigate = useNavigate();
 
