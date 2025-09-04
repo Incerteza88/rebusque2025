@@ -11,35 +11,35 @@ export const PanelContent = () => {
     return (
         <div className="col-9">
             <div className=" h-100">
-                <div class="tab-content" id="v-pills-tabContent">
-            {options.map((option, index)=> {
-                const lowerOption = option.toLowerCase()
+                <div className="tab-content" id="v-pills-tabContent">
+                    {options.map((option, index) => {
+                        const lowerOption = option.toLowerCase()
 
-                let contenido = ""
+                        let contenido = ""
 
-                if(index == 0){
-                    contenido = <JobsContent/>
-                } else if(index == 1){
-                    contenido = <MessagesContent/>
-                }
-                 else if(index == 2){
-                    contenido = <ServicesContent/>
-                }
-                else if(index == 3){
-                    contenido = <ProfileContent/>
-                }
-                 else if(index == 4){
-                    contenido = <LogOutContent/>
-                }
-                    
-                return(
-                    <div  class={`tab-pane fade show ${index == 0 && "active"}`} id={`v-pills-${lowerOption}`} role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
-                        {contenido}
-                    </div>
-                )
+                        if (index == 0) {
+                            contenido = <JobsContent />
+                        } else if (index == 1) {
+                            contenido = <MessagesContent />
+                        }
+                        else if (index == 2) {
+                            contenido = <ServicesContent />
+                        }
+                        else if (index == 3) {
+                            contenido = <ProfileContent />
+                        }
+                        else if (index == 4) {
+                            contenido = <LogOutContent />
+                        }
 
-            })}
-            </div>
+                        return (
+                            <div key={index} className={`tab-pane fade show ${index == 0 && "active"}`} id={`v-pills-${lowerOption}`} role="tabpanel" aria-labelledby="v-pills-home-tab" tabIndex="0">
+                                {contenido}
+                            </div>
+                        )
+
+                    })}
+                </div>
             </div>
         </div>
     )

@@ -10,19 +10,19 @@ const Dashboard = () => {
 
 	const { store } = useGlobalReducer()
 	const isLogin = store.isLogin
-	console.log(isLogin)
+	// console.log(isLogin)
 	const roleType = store.isAuth.role
-	console.log(roleType)
+	// console.log(roleType)
 
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		if (!localStorage.getItem( "token")) {
+		if (!localStorage.getItem("token")) {
 			navigate("/auth/login")
 		}
 	}, [])
 
-	
+
 
 	return (
 		<>
