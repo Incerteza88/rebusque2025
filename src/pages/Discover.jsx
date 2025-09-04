@@ -8,7 +8,6 @@ import { ServiceCard } from "../components/ServiceCard.jsx";
 
 export const Discover = () => {
 
-    const navigate = useNavigate()
     const { store, dispatch } = useGlobalReducer()
 
     // const sortedCategories = store.categories.map((cat, indexCat) => store.workers
@@ -34,8 +33,6 @@ export const Discover = () => {
 
     function filterSearch() {
         getServices(searchValue).then((servs) => dispatch({ type: 'setServices', payload: servs }))
-
-        // navigate("/discover")
     }
 
     useEffect(() => () => {
@@ -154,7 +151,7 @@ export const Discover = () => {
                 {servicesList.length >= 1 ?
                     servicesList.map((s) => <ServiceCard key={s.id} id={s.id} />)
                     :
-                    <div className="text-center my-5">
+                    <div className="text-center my-5 w-100">
                         <h4>No se han encontrado resultados para "{fullNormalize(store.searching)}"</h4>
                     </div>
                 }
