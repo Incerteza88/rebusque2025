@@ -2,7 +2,7 @@ export const initialStore = () => {
   return {
     authState: localStorage.getItem("authState") == null ? 0 : parseInt(localStorage.getItem("authState")), // 0 = no logueado, 1 = user, 2 = worker
     searching: "",
-    // isLogin: localStorage.getItem("token") ? true : false,
+    // isLogin: localStorage.getItem("access_token") ? true : false,
     // localStorage.removeItem()  => para el logOut
     isAuth: localStorage.getItem("isAuth") ? localStorage.getItem("isAuth") : null,
     estadoModal: false,
@@ -43,7 +43,7 @@ export default function storeReducer(store, action = {}) {
 
     case "LOGOUT":
       localStorage.removeItem("authState")
-      localStorage.removeItem("token")
+      localStorage.removeItem("access_token")
       localStorage.removeItem("isAuth")
       return {
         ...store,

@@ -20,7 +20,7 @@ export const Layout = () => {
     // llamamos a validAuth para que le indique a toda la aplicacion si seguimos logueados
 
     useEffect(() => {
-        if (localStorage.getItem("token") != null) {
+        if (localStorage.getItem("access_token") != null) {
             validAuth().then((value) => {
                 if (value.ok) {
                     value.json().then((data) => {

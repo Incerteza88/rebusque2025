@@ -42,7 +42,7 @@ export const registerUser = async (payload) => {
 
 //declaracion de funcion para validar la autenticacion
 export async function validAuth() {
-  let token = localStorage.getItem("token")
+  let token = localStorage.getItem("access_token")
   const myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${token}`)
 
@@ -102,7 +102,7 @@ export const loginUser = async (credentialsUser) => {
     }
     const data = await resp.json();
     console.log(data.user)
-    if (data?.access_token) localStorage.setItem("token", data.access_token);
+    if (data?.access_token) localStorage.setItem("access_token", data.access_token);
     return data;
   } catch (error) {
     console.error("Login error:", error);
