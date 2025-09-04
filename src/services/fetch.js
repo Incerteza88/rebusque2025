@@ -67,7 +67,7 @@ export async function getServices(query) {
     let services = []
     data.map((professional) => professional.services.map((serv) => services.push(serv)))
 
-    console.log(services);
+    // console.log(services);
 
     return services
   } catch (error) {

@@ -19,8 +19,11 @@ export const Discover = () => {
 
     const [searchValue, setSearchValue] = useState(store.searching)
     const [servicesList, setServicesList] = useState(store.services)
+    const [sortedServices, setSortedServices] = useState([])
 
-    const [distanceRange, setDistanceRange] = useState(10)
+    const [sortBy, setSortBy] = useState("default")
+
+    // const [distanceRange, setDistanceRange] = useState(10)
     const [ratingRange, setRatingRange] = useState(4)
     const [priceRange, setPriceRange] = useState(20)
 
@@ -35,12 +38,40 @@ export const Discover = () => {
         getServices(searchValue).then((servs) => dispatch({ type: 'setServices', payload: servs }))
     }
 
+    function sortServices() {
+        console.log(sortBy);
+        let sorted = []
+
+        switch (sortBy) {
+            case "rating_up":
+                sorted = [...servicesList].sort((a, b) => b.rating - a.rating);
+                break;
+            case "rating_down":
+                sorted = [...servicesList].sort((a, b) => a.rating - b.rating);
+                break;
+            case "price_up":
+                sorted = [...servicesList].sort((a, b) => a.price - b.price);
+                break;
+            case "price_down":
+                sorted = [...servicesList].sort((a, b) => b.price - a.price);
+                break;
+            default:
+                sorted = servicesList;
+        }
+
+        setSortedServices(sorted)
+
+    }
+
     useEffect(() => () => {
         getCategories().then((cats) => dispatch({ type: 'setCategories', payload: cats }))
         getServices(searchValue).then((servs) => dispatch({ type: 'setServices', payload: servs }))
     }, [])
     useEffect(() => filterSearch(), [store.searching])
     useEffect(() => setServicesList(store.services), [store.services])
+
+    useEffect(() => sortServices(), [sortBy, servicesList]);
+
 
 
     return (
@@ -60,14 +91,14 @@ export const Discover = () => {
                     <div className="row cols-2 mx-auto h-100 d-flex align-items-center">
                         <div className="col d-flex px-1" style={{ minWidth: "fit-content", maxWidth: "fit-content" }}>
                             <p className="col my-auto px-1 text-nowrap">Ordenar por:</p>
-                            <select id="orderBy" className="col form-select rounded-pill mx-auto text-nowrap">
-                                <option value="0">Por defecto</option>
-                                <option value="1">Valoración ↑</option>
-                                <option value="2">Valoración ↓</option>
-                                <option value="3">Distancia ↑</option>
-                                <option value="4">Distancia ↓</option>
-                                <option value="5">Precio ↑</option>
-                                <option value="6">Precio ↓</option>
+                            <select id="sortBy" className="col form-select rounded-pill mx-auto text-nowrap" onChange={(e) => setSortBy(e.target.value)}>
+                                <option value="default">Por defecto</option>
+                                <option value="rating_up">Valoración ↑</option>
+                                <option value="rating_down">Valoración ↓</option>
+                                {/* <option value="3">Distancia ↑</option>
+                                <option value="4">Distancia ↓</option> */}
+                                <option value="price_up">Precio ↑</option>
+                                <option value="price_down">Precio ↓</option>
                             </select>
                         </div>
                         <div className="col d-flex px-1">
@@ -97,7 +128,7 @@ export const Discover = () => {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col dropdown-center px-1">
+                        {/* <div className="col dropdown-center px-1">
                             < button className="form-select rounded-pill w-auto mx-auto" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
                                 Distancia
                             </button >
@@ -107,7 +138,7 @@ export const Discover = () => {
                                     <input type="range" className="form-range" id="distanceRange" value={distanceRange} onChange={(e) => setDistanceRange(e.target.value)} />
                                 </li>
                             </ul>
-                        </div>
+                        </div> */}
                         <div className="col dropdown-center px-1">
                             < button className="form-select rounded-pill w-auto mx-auto" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
                                 Valoración
@@ -148,8 +179,8 @@ export const Discover = () => {
                 <div className="text-bg-dark ms-2 w-100 align-self-center" style={{ height: "1px" }}> </div>
             </div>
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
-                {servicesList.length >= 1 ?
-                    servicesList.map((s) => <ServiceCard key={s.id} id={s.id} />)
+                {sortedServices.length >= 1 ?
+                    sortedServices.map((s) => <ServiceCard key={s.id} id={s.id} />)
                     :
                     <div className="text-center my-5 w-100">
                         <h4>No se han encontrado resultados para "{fullNormalize(store.searching)}"</h4>
