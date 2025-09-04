@@ -9,20 +9,20 @@ import { useNavigate } from "react-router";
 const Dashboard = () => {
 
 	const { store } = useGlobalReducer()
-	const isLogin = store.isLogin
-	console.log(isLogin)
+	const isLogin = store.authState === 1 || store.authState === 2
+	// console.log(isLogin)
 	const roleType = store.isAuth.role
-	console.log(roleType)
+	// console.log(roleType)
 
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		if (!localStorage.getItem("accessToken")) {
+		if (!localStorage.getItem("access_token")) {
 			navigate("/auth/login")
 		}
 	}, [])
 
-	
+
 
 	return (
 		<>

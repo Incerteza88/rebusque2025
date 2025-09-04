@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom"
 import ScrollToTop from "../components/ScrollToTop"
 import { Navbar } from "../components/Navbar"
 import { Footer } from "../components/Footer"
-import { validAuth } from "../services/generalServices"
+import { validAuth } from "../services/fetch.js"
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import useGlobalReducer from "../hooks/useGlobalReducer"
@@ -17,10 +17,10 @@ export const Layout = () => {
     const handleCloseModal = () => setShow(false);
     const handleShowModal = () => setShow(true);
 
-    // llamamos a validAuth para que le indica a toda la aplicacion si seguimos logueados
+    // llamamos a validAuth para que le indique a toda la aplicacion si seguimos logueados
 
     useEffect(() => {
-        if (localStorage.getItem("token") != null) {
+        if (localStorage.getItem("access_token") != null) {
             validAuth().then((value) => {
                 if (value.ok) {
                     value.json().then((data) => {

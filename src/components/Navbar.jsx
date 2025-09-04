@@ -20,16 +20,6 @@ export const Navbar = () => {
 
     }
 
-    const sesionButtons = store.authState === 0 ?
-        <div className="lead d-flex">
-            <Link className="btn btn-outline-light rounded-5 ms-auto me-2" to="/auth/login">Iniciar Sesión</Link>
-            <Link className="btn btn-outline-light rounded-5 me-auto ms-2" to="/auth/signup">Registrarse</Link>
-        </div>
-        :
-        <div className="lead d-flex">
-            <Link className="btn btn-outline-light rounded-5 mx-auto" to="/panel">Ir a mi Panel de Control</Link>
-        </div>
-
     const profileDrop = store.authState === 0 ?
 
         location.pathname === "/auth/login" || location.pathname === "/auth/signup" ? "" :
@@ -44,7 +34,7 @@ export const Navbar = () => {
                 <i className="fa-solid fa-user"></i>
             </button>
             <ul className="dropdown-menu dropdown-menu-end py-0">
-                <li><Link className="dropdown-item mt-2" to="#">{store.authState === 1 ? "Panel del usuario" : "Panel del trabajador"}</Link></li>
+                <li><Link className="dropdown-item mt-2" to="/auth/dashboard">{store.authState === 1 ? "Panel del usuario" : "Panel del trabajador"}</Link></li>
                 <li><hr className="dropdown-divider" /></li>
                 <li><Link className="dropdown-item pt-2" to="#">{store.authState === 1 ? "Mis pedidos" : "Mis trabajos"}</Link></li>
                 <li><Link className="dropdown-item pt-2" to="#">Mi perfil</Link></li>

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { useNavigate } from "react-router";
-import { fullNormalize, getServices, starsVisual } from "../services/generalServices.jsx";
+import { fullNormalize, starsVisual } from "../services/generalServices.jsx";
 import { CategoryCard } from "../components/CategoryCard.jsx";
-import { getCategories } from "../services/fetch.js";
+import { getCategories, getServices } from "../services/fetch.js";
 import { ServiceCard } from "../components/ServiceCard.jsx";
 
 export const Discover = () => {
 
-    const navigate = useNavigate()
     const { store, dispatch } = useGlobalReducer()
 
     // const sortedCategories = store.categories.map((cat, indexCat) => store.workers
@@ -30,34 +29,12 @@ export const Discover = () => {
 
         dispatch({ type: 'searchThis', payload: searchValue })
 
-        navigate("/discover")
-
     }
 
     function filterSearch() {
-        let workers = []
-        if (searchValue != "") {
-            store.workers.map((worker, index) => {
-                let searchableWorker = { ...worker, image: "", works: worker.works.map((w) => store.categories[w]) }
-                let showWorker = false
-                Object.values(searchableWorker).map((value) => {
-                    if (fullNormalize(value.toString()).includes(fullNormalize(searchValue))) {
-                        showWorker = true;
-                        return;
-                    }
-                })
-                if (showWorker) {
-                    workers.push(worker)
-                }
-            })
-
-            setServicesList(workers)
-        }
-        else {
-
-            setServicesList(store.workers)
-        }
+        getServices(searchValue).then((servs) => dispatch({ type: 'setServices', payload: servs }))
     }
+
     useEffect(() => () => {
         getCategories().then((cats) => dispatch({ type: 'setCategories', payload: cats }))
         getServices(searchValue).then((servs) => dispatch({ type: 'setServices', payload: servs }))
@@ -171,8 +148,14 @@ export const Discover = () => {
                 <div className="text-bg-dark ms-2 w-100 align-self-center" style={{ height: "1px" }}> </div>
             </div>
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
-                {servicesList.map((s) => <ServiceCard key={s.id} id={s.id} />)}
-            </div>
+                {servicesList.length >= 1 ?
+                    servicesList.map((s) => <ServiceCard key={s.id} id={s.id} />)
+                    :
+                    <div className="text-center my-5 w-100">
+                        <h4>No se han encontrado resultados para "{fullNormalize(store.searching)}"</h4>
+                    </div>
+                }
+            </div >
         </div >
     );
 }; 

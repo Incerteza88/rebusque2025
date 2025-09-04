@@ -7,7 +7,7 @@ export const PanelSideBarMenuContent = () => {
     return (
         <>
 
-            <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <div className="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 {options.map((option, index) => {
                     const lowerOption = option.toLowerCase()
                     return (
