@@ -19,7 +19,7 @@
 // };
 
 
-const backendURL = "https://2prgbr87-3001.uks1.devtunnels.ms";
+const backendURL = "http://127.0.0.1:3001";
 
 export const registerUser = async (payload) => {
   try {
@@ -42,10 +42,12 @@ export const registerUser = async (payload) => {
 
 export const loginUser = async (credentialsUser) => {
   try {
+    console.log(credentialsUser)
     const resp = await fetch(`${backendURL}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(credentialsUser),
+
     });
     if (!resp.ok) {
       const err = await resp.json().catch(() => ({}));
@@ -63,19 +65,33 @@ export const loginUser = async (credentialsUser) => {
 
 export const sendWork = async () => {
   try {
-    const resp = await fetch(`${backendURL}/auth/dashboard`, {  
+    const resp = await fetch(`${backendURL}/auth/dashboard`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({  }), 
+      body: JSON.stringify({}),
     });
 
-    
+
     const data = await resp.json();
     return data;
 
-  } catch (error) {  
+  } catch (error) {
     console.error("Login error:", error);
     throw error;
   }
 };
+
+export const getStatus = async () => {
+  try {
+    const resp = await fetch(`${backendURL}/client/contracts`);
+    if(!resp.ok){
+      throw new Error("Error al obtener datos", resp.status);
+    }
+    const data = await resp.json()
+    console.log(data)
+  } catch (error) {
+    console.error("Error:", error);
+  }
+
+}
 

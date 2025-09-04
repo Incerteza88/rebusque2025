@@ -32,10 +32,11 @@ export const RegisterForm = ({ isLoginType }) => {
 
     try {
       if (isLoginType) {
-       
-        let aux = inputs.email.includes("@") ? "email" : "phone"
 
+        let aux = inputs.email.includes("@") ? "email" : "phone";
+        console.log(aux)
         const payload = { [aux]: inputs.email, password: inputs.password };
+        
 
         const data = await loginUser(payload);
         dispatch({ type: "is_auth", payload: data.user })
@@ -53,7 +54,7 @@ export const RegisterForm = ({ isLoginType }) => {
           photo_url: inputs.photo_url || "",
         };
 
-        const data = await registerUser(payload); // <-- aquí el cambio
+        const data = await registerUser(payload);
 
         navigate("/auth/login");
       }
