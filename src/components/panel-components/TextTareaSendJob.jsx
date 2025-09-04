@@ -46,7 +46,7 @@ const TextTareaSendJob = () => {
                 <input
                   type="text"
                   className="form-control form-control-lg soft-input"
-                  placeholder="Desarrolo de aplicaciones"
+                  placeholder="Desarrollo de aplicaciones"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
