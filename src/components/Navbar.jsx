@@ -38,64 +38,25 @@ export const Navbar = () => {
                 <Link className="btn btn-outline-primary rounded-5 ms-1 text-nowrap" to="/auth/signup">Registrarse</Link>
             </div>
         :
-        <div>
-            <button className="btn btn-primary rounded-5 dropdown-toggle py-0 ps-0" href="#" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-expanded="false">
-                <img src={userImage}
-                    onError={({ currentTarget }) => {
-                        currentTarget.onerror = null;
-                        currentTarget.src = "src/assets/img/default_user.jpg";
-                    }}
-                    width="40" height="40" className="rounded-5 me-1"
-                />
-            </button>
-
-            {/* <ul className="dropdown-menu dropdown-menu-end py-0">
-                <li><Link className="dropdown-item mt-2" to="/auth/dashboard">{store.authState === 1 ? "Panel del usuario" : "Panel del trabajador"}</Link></li>
-                <li><hr className="dropdown-divider" /></li>
-                <li><Link className="dropdown-item pt-2" to="#">{store.authState === 1 ? "Mis pedidos" : "Mis trabajos"}</Link></li>
-                <li><Link className="dropdown-item pt-2" to="#">Mi perfil</Link></li>
-                <li><Link className="dropdown-item pt-2" to="#">Mensajes</Link></li>
-                <li><Link className="dropdown-item pt-2" to="#">Notificaciones</Link></li>
-                <li><hr className="dropdown-divider mb-0" /></li>
-                <li><span className="btn btn-danger w-100 rounded-top-0 py-2 ps-3 text-start" onClick={() => setShowConfirm(true)}>Cerrar sesión</span></li>
-
-            </ul> */}
-
-            {showConfirm && (
-                <div
-                    className="modal fade show"
-                    style={{ display: "block", background: "rgba(0,0,0,0.5)" }}
-                    tabIndex="-1"
-                    role="dialog"
-                    aria-modal="true"
-                >
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title">Cerrar Sesión</h5>
-                                <button type="button" className="btn-close" onClick={() => setShowConfirm(false)}></button>
-                            </div>
-                            <div className="modal-body text-start">
-                                <p>¿Está seguro de que quiere cerrar la sesión?</p>
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary rounded-pill" onClick={() => setShowConfirm(false)}>
-                                    Cancelar
-                                </button>
-                                <button type="button" className="btn btn-danger rounded-pill" onClick={() => { setShowConfirm(false); dispatch({ type: "LOGOUT" }); navigate("/") }}>
-                                    Sí, salir
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
-        </div>
+        location.pathname === "/auth/dashboard" ?
+            <button className="btn btn-danger rounded-pill" onClick={() => setShowConfirm(true)}>Cerrar Sesión</button>
+            :
+            <div className="dropend">
+                <button className="btn btn-primary rounded-5 dropdown-toggle py-0 ps-0" href="#" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-expanded="false">
+                    <img src={userImage}
+                        onError={({ currentTarget }) => {
+                            currentTarget.onerror = null;
+                            currentTarget.src = "src/assets/img/default_user.jpg";
+                        }}
+                        width="40" height="40" className="rounded-5 me-1"
+                    />
+                </button>
+            </div>
 
     const searchBar = location.pathname === "/discover" ? "" : location.pathname === "/" ? "" :
         <form className="d-flex mb-2 mb-lg-0" role="search" onSubmit={handleSubmit}>
-            <input className="form-control me-2 rounded-5" type="search" placeholder="Buscar" aria-label="Search" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
-            <button className="btn btn-dark rounded-5 me-2" type="submit">Buscar</button>
+            <input className="form-control me-2 rounded-pill" type="search" placeholder="Buscar" aria-label="Search" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+            <button className="btn btn-dark rounded-pill me-2" type="submit">Buscar</button>
         </form>
 
     return (
@@ -129,6 +90,36 @@ export const Navbar = () => {
                 </div>
             </nav>
 
+            {showConfirm && (
+                <div
+                    className="modal fade show"
+                    style={{ display: "block", background: "rgba(0,0,0,0.5)" }}
+                    tabIndex="-1"
+                    role="dialog"
+                    aria-modal="true"
+                >
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Cerrar Sesión</h5>
+                                <button type="button" className="btn-close" onClick={() => setShowConfirm(false)}></button>
+                            </div>
+                            <div className="modal-body text-start">
+                                <p>¿Está seguro de que quiere cerrar la sesión?</p>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary rounded-pill" onClick={() => setShowConfirm(false)}>
+                                    Cancelar
+                                </button>
+                                <button type="button" className="btn btn-danger rounded-pill" onClick={() => { setShowConfirm(false); dispatch({ type: "LOGOUT" }); navigate("/") }}>
+                                    Sí, salir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <div className="offcanvas offcanvas-end text-bg-primary" tabIndex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                 <div className="offcanvas-header">
                     <h5 className="offcanvas-title d-flex w-100" id="offcanvasExampleLabel">
@@ -141,21 +132,22 @@ export const Navbar = () => {
                             {userName}
                             <p className="fw-semibold mb-0 fs-6 inline-limit">{userLastName}</p>
                         </div>
-                        <button type="button" className="btn-close ms-auto" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </h5>
+
+                    <button type="button" className="btn-close ms-auto" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div className="offcanvas-body">
                     <ul className="py-0" style={{ listStyleType: "none" }}>
                         <li>
-                            <Link className="btn btn-outline-light border-0 m-2 p-2 w-100 text-start" to="/auth/dashboard" data-bs-dismiss="offcanvas">
+                            <Link className="btn btn-outline-light border-0 m-2 p-2 w-100 text-start" data-bs-dismiss="offcanvas" onClick={() => navigate("/auth/dashboard")}
+                            >
                                 {store.authState === 1 ? "Panel del usuario" : "Panel del trabajador"}
                             </Link>
                         </li>
                         <li><hr className="m-2" /></li>
-                        <li><Link className="btn btn-outline-light border-0 m-2 p-2 w-100 text-start" to="#" data-bs-dismiss="offcanvas" >{store.authState === 1 ? "Mis pedidos" : "Mis trabajos"}</Link></li>
-                        <li><Link className="btn btn-outline-light border-0 m-2 p-2 w-100 text-start" to="#" data-bs-dismiss="offcanvas" >Mi perfil</Link></li>
-                        <li><Link className="btn btn-outline-light border-0 m-2 p-2 w-100 text-start" to="#" data-bs-dismiss="offcanvas" >Mensajes</Link></li>
-                        <li><Link className="btn btn-outline-light border-0 m-2 p-2 w-100 text-start" to="#" data-bs-dismiss="offcanvas" >Notificaciones</Link></li>
+                        <li><Link className="btn btn-outline-light border-0 m-2 p-2 w-100 text-start" data-bs-dismiss="offcanvas" >{store.authState === 1 ? "Mis pedidos" : "Mis trabajos"}</Link></li>
+                        <li><Link className="btn btn-outline-light border-0 m-2 p-2 w-100 text-start" data-bs-dismiss="offcanvas" >Mi perfil</Link></li>
+                        <li><Link className="btn btn-outline-light border-0 m-2 p-2 w-100 text-start" data-bs-dismiss="offcanvas" >Mensajes</Link></li>
                         <li><hr className="m-2" /></li>
                         <li><span className="btn btn-outline-danger border-0 m-2 p-2 w-100 text-start" onClick={() => setShowConfirm(true)}>Cerrar sesión</span></li>
 
