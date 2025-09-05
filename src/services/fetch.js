@@ -78,7 +78,7 @@ export async function getCategories() {
 }
 export const loginUser = async (credentialsUser) => {
   try {
-    console.log(credentialsUser)
+    // console.log(credentialsUser)
     const resp = await fetch(`${backendURL}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -90,7 +90,7 @@ export const loginUser = async (credentialsUser) => {
       throw new Error(err.msg || `Login error (${resp.status})`);
     }
     const data = await resp.json();
-    console.log(data.user)
+    // console.log(data.user)
     if (data?.access_token) localStorage.setItem("access_token", data.access_token);
     return data;
   } catch (error) {
@@ -124,7 +124,7 @@ export const getStatus = async () => {
       throw new Error("Error al obtener datos", resp.status);
     }
     const data = await resp.json()
-    console.log(data)
+    // console.log(data)
   } catch (error) {
     console.error("Error:", error);
   }
