@@ -79,16 +79,31 @@
   color: #fff !important;
 }
 
-.miModal{
-  position: fixed;    
+.miModal {
+  position: fixed;
   top: 40%;
   left: 50%;
 
 }
 
-.texTarea{
+.texTarea {
   width: 500px;
   height: 300px;
 }
 
+.multi-range-slider,
+.bar-right,
+.bar-left,
+.bar-inner,
+.thumb::before {
+  box-shadow: none !important;
+}
 
+.thumb::before {
+  border: 2px solid #004aad !important;
+  top: 2px !important;
+}
+
+.caption * {
+  display: none !important;
+}

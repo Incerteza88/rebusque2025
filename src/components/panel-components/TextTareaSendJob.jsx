@@ -81,25 +81,25 @@ const TextTareaSendJob = () => {
             </div>
 
 
-<div className="modal-footer border-0 pt-0 d-flex justify-content-start">
-  <button
-    type="button"
-    className="btn text-white px-4 rounded-pill"
-    style={{ backgroundColor: "#004aad", borderColor: "#004aad" }}
-    data-bs-dismiss="modal"
-    onClick={handleSaveSend}
-  >
-    Enviar presupuesto
-  </button>
+            <div className="modal-footer border-0 pt-0 d-flex justify-content-start">
+              <button
+                type="button"
+                className="btn text-white px-4 rounded-pill"
+                style={{ backgroundColor: "#004aad", borderColor: "#004aad" }}
+                data-bs-dismiss="modal"
+                onClick={handleSaveSend}
+              >
+                Enviar presupuesto
+              </button>
 
-  <button
-    type="button"
-    className="btn btn-danger ms-2 rounded-pill"
-    data-bs-dismiss="modal"
-  >
-    Cancelar
-  </button>
-</div>
+              <button
+                type="button"
+                className="btn btn-danger ms-2 rounded-pill"
+                data-bs-dismiss="modal"
+              >
+                Cancelar
+              </button>
+            </div>
 
 
           </div>

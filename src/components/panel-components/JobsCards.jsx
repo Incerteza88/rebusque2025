@@ -36,7 +36,7 @@ function JobsCards({ status, customer, title, price, avatar }) {
           statusLabel={status}
           onChange={(newStatus) => {
 
-            store.setStatus(newStatus);
+            // store.setStatus(newStatus);
 
           }}
         />

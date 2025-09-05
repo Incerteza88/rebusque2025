@@ -37,18 +37,26 @@ export async function validAuth() {
     console.error(error)
   }
 }
-
 //obtener los servicios desde el backend
-export async function getServices(query) {
+export async function getServices(search, categories, min_price, max_price, rating) {
+  categories ? categories = categories.join("-") : ""
+
+  // preparo los parametros para la url
+  let params = new URLSearchParams({
+    search: search,
+    categories: categories,
+    min_price: min_price,
+    max_price: max_price,
+    rating: rating
+  }).toString()
+
   try {
-    const response = await fetch(backendURL + "/search/professionals?q=" + query);
+    const response = await fetch(backendURL + "/search?" + params);
     const data = await response.json()
-    let services = []
-    data.map((professional) => professional.services.map((serv) => services.push(serv)))
 
-    console.log(services);
+    // console.log(data);
 
-    return services
+    return data
   } catch (error) {
     console.error(error)
   }
@@ -70,7 +78,7 @@ export async function getCategories() {
 }
 export const loginUser = async (credentialsUser) => {
   try {
-    console.log(credentialsUser)
+    // console.log(credentialsUser)
     const resp = await fetch(`${backendURL}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -82,7 +90,7 @@ export const loginUser = async (credentialsUser) => {
       throw new Error(err.msg || `Login error (${resp.status})`);
     }
     const data = await resp.json();
-    console.log(data.user)
+    // console.log(data.user)
     if (data?.access_token) localStorage.setItem("access_token", data.access_token);
     return data;
   } catch (error) {
@@ -116,7 +124,7 @@ export const getStatus = async () => {
       throw new Error("Error al obtener datos", resp.status);
     }
     const data = await resp.json()
-    console.log(data)
+    // console.log(data)
   } catch (error) {
     console.error("Error:", error);
   }

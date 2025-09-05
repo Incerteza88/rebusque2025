@@ -24,7 +24,7 @@ export const JobsContent = () => {
       avatar: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg",
       status: "en curso"
     },
-        {
+    {
       title: "Cerámica Pintada",
       description: "Juego de platos y tazas de cerámica pintados a mano con motivos florales.",
       price: 150.0,

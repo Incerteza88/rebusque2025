@@ -8,7 +8,26 @@ export const ServiceCard = ({ id }) => {
 
     const { store, dispatch } = useGlobalReducer()
 
-    const [service, setService] = useState(store.services.filter((s) => s.id === id)[0])
+    const [service, setService] = store.services.length > 0 ? useState(store.services.filter((s) => s.id === id)[0]) : useState({
+        average_rating: 0,
+        category: "",
+        contracts: [],
+        description: "",
+        id: 1,
+        photo_url: null,
+        price: 52500,
+        provider: {
+            email: "alguien@example.com",
+            id: 1,
+            is_active: true,
+            name: "name",
+            last_name: "last_name",
+            phone: "123456789",
+            photo_url: null,
+            role: "proveedor"
+        }
+        //controlamos que no pete si no hay servicios en el store
+    })
 
     const [show, setShow] = useState(false);
 
@@ -16,7 +35,7 @@ export const ServiceCard = ({ id }) => {
     const handleShowModal = () => setShow(true);
 
     return (
-        <div className="col align-items-start text-start">
+        <div className="col align-items-start text-start" >
             <div className="btn text-start d-flex align-items-start border border-primary rounded-4 rounded-bottom-0 p-3 w-100" onClick={handleShowModal}>
                 <div className="text-center">
                     <img src={service.provider.photo_url === null ? "src/assets/img/default_user.jpg" : service.provider.photo_url} width="50" className="rounded-5 border border-dark"
@@ -66,6 +85,6 @@ export const ServiceCard = ({ id }) => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-        </div>
+        </div >
     )
 }
