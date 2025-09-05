@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser, registerUser } from '../services/fetch';
 import useGlobalReducer from '../hooks/useGlobalReducer';
@@ -6,14 +6,13 @@ import useGlobalReducer from '../hooks/useGlobalReducer';
 export const RegisterForm = ({ isLoginType }) => {
   const navigate = useNavigate();
   const { store, dispatch } = useGlobalReducer()
-  // console.log(store.isAuth)
+  
   const [inputs, setInputs] = useState({
     name: "",
     email: "",
     password: "",
-    role: "cliente", // default
+    role: "cliente",
     photo_url: "",
-    //opcional
     apellidos: "",
     telefono: "",
   });
@@ -29,10 +28,10 @@ export const RegisterForm = ({ isLoginType }) => {
 
   async function sendData(e) {
     e.preventDefault();
-
     try {
       if (isLoginType) {
-        const payload = { email: inputs.email, password: inputs.password };
+        const aux = inputs.email.includes("@") ? "email" : "phone";
+        const payload = { [aux]: inputs.email, password: inputs.password };
         const data = await loginUser(payload);
         dispatch({ type: "is_auth", payload: JSON.stringify(data.user) })
         if (data.user.role === "cliente") {
@@ -40,7 +39,7 @@ export const RegisterForm = ({ isLoginType }) => {
         } else if (data.user.role === "proveedor") {
           dispatch({ type: "LOGIN_WORKER" })
         }
-        // console.log(data)
+  
         navigate("/auth/dashboard");
       } else {
 
@@ -50,12 +49,10 @@ export const RegisterForm = ({ isLoginType }) => {
           email: inputs.email,
           phone: inputs.telefono,
           password: inputs.password,
-          role: inputs.role,        // "cliente" | "proveedor"
+          role: inputs.role,
           photo_url: inputs.photo_url || "",
         };
-
-        const data = await registerUser(payload); // <-- aquí el cambio
-
+        await registerUser(payload);
         navigate("/auth/login");
       }
     } catch (err) {
@@ -72,7 +69,6 @@ export const RegisterForm = ({ isLoginType }) => {
       });
     }
   }
-  // console.log(isLoginType)
 
   return (
     <div className='container d-flex justify-content-center'>
@@ -84,8 +80,7 @@ export const RegisterForm = ({ isLoginType }) => {
         <div className="row g-3 mb-2">
           <div className="col col-lg-6">
             {!isLoginType && (
-              <label className="card p-3 text-white position-relative"
-                style={{ backgroundColor: "#004aad", borderColor: "#004aad" }}>
+              <label className="card p-3 text-white position-relative" style={{ backgroundColor: "#004aad", borderColor: "#004aad" }}>
                 <div className="d-flex justify-content-between align-items-center">
                   <i className="bi bi-person fs-2 text-white"></i>
                   <input
@@ -108,8 +103,7 @@ export const RegisterForm = ({ isLoginType }) => {
 
           <div className="col col-lg-6">
             {!isLoginType && (
-              <label className="card p-3 text-white position-relative h-100"
-                style={{ backgroundColor: "#004aad", borderColor: "#004aad" }}>
+              <label className="card p-3 text-white position-relative h-100" style={{ backgroundColor: "#004aad", borderColor: "#004aad" }}>
                 <div className="d-flex justify-content-between align-items-center">
                   <i className="bi bi-briefcase fs-2"></i>
                   <input
@@ -190,7 +184,8 @@ export const RegisterForm = ({ isLoginType }) => {
                     <li><a className="dropdown-item" href="#" name="+506" onClick={choosePrefix}>+506 - Costa Rica</a></li>
                     <li><a className="dropdown-item" href="#" name="+507" onClick={choosePrefix}>+507 - Panamá</a></li>
                     <li><a className="dropdown-item" href="#" name="+53" onClick={choosePrefix}>+53 - Cuba</a></li>
-                    <li><a className="dropdown-item" href="#" name="+1" onClick={choosePrefix}>+1 - República Dominicana</a></li> </ul>
+                    <li><a className="dropdown-item" href="#" name="+1" onClick={choosePrefix}>+1 - República Dominicana</a></li>
+                  </ul>
                 </div>
 
                 <input
@@ -208,15 +203,17 @@ export const RegisterForm = ({ isLoginType }) => {
         )}
 
         <div className="mb-4">
-          <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
+          <label htmlFor="exampleInputEmail1" className="form-label">
+            {isLoginType ? "Email o Teléfono" : "Email"}
+          </label>
           <input
             name="email"
             value={inputs.email}
             onChange={handleChange}
-            type="email"
+            type={isLoginType ? "text" : "email"}
             className="form-control rounded-pill"
             id="exampleInputEmail1"
-            placeholder='alguien@dominio.com'
+            placeholder={isLoginType ? "alguien@dominio.com o 601 23456789" : "alguien@dominio.com"}
             required
           />
         </div>

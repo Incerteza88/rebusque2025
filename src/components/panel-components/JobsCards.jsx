@@ -1,22 +1,15 @@
 import React from 'react'
 import useGlobalReducer from '../../hooks/useGlobalReducer'
+import JobsAction from './JobsAction'
 
 function JobsCards({ status, customer, title, price, avatar }) {
   const { store } = useGlobalReducer()
-  const roleType = store?.isAuth?.role
 
-  const statusLabel =
-    {
-      a: "Esperando confirmación",
-      b: "En curso",
-      c: "Entregado",
-      d: "Completo",
-    }[status] ?? "—"
 
   return (
-    
+
     <div className="row align-items-center w-100 g-0 px-2 py-2 border-bottom">
-      
+
       <div className="col-3">
         <div className="d-flex align-items-center text-truncate">
           <div
@@ -33,25 +26,22 @@ function JobsCards({ status, customer, title, price, avatar }) {
         </div>
       </div>
 
-      
-      <div className="col-2 text-truncate">{title}</div>
-      
+      <div className="col-3 text-truncate">{title}</div>
+
       <div className="col-1">${Number(price).toFixed(2)}</div>
-     
-      <div className="col-3 text-truncate">
-        <span>{statusLabel}</span>
+
+      <div className="col-5 text-truncate">
+        <JobsAction
+          authState={store.authState}
+          statusLabel={status}
+          onChange={(newStatus) => {
+
+            store.setStatus(newStatus);
+
+          }}
+        />
       </div>
-      
-      <div className="col-3 text-end">
-        <button
-          className="btn rounded-pill btn-primary"
-          hidden={roleType !== 'cliente'}
-          data-bs-toggle="modal"
-          data-bs-target="#hireModal"
-        >
-          Enviar Trabajo
-        </button>
-      </div>
+
     </div>
   )
 }

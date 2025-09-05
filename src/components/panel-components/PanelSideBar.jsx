@@ -1,14 +1,14 @@
-import { PanelSideBarTitle } from "./PanelSideBarTitle"
-import { PanelSideBarMenu } from "./PanelSideBarMenu"
+// PanelSideBar.jsx
+import { PanelSideBarTitle } from "./PanelSideBarTitle";
+import { PanelSideBarMenu } from "./PanelSideBarMenu";
 
 export const PanelSideBar = () => {
-    return (
-        <div className="col-3 border-end">
-            <div className="">
-
-                <PanelSideBarTitle />
-                <PanelSideBarMenu />
-            </div>
-        </div>
-    )
-}
+  return (
+    <div className="col-3 border-end">
+      <div className="">
+        <PanelSideBarTitle />
+        <PanelSideBarMenu />
+      </div>
+    </div>
+  );
+};

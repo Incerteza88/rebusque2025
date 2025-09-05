@@ -48,6 +48,8 @@ export default function storeReducer(store, action = {}) {
       return {
         ...store,
         authState: 0,
+        isLogin: false,
+        isAuth: null,
       };
 
     case "searchThis":
