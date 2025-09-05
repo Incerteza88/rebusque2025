@@ -41,7 +41,7 @@ export const Discover = () => {
     }
 
     function filterSearch() {
-        getServices(searchValue, checkedCategs, minPriceValue, maxPriceValue, "").then((servs) => dispatch({ type: 'setServices', payload: servs }))
+        getServices(searchValue, checkedCategs, minPriceValue, maxPriceValue, ratingRange).then((servs) => dispatch({ type: 'setServices', payload: servs }))
     }
 
     function resetFilters() {
@@ -61,10 +61,10 @@ export const Discover = () => {
 
         switch (sortBy) {
             case "rating_up":
-                sorted = [...servicesList].sort((a, b) => b.rating - a.rating);
+                sorted = [...servicesList].sort((a, b) => b.provider.average_rating - a.provider.average_rating);
                 break;
             case "rating_down":
-                sorted = [...servicesList].sort((a, b) => a.rating - b.rating);
+                sorted = [...servicesList].sort((a, b) => a.provider.average_rating - b.provider.average_rating);
                 break;
             case "price_up":
                 sorted = [...servicesList].sort((a, b) => b.price - a.price);
@@ -82,7 +82,7 @@ export const Discover = () => {
 
     useEffect(() => () => {
         getCategories().then((cats) => dispatch({ type: 'setCategories', payload: cats }))
-        getServices(searchValue, checkedCategs, minPriceValue, maxPriceValue, "").then((servs) => dispatch({ type: 'setServices', payload: servs }))
+        getServices(searchValue, checkedCategs, minPriceValue, maxPriceValue, ratingRange).then((servs) => dispatch({ type: 'setServices', payload: servs }))
     }, [])
     useEffect(() => filterSearch(), [store.searching, checkedCategs])
     useEffect(() => setServicesList(store.services), [store.services])
@@ -111,7 +111,7 @@ export const Discover = () => {
         minPriceValue < minPrice || minPrice != 0 ? setMinPriceValue(minPrice) : ""
     }, [maxPrice, minPrice])
 
-    useEffect(() => { setTimeout(filterSearch(), 5000) }, [minPriceValue, maxPriceValue])
+    useEffect(() => { filterSearch() }, [minPriceValue, maxPriceValue, ratingRange])
 
 
 
