@@ -18,7 +18,8 @@ export const Navbar = () => {
     const [showContactModal, setShowContactModal] = useState(false);
 
     const user = JSON.parse(localStorage.getItem("isAuth")) ? JSON.parse(localStorage.getItem("isAuth")) : null
-    const userImage = user.photo_url ? user.photo_url : defaultPhoto
+    const userImage = user ? user.photo_url != "" ? user.photo_url : defaultPhoto : defaultPhoto
+
     const userName = user ? user.name : ""
     const userLastName = user ? user.last_name : ""
 
@@ -48,7 +49,7 @@ export const Navbar = () => {
                     <img src={userImage}
                         onError={({ currentTarget }) => {
                             currentTarget.onerror = null;
-                            currentTarget.src = "src/assets/img/default_user.jpg";
+                            currentTarget.src = defaultPhoto;
                         }}
                         width="40" height="40" className="rounded-5 me-1"
                     />
@@ -165,10 +166,10 @@ export const Navbar = () => {
             <div className="offcanvas offcanvas-end text-bg-primary" tabIndex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                 <div className="offcanvas-header">
                     <h5 className="offcanvas-title d-flex w-100" id="offcanvasExampleLabel">
-                        <img src={userImage === null ? "src/assets/img/default_user.jpg" : userImage} width="60" height="60" className="rounded-5 border border-dark"
+                        <img src={userImage === null ? defaultPhoto : userImage} width="60" height="60" className="rounded-5 border border-dark"
                             onError={({ currentTarget }) => {
                                 currentTarget.onerror = null;
-                                currentTarget.src = "src/assets/img/default_user.jpg";
+                                currentTarget.src = defaultPhoto;
                             }} />
                         <div className="ms-2 inline-limit">
                             {userName}

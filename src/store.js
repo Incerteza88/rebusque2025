@@ -5,7 +5,9 @@ export const initialStore = () => {
     isAuth: localStorage.getItem("isAuth") ? localStorage.getItem("isAuth") : null,
     trabajo: "",
     categories: [],
-    services: []
+    services: [],
+    currentUserServices: [],
+    panelOptions: []
   }
 }
 
@@ -22,6 +24,12 @@ export default function storeReducer(store, action = {}) {
       return {
         ...store,
         services: action.payload,
+      };
+
+    case "setCurrentUserServices":
+      return {
+        ...store,
+        currentUserServices: action.payload,
       };
 
     case "LOGIN_USER":
@@ -71,6 +79,12 @@ export default function storeReducer(store, action = {}) {
       return {
         ...store,
         trabajo: action.payload
+      }
+
+    case 'setPanelOptions':
+      return {
+        ...store,
+        panelOptions: action.payload
       }
 
     default:

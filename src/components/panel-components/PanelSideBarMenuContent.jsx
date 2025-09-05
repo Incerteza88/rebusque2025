@@ -1,12 +1,7 @@
 // PanelSideBarMenuContent.jsx
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useGlobalReducer from "../../hooks/useGlobalReducer";
-
-// export const options = ["Trabajos", "Mensajes", "Servicios", "Perfil"];
-export const options = localStorage.getItem("authState") === "2"
-  ? ["Trabajos", "Mensajes", "Servicios", "Perfil"]
-  : ["Pedidos", "Mensajes", "Perfil"];
 
 export const PanelSideBarMenuContent = () => {
 
@@ -14,6 +9,19 @@ export const PanelSideBarMenuContent = () => {
 
   const [showConfirm, setShowConfirm] = useState(false);
   const navigate = useNavigate();
+  const [options, setOptions] = useState(store.panelOptions)
+
+  useEffect(() => {
+    dispatch({
+      type: "setPanelOptions", payload: JSON.parse(store.isAuth).role === "proveedor" ?
+        ["Trabajos", "Mensajes", "Servicios", "Perfil"]
+        : ["Pedidos", "Mensajes", "Perfil"]
+    })
+  }, [store.isAuth])
+
+  useEffect(() => {
+    setOptions(store.panelOptions)
+  }, [store.panelOptions])
 
   return (
     <>
