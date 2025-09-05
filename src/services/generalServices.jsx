@@ -5,8 +5,9 @@ export function fullNormalize(string) {
 }
 
 export function starsVisual(rating) {
-    switch (rating) {
-        case 0:
+    const x = parseFloat(rating)
+    switch (true) {
+        case x < 0.5:
 
             return (
                 <span>
@@ -18,7 +19,7 @@ export function starsVisual(rating) {
                     <i className="bi bi-star text-warning"></i>
                 </span>
             );
-        case 0.5:
+        case x < 1:
 
             return (
                 <span>
@@ -30,7 +31,7 @@ export function starsVisual(rating) {
                     <i className="bi bi-star text-warning"></i>
                 </span>
             );
-        case 1:
+        case x < 1.5:
 
             return (
                 <span>
@@ -42,7 +43,7 @@ export function starsVisual(rating) {
                     <i className="bi bi-star text-warning"></i>
                 </span>
             );
-        case 1.5:
+        case x < 2:
 
             return (
                 <span>
@@ -54,7 +55,7 @@ export function starsVisual(rating) {
                     <i className="bi bi-star text-warning"></i>
                 </span>
             );
-        case 2:
+        case x < 2.5:
 
             return (
                 <span>
@@ -66,7 +67,7 @@ export function starsVisual(rating) {
                     <i className="bi bi-star text-warning"></i>
                 </span>
             );
-        case 2.5:
+        case x < 3:
 
             return (
                 <span>
@@ -78,7 +79,7 @@ export function starsVisual(rating) {
                     <i className="bi bi-star text-warning"></i>
                 </span>
             );
-        case 3:
+        case x < 3.5:
 
             return (
                 <span>
@@ -90,7 +91,7 @@ export function starsVisual(rating) {
                     <i className="bi bi-star text-warning"></i>
                 </span>
             );
-        case 3.5:
+        case x < 4:
 
             return (
                 <span>
@@ -102,7 +103,7 @@ export function starsVisual(rating) {
                     <i className="bi bi-star text-warning"></i>
                 </span>
             );
-        case 4:
+        case x < 4.5:
 
             return (
                 <span>
@@ -114,7 +115,7 @@ export function starsVisual(rating) {
                     <i className="bi bi-star text-warning"></i>
                 </span>
             );
-        case 4.5:
+        case x < 5:
 
             return (
                 <span>
