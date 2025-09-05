@@ -120,7 +120,7 @@ export default function JobsAction({ authState, statusLabel, onChange, work_id }
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">Contacta con nosotros</h5>
+                                <h5 className="modal-title">Califica el trabajo</h5>
                                 <button type="button" className="btn-close" onClick={() => setShowRating(false)}></button>
                             </div>
                             <div className="modal-body text-start">
