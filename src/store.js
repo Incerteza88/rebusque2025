@@ -3,7 +3,7 @@ export const initialStore = () => {
     authState: localStorage.getItem("authState") == null ? 0 : parseInt(localStorage.getItem("authState")), // 0 = no logueado, 1 = user, 2 = worker
     searching: "",
     isAuth: localStorage.getItem("isAuth") ? localStorage.getItem("isAuth") : null,
-    trabajo: "",
+    myWorks: [],
     categories: [],
     services: [],
     currentUserServices: [],
@@ -30,6 +30,12 @@ export default function storeReducer(store, action = {}) {
       return {
         ...store,
         currentUserServices: action.payload,
+      };
+
+    case "setMyWorks":
+      return {
+        ...store,
+        myWorks: action.payload,
       };
 
     case "LOGIN_USER":
