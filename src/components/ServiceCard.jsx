@@ -4,6 +4,7 @@ import { Button, Modal } from "react-bootstrap";
 import { useState } from "react";
 import { starsVisual } from "../services/generalServices";
 import defaultPhoto from "../assets/img/default_user.jpg"
+import { addWork } from "../services/fetch";
 
 export const ServiceCard = ({ id }) => {
 
@@ -31,9 +32,25 @@ export const ServiceCard = ({ id }) => {
     })
 
     const [show, setShow] = useState(false);
+    const [success, setSuccess] = useState("");
+
+    const holdOn = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
     const handleCloseModal = () => setShow(false);
     const handleShowModal = () => setShow(true);
+
+    async function handleAddWork(service_id) {
+        addWork(service_id).then(async (response) => {
+            if (response.status === 201) {
+                setSuccess("¡Trabajo agregado con éxito!");
+                await holdOn(3000);
+                setSuccess("");
+                handleCloseModal();
+            } else {
+                setSuccess("Error al agregar el trabajo");
+            }
+        });
+    }
 
     return (
         <div className="col align-items-start text-start" >
@@ -44,21 +61,18 @@ export const ServiceCard = ({ id }) => {
                             currentTarget.onerror = null;
                             currentTarget.src = defaultPhoto;
                         }} />
-                    {/* <p className="my-0">x/5</p> cambiar por service.rating cuando lo tengamos
-                    <i className="bi bi-star-fill text-warning"></i> */}
                 </div>
                 <div className="ms-2 inline-limit">
                     <h3 className="fw-bold mb-0 fs-5 inline-limit">{service.title}</h3>
                     <p className="fw-semibold mb-0 fs-6 inline-limit">{service.provider.name}</p>
                     <p className="badge rounded-pill border border-primary text-primary mb-0">{service.category}</p>
-                    <p className="fw-semibold mb-0 fs-6 inline-limit">{starsVisual(parseFloat(service.provider.average_rating))}</p> {/* cambiar por service.rating cuando lo tengamos */}
-                    {/* <p className="mb-0">{service.provider.phone}</p> */}
+                    <p className="fw-semibold mb-0 fs-6 inline-limit">{starsVisual(parseFloat(service.provider.average_rating))}</p>
                 </div>
             </div>
-            <div className="d-flex text-bg-primary border-top-0 rounded-4 rounded-top-0 p-3 py-2 w-100">
+            <div className="d-flex btn text-bg-primary border-top-0 rounded-4 rounded-top-0 p-3 py-2 w-100" onClick={handleShowModal}>
 
                 <p className="mb-0 ms-2 fw-bold pt-1">{service.price} $</p> {/* cambiar por service.distance cuando lo tengamos */}
-                <Link className="ms-auto btn btn-light rounded-pill">Contratar</Link>
+                <Link className="ms-auto btn btn-light rounded-pill" onClick={handleShowModal}>Contratar</Link>
             </div>
 
             <Modal show={show} onHide={handleCloseModal} className="rounded-5">
@@ -77,11 +91,11 @@ export const ServiceCard = ({ id }) => {
                 </Modal.Header>
                 <Modal.Body>{service.description}</Modal.Body>
                 <Modal.Footer>
-
+                    <p className="me-auto">{success}</p>
                     <Button variant="danger" onClick={handleCloseModal} className="rounded-pill">
                         Cancelar
                     </Button>
-                    <Button variant="primary" onClick={handleCloseModal} className="rounded-pill">
+                    <Button variant="primary" onClick={() => { handleAddWork(service.id) }} className="rounded-pill">
                         Contratar
                     </Button>
                 </Modal.Footer>

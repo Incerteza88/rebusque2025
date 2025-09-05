@@ -56,6 +56,25 @@ export async function getWorks() {
   }
 }
 
+export async function addWork(service_id) {
+  let token = localStorage.getItem("access_token")
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${token}`)
+  myHeaders.append("Content-Type", "application/json")
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: JSON.stringify({ service_id })
+  };
+  try {
+    const response = await fetch(backendURL + "/contracts", requestOptions);
+    return response
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export async function updateWorkStatus(work_id, newStatus) {
   let token = localStorage.getItem("access_token")
   const myHeaders = new Headers();
