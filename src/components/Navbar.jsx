@@ -14,6 +14,7 @@ export const Navbar = () => {
     const location = useLocation();
 
     const [showConfirm, setShowConfirm] = useState(false);
+    const [showContactModal, setShowContactModal] = useState(false);
 
     const user = JSON.parse(localStorage.getItem("isAuth")) ? JSON.parse(localStorage.getItem("isAuth")) : null
     const userImage = user ? user.photo_url : null
@@ -79,7 +80,7 @@ export const Navbar = () => {
                                 <Link className="nav-link " to="/discover">Descubre</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link " to="#contact">Contacto</Link>
+                                <Link className="nav-link " onClick={() => setShowContactModal(true)}>Contacto</Link>
                             </li>
                         </ul>
                         {searchBar}
@@ -113,6 +114,44 @@ export const Navbar = () => {
                                 </button>
                                 <button type="button" className="btn btn-danger rounded-pill" onClick={() => { setShowConfirm(false); dispatch({ type: "LOGOUT" }); navigate("/") }}>
                                     Sí, salir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {showContactModal && (
+                <div
+                    className="modal fade show"
+                    style={{ display: "block", background: "rgba(0,0,0,0.5)" }}
+                    tabIndex="-1"
+                    role="dialog"
+                    aria-modal="true"
+                >
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Contacta con nosotros</h5>
+                                <button type="button" className="btn-close" onClick={() => setShowContactModal(false)}></button>
+                            </div>
+                            <div className="modal-body text-start">
+
+                                <div className="mb-3">
+                                    <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
+                                    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="tuemail@example.com" />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="exampleInputPassword1" className="form-label">Mensaje</label>
+                                    <textarea rows={5} className="form-control" id="exampleInputPassword1" placeholder="Escribe aquí tu consulta" />
+                                </div>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary rounded-pill" onClick={() => setShowContactModal(false)}>
+                                    Cancelar
+                                </button>
+                                <button type="button" className="btn btn-primary rounded-pill" onClick={() => { setShowContactModal(false) }}>
+                                    Enviar
                                 </button>
                             </div>
                         </div>

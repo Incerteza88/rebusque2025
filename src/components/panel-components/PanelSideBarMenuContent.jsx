@@ -36,7 +36,7 @@ export const PanelSideBarMenuContent = () => {
 
         <button
           type="button"
-          className="nav-link btn btn-danger text-danger mt-3"
+          className="btn btn-outline-danger border-0 mt-3 py-2"
           onClick={() => setShowConfirm(true)}
         >
           Cerrar sesión
