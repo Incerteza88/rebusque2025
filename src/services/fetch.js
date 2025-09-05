@@ -168,3 +168,35 @@ export const getStatus = async () => {
 
 }
 
+export const rateWork = async (work_id, rating, comment) => {
+
+  let token = localStorage.getItem("access_token")
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${token}`)
+  myHeaders.append("Content-Type", "application/json")
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: JSON.stringify({ contract_id: work_id, rating: rating, comment: comment })
+  };
+  try {
+    const resp = await fetch(`${backendURL}/reviews`, requestOptions);
+    if (!resp.ok) {
+      throw new Error("Error al calificar el trabajo", resp.status);
+    }
+    const data = await resp.json();
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+export const isWorkRated = async (work_id) => {
+  try {
+    const resp = await fetch(`${backendURL}/review/contract/${work_id}`);
+    const data = await resp.json();
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}

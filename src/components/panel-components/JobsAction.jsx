@@ -1,6 +1,7 @@
-import React, { use } from "react";
-import { updateWorkStatus } from "../../services/fetch";
+import React, { use, useState } from "react";
+import { isWorkRated, rateWork, updateWorkStatus } from "../../services/fetch";
 import { useNavigate } from "react-router";
+import { starsVisual } from "../../services/generalServices";
 
 const STATUSES = {
     ESPERANDO: "esperando confirmación",
@@ -13,6 +14,12 @@ const STATUSES = {
 export default function JobsAction({ authState, statusLabel, onChange, work_id }) {
 
     const navigate = useNavigate();
+
+    const [showRating, setShowRating] = useState(false);
+    const [rating, setRating] = useState(5);
+    const [comment, setComment] = useState("");
+
+    const [rated, setRated] = useState(false);
 
     const acceptJob = () => updateWorkStatus(work_id, STATUSES.EN_CURSO).then(() => { onChange(STATUSES.EN_CURSO); navigate(0); });
     const denyJob = () => updateWorkStatus(work_id, STATUSES.DENEGADO).then(() => { onChange(STATUSES.DENEGADO); navigate(0); });
@@ -71,8 +78,20 @@ export default function JobsAction({ authState, statusLabel, onChange, work_id }
             text = "Trabajo entregado";
             disabled = true;
         } else if (statusLabel == STATUSES.COMPLETADO) {
-            text = "Trabajo completado";
-            disabled = true;
+            isWorkRated(work_id).then((result) => {
+                setRated(result.reviewed);
+            });
+
+            if (rated) {
+                text = "Trabajo completado";
+                disabled = true;
+            } else {
+                text = "Calificar trabajo";
+                disabled = false;
+                onClick = () => {
+                    setShowRating(true);
+                };
+            }
         } else if (statusLabel == STATUSES.DENEGADO) {   //PONERLO CON CLIENTE TAMBIEN
             text = "Trabajo denegado";
             disabled = true;
@@ -80,13 +99,54 @@ export default function JobsAction({ authState, statusLabel, onChange, work_id }
     }
 
     return (
-        <button
-            type="button"
-            className="btn btn-primary w-100 text-truncate"
-            disabled={disabled}
-            onClick={onClick}
-        >
-            {text}
-        </button>
-    );
+        <>
+            <button
+                type="button"
+                className="btn btn-primary w-100 text-truncate"
+                disabled={disabled}
+                onClick={onClick}
+            >
+                {text}
+            </button>
+
+            {showRating && (
+                <div
+                    className="modal fade show"
+                    style={{ display: "block", background: "rgba(0,0,0,0.5)" }}
+                    tabIndex="-1"
+                    role="dialog"
+                    aria-modal="true"
+                >
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Contacta con nosotros</h5>
+                                <button type="button" className="btn-close" onClick={() => setShowRating(false)}></button>
+                            </div>
+                            <div className="modal-body text-start">
+
+                                <div className="mb-3 d-flex flex-column text-center">
+                                    <label htmlFor="ratingRange" className="form-label fs-2">{starsVisual(rating)}</label>
+                                    <input type="range" className="form-range w-50 mx-auto" id="ratingRange" min="0" max="5" step="0.5"
+                                        value={rating} onChange={(e) => setRating(parseFloat(e.target.value))}
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="exampleInputPassword1" className="form-label">Comentario</label>
+                                    <textarea rows={5} className="form-control" id="exampleInputPassword1" placeholder="Escribe aquí tu comentario" value={comment} onChange={(e) => setComment(e.target.value)} />
+                                </div>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary rounded-pill" onClick={() => setShowRating(false)}>
+                                    Cancelar
+                                </button>
+                                <button type="button" className="btn btn-primary rounded-pill" onClick={() => { setShowRating(false); rateWork(work_id, rating, comment); navigate(0); }}>
+                                    Enviar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>)
 }
