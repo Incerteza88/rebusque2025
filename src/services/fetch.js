@@ -64,7 +64,7 @@ export async function getServices(search, categories, min_price, max_price, rati
 
   // preparo los parametros para la url
   let params = new URLSearchParams({
-    q: search,
+    search: search,
     categories: categories,
     min_price: min_price,
     max_price: max_price,
