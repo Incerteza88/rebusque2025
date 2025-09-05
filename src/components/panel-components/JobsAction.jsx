@@ -41,16 +41,16 @@ export default function JobsAction({ authState, statusLabel, onChange }) {
     }
 
     let disabled = false;
-    let text = statusLabel;  
+    let text = statusLabel;
     let onClick = undefined;
 
     if (authState == 1) {
         if (statusLabel == STATUSES.ESPERANDO) {
-            disabled = true; 
+            disabled = true;
         } else if (statusLabel == STATUSES.EN_CURSO) {
-            disabled = true; 
+            disabled = true;
         } else if (statusLabel == STATUSES.ENTREGADO) {
-            
+
             text = "Confirmar trabajo completado";
             onClick = confirmJob;
             disabled = false;

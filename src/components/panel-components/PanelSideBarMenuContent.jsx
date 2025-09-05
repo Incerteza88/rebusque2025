@@ -3,7 +3,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useGlobalReducer from "../../hooks/useGlobalReducer";
 
-export const options = ["Trabajos", "Mensajes", "Servicios", "Perfil"];
+// export const options = ["Trabajos", "Mensajes", "Servicios", "Perfil"];
+export const options = localStorage.getItem("authState") === "2"
+  ? ["Trabajos", "Mensajes", "Servicios", "Perfil"]
+  : ["Pedidos", "Mensajes", "Perfil"];
 
 export const PanelSideBarMenuContent = () => {
 

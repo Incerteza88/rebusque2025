@@ -2,10 +2,7 @@ export const initialStore = () => {
   return {
     authState: localStorage.getItem("authState") == null ? 0 : parseInt(localStorage.getItem("authState")), // 0 = no logueado, 1 = user, 2 = worker
     searching: "",
-    // isLogin: localStorage.getItem("access_token") ? true : false,
-    // localStorage.removeItem()  => para el logOut
     isAuth: localStorage.getItem("isAuth") ? localStorage.getItem("isAuth") : null,
-    estadoModal: false,
     trabajo: "",
     categories: [],
     services: []
@@ -75,12 +72,6 @@ export default function storeReducer(store, action = {}) {
         ...store,
         trabajo: action.payload
       }
-
-      return {
-        ...store,
-        searching: action.payload,
-      };
-
 
     default:
       throw Error('Unknown action.');

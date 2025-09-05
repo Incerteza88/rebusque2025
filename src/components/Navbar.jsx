@@ -3,6 +3,7 @@ import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useState } from "react";
 import logo from "../assets/Rebusque-logo.png";
 import title from "../assets/Rebusque-title.png";
+import defaultPhoto from "../assets/img/default_user.jpg"
 
 export const Navbar = () => {
     const { store, dispatch } = useGlobalReducer()
@@ -17,7 +18,7 @@ export const Navbar = () => {
     const [showContactModal, setShowContactModal] = useState(false);
 
     const user = JSON.parse(localStorage.getItem("isAuth")) ? JSON.parse(localStorage.getItem("isAuth")) : null
-    const userImage = user ? user.photo_url : null
+    const userImage = user.photo_url ? user.photo_url : defaultPhoto
     const userName = user ? user.name : ""
     const userLastName = user ? user.last_name : ""
 
@@ -68,7 +69,9 @@ export const Navbar = () => {
                         <img src={logo} alt="logo" height="40" />
                         <img src={title} alt="title" height="30" className="ps-1" />
                     </Link>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                    >
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
