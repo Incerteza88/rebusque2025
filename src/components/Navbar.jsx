@@ -116,7 +116,7 @@ export const Navbar = () => {
                                 <button type="button" className="btn btn-secondary rounded-pill" onClick={() => setShowConfirm(false)}>
                                     Cancelar
                                 </button>
-                                <button type="button" className="btn btn-danger rounded-pill" onClick={() => { setShowConfirm(false); dispatch({ type: "LOGOUT" }); navigate("/") }}>
+                                <button type="button" className="btn btn-danger rounded-pill" onClick={() => { setShowConfirm(false); dispatch({ type: "LOGOUT" }); navigate(0) }}>
                                     Sí, salir
                                 </button>
                             </div>
