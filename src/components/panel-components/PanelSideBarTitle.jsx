@@ -5,7 +5,7 @@ export const PanelSideBarTitle = () => {
 
     const { store } = useGlobalReducer();
     const user = JSON.parse(store.isAuth)
-    const userImage = user.photo_url ? user.photo_url : defaultPhoto
+    const userImage = user ? user.photo_url != "" ? user.photo_url : defaultPhoto : defaultPhoto
     const userName = user ? user.name : ""
     const userLastName = user ? user.last_name : ""
 

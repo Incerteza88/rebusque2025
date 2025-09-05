@@ -3,9 +3,26 @@ import { JobsContent } from "../panel-content-components/JobsContent";
 import { MessagesContent } from "../panel-content-components/MessagesContent";
 import { ServicesContent } from "../panel-content-components/ServicesContent";
 import { ProfileContent } from "../panel-content-components/ProfileContent";
-import { options } from "./PanelSideBarMenuContent";
+import useGlobalReducer from "../../hooks/useGlobalReducer";
+import { useEffect, useState } from "react";
 
 export const PanelContent = () => {
+
+  const { store, dispatch } = useGlobalReducer()
+  const [options, setOptions] = useState(store.panelOptions)
+
+  useEffect(() => {
+    dispatch({
+      type: "setPanelOptions", payload: JSON.parse(store.isAuth).role === "proveedor" ?
+        ["Trabajos", "Mensajes", "Servicios", "Perfil"]
+        : ["Pedidos", "Mensajes", "Perfil"]
+    })
+  }, [store.isAuth])
+
+  useEffect(() => {
+    setOptions(store.panelOptions)
+  }, [store.panelOptions])
+
   return (
     <div className="col-9">
       <div className="h-100">
