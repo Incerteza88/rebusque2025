@@ -51,7 +51,7 @@ export const ServiceCard = ({ id }) => {
                     <h3 className="fw-bold mb-0 fs-5 inline-limit">{service.title}</h3>
                     <p className="fw-semibold mb-0 fs-6 inline-limit">{service.provider.name}</p>
                     <p className="badge rounded-pill border border-primary text-primary mb-0">{service.category}</p>
-                    <p className="fw-semibold mb-0 fs-6 inline-limit">{starsVisual(4)}</p> {/* cambiar por service.rating cuando lo tengamos */}
+                    <p className="fw-semibold mb-0 fs-6 inline-limit">{starsVisual(parseFloat(service.provider.average_rating))}</p> {/* cambiar por service.rating cuando lo tengamos */}
                     {/* <p className="mb-0">{service.provider.phone}</p> */}
                 </div>
             </div>
