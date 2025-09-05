@@ -6,6 +6,7 @@ import { CategoryCard } from "../components/CategoryCard.jsx";
 import { getCategories, getServices } from "../services/fetch.js";
 import { ServiceCard } from "../components/ServiceCard.jsx";
 import { func } from "prop-types";
+import MultiRangeSlider from "multi-range-slider-react";
 
 export const Discover = () => {
 
@@ -17,13 +18,20 @@ export const Discover = () => {
 
     const [sortBy, setSortBy] = useState("default")
 
-    const [maxPrice, setMaxPrice] = useState(100)
+    const [minPriceValue, setMinPriceValue] = useState()
+    const [maxPriceValue, setMaxPriceValue] = useState()
+    const [minPrice, setMinPrice] = useState()
+    const [maxPrice, setMaxPrice] = useState()
+    const handleRange = (e) => {
+        setMinPriceValue(e.minValue);
+        setMaxPriceValue(e.maxValue);
+    };
+
 
     // const [distanceRange, setDistanceRange] = useState(10)
     const [catRadio, setCatRadio] = useState(true)
     const [checkedCategs, setCheckedCategs] = useState([])
     const [ratingRange, setRatingRange] = useState(0)
-    const [priceRange, setPriceRange] = useState(maxPrice)
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -33,7 +41,7 @@ export const Discover = () => {
     }
 
     function filterSearch() {
-        getServices(searchValue, checkedCategs, "", "", "").then((servs) => dispatch({ type: 'setServices', payload: servs }))
+        getServices(searchValue, checkedCategs, minPriceValue, maxPriceValue, "").then((servs) => dispatch({ type: 'setServices', payload: servs }))
     }
 
     function resetFilters() {
@@ -43,7 +51,8 @@ export const Discover = () => {
         setSortBy("default")
         // setDistanceRange(10)
         setRatingRange(0)
-        setPriceRange(maxPrice)
+        setMinPriceValue(0)
+        setMaxPriceValue(maxPrice)
     }
 
     function sortServices() {
@@ -73,7 +82,7 @@ export const Discover = () => {
 
     useEffect(() => () => {
         getCategories().then((cats) => dispatch({ type: 'setCategories', payload: cats }))
-        getServices(searchValue, checkedCategs, "", "", "").then((servs) => dispatch({ type: 'setServices', payload: servs }))
+        getServices(searchValue, checkedCategs, minPriceValue, maxPriceValue, "").then((servs) => dispatch({ type: 'setServices', payload: servs }))
     }, [])
     useEffect(() => filterSearch(), [store.searching, checkedCategs])
     useEffect(() => setServicesList(store.services), [store.services])
@@ -86,11 +95,24 @@ export const Discover = () => {
 
     useEffect(() => { catRadio ? setCheckedCategs([]) : "" }, [catRadio]);
     useEffect(() => {
-        let max = 0
+        let max = 55000
         store.services.map((s) => s.price > max ? max = s.price : "")
-        setMaxPrice(max)
-        setPriceRange(max)
+        max < maxPrice ? "" : setMaxPrice(max);
+
+        let min = 50000
+        store.services.map((s) => s.price < min ? min = s.price : "")
+        min > minPrice ? "" : setMinPrice(min);
+
+
     }, [store.services]);
+
+    useEffect(() => {
+        maxPriceValue > maxPrice || maxPrice != 0 ? setMaxPriceValue(maxPrice) : ""
+        minPriceValue < minPrice || minPrice != 0 ? setMinPriceValue(minPrice) : ""
+    }, [maxPrice, minPrice])
+
+    useEffect(() => { setTimeout(filterSearch(), 5000) }, [minPriceValue, maxPriceValue])
+
 
 
 
@@ -195,8 +217,34 @@ export const Discover = () => {
                             </button >
                             <ul className="dropdown-menu p-2">
                                 <li>
-                                    <label htmlFor="distanceRange" className="form-label">Hasta {priceRange} €</label>
-                                    <input type="range" className="form-range" id="distanceRange" step={100} max={maxPrice} value={priceRange} onChange={(e) => setPriceRange(e.target.value)} />
+                                    <label htmlFor="distanceRange" className="form-label d-flex ">
+                                        <input type="text" className="form-control d-inline text-center me-auto p-0"
+                                            style={{ width: "40%" }} value={minPriceValue ? minPriceValue : 0} onChange={(e) => setMinPriceValue(e.target.value)}
+                                        />
+                                        <p className="my-auto">-</p>
+                                        <input type="text" className="form-control d-inline text-center ms-auto p-0"
+                                            style={{ width: "40%" }} value={maxPriceValue ? maxPriceValue : 10000} onChange={(e) => setMaxPriceValue(e.target.value)}
+
+                                        />
+                                    </label>
+                                    <MultiRangeSlider
+                                        style={{ width: "150px", }}
+                                        className="form-range border-0 p-0 m-0 shadow-none mx-2"
+                                        ruler={false}
+                                        min={minPrice}
+                                        max={maxPrice}
+                                        step={100}
+                                        subSteps={false}
+                                        stepOnly={true}
+                                        minValue={minPriceValue}
+                                        maxValue={maxPriceValue}
+                                        barInnerColor="#004aad"
+                                        thumbLeftColor="white"
+                                        label={false}
+                                        onInput={(e) => {
+                                            handleRange(e);
+                                        }}
+                                    />
                                 </li>
                             </ul>
                         </div>
@@ -222,7 +270,7 @@ export const Discover = () => {
                     sortedServices.map((s) => <ServiceCard key={s.id} id={s.id} />)
                     :
                     <div className="text-center my-5 w-100">
-                        <h4>No se han encontrado resultados para "{fullNormalize(store.searching)}"</h4>
+                        <h4>No se han encontrado resultados</h4>
                     </div>
                 }
             </div >

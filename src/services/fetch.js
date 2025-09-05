@@ -59,15 +59,15 @@ export async function validAuth() {
   }
 }
 //obtener los servicios desde el backend
-export async function getServices(search, categories, price_min, price_max, rating) {
+export async function getServices(search, categories, min_price, max_price, rating) {
   categories ? categories = categories.join("-") : ""
 
   // preparo los parametros para la url
   let params = new URLSearchParams({
     q: search,
     categories: categories,
-    price_min: price_min,
-    price_max: price_max,
+    min_price: min_price,
+    max_price: max_price,
     rating: rating
   }).toString()
 
