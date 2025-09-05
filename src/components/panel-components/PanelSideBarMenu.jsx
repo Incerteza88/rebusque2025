@@ -1,9 +1,10 @@
-import {PanelSideBarMenuContent} from './PanelSideBarMenuContent'
+// PanelSideBarMenu.jsx
+import { PanelSideBarMenuContent } from "./PanelSideBarMenuContent";
 
-export const PanelSideBarMenu = () =>{
-return(
-        <div className="ps-2">
-        <PanelSideBarMenuContent/>
-        </div>
-    )
-}
+export const PanelSideBarMenu = () => {
+  return (
+    <div className="ps-2">
+      <PanelSideBarMenuContent />
+    </div>
+  );
+};

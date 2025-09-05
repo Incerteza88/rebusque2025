@@ -1,24 +1,3 @@
-
-// export const auth = async (formData, endpoint) => {
-//   try {
-//     const resp = await fetch(`${backendURL}/api/${endpoint}`, {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(formData),
-//     });
-//     if (!resp.ok) {
-//       const err = await resp.json().catch(() => ({}));
-//       throw new Error(err.msg || `Error ${endpoint} (${resp.status})`);
-//     }
-//     const data = await resp.json();
-//     return data;
-//   } catch (error) {
-//     console.error(error);
-//     throw error;
-//   }
-// };
-
-
 const backendURL = import.meta.env.VITE_BACKEND_URL || "https://c8gm3skn-3001.uks1.devtunnels.ms";
 
 export const registerUser = async (payload) => {
@@ -91,10 +70,12 @@ export async function getCategories() {
 }
 export const loginUser = async (credentialsUser) => {
   try {
+    console.log(credentialsUser)
     const resp = await fetch(`${backendURL}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(credentialsUser),
+
     });
     if (!resp.ok) {
       const err = await resp.json().catch(() => ({}));
@@ -127,4 +108,18 @@ export const sendWork = async () => {
     throw error;
   }
 };
+
+export const getStatus = async () => {
+  try {
+    const resp = await fetch(`${backendURL}/client/contracts`);
+    if(!resp.ok){
+      throw new Error("Error al obtener datos", resp.status);
+    }
+    const data = await resp.json()
+    console.log(data)
+  } catch (error) {
+    console.error("Error:", error);
+  }
+
+}
 
