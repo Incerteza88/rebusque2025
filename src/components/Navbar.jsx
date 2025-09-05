@@ -145,10 +145,10 @@ export const Navbar = () => {
                                     <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
                                     <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="tuemail@example.com" />
                                 </div>
-                                <div className="mb-3">
+                                {/* <div className="mb-3">
                                     <label htmlFor="exampleInputPassword1" className="form-label">Mensaje</label>
                                     <textarea rows={5} className="form-control" id="exampleInputPassword1" placeholder="Escribe aquí tu consulta" />
-                                </div>
+                                </div> */}
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary rounded-pill" onClick={() => setShowContactModal(false)}>

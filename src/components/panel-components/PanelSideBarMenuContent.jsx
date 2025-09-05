@@ -14,8 +14,8 @@ export const PanelSideBarMenuContent = () => {
   useEffect(() => {
     dispatch({
       type: "setPanelOptions", payload: JSON.parse(store.isAuth).role === "proveedor" ?
-        ["Trabajos", "Mensajes", "Servicios", "Perfil"]
-        : ["Pedidos", "Mensajes", "Perfil"]
+        ["Trabajos", /* "Mensajes" */, "Servicios", "Perfil"]
+        : ["Pedidos", /* "Mensajes" */, "Perfil"]
     })
   }, [store.isAuth])
 

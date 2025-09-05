@@ -14,8 +14,8 @@ export const PanelContent = () => {
   useEffect(() => {
     dispatch({
       type: "setPanelOptions", payload: JSON.parse(store.isAuth).role === "proveedor" ?
-        ["Trabajos", "Mensajes", "Servicios", "Perfil"]
-        : ["Pedidos", "Mensajes", "Perfil"]
+        ["Trabajos", /* "Mensajes", */ "Servicios", "Perfil"]
+        : ["Pedidos", /* "Mensajes", */ "Perfil"]
     })
   }, [store.isAuth])
 
@@ -31,10 +31,16 @@ export const PanelContent = () => {
             const lowerOption = option.toLowerCase();
 
             let contenido = null;
-            if (index === 0) contenido = <JobsContent />;
-            else if (index === 1) contenido = <MessagesContent />;
-            else if (index === 2) contenido = <ServicesContent />;
-            else if (index === 3) contenido = <ProfileContent />;
+            if (store.authState === 1) { // cliente
+              if (index === 0) contenido = <JobsContent />;
+              else if (index === 1) contenido = <ProfileContent />;
+              // else if (index === 1) contenido = <MessagesContent />;
+            } else if (store.authState === 2) { // proveedor
+              if (index === 0) contenido = <JobsContent />;
+              else if (index === 1) contenido = <ServicesContent />;
+              else if (index === 2) contenido = <ProfileContent />;
+              // else if (index === 1) contenido = <MessagesContent />;
+            }
 
             return (
               <div
