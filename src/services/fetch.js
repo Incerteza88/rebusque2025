@@ -37,6 +37,23 @@ export async function validAuth() {
     console.error(error)
   }
 }
+export async function getWorks() {
+  let token = localStorage.getItem("access_token")
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${token}`)
+
+  const requestOptions = {
+    method: "GET",
+    headers: myHeaders
+  };
+  try {
+    const response = await fetch(backendURL + "/provider/contracts", requestOptions);
+
+    return response
+  } catch (error) {
+    console.error(error)
+  }
+}
 //obtener los servicios desde el backend
 export async function getServices(search, categories, min_price, max_price, rating) {
   categories ? categories = categories.join("-") : ""
@@ -120,7 +137,7 @@ export const sendWork = async () => {
 export const getStatus = async () => {
   try {
     const resp = await fetch(`${backendURL}/client/contracts`);
-    if(!resp.ok){
+    if (!resp.ok) {
       throw new Error("Error al obtener datos", resp.status);
     }
     const data = await resp.json()

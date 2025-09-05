@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useGlobalReducer from "../../hooks/useGlobalReducer";
 import JobsCards from "../panel-components/JobsCards";
 import TextTareaSendJob from "../panel-components/TextTareaSendJob";
@@ -7,40 +7,46 @@ export const JobsContent = () => {
   const { store } = useGlobalReducer();
   const counterpartLabel = store.authState == '1' ? "Proveedor" : "Cliente";
 
-  const services = [
-    {
-      title: "Escultura en Madera",
-      description: "Figura tallada a mano en madera de cedro, con acabado artesanal y detalles finos.",
-      price: 250.0,
-      customer: "IKEA",
-      avatar: "https://upload.wikimedia.org/wikipedia/commons/c/c5/Ikea_logo.svg",
-      status: "esperando confirmación"
-    },
-    {
-      title: "Tejido en Crochet",
-      description: "Manta hecha a mano con hilo de algodón, diseño colorido y único para decoración.",
-      price: 80.0,
-      customer: "Nike",
-      avatar: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg",
-      status: "en curso"
-    },
-    {
-      title: "Cerámica Pintada",
-      description: "Juego de platos y tazas de cerámica pintados a mano con motivos florales.",
-      price: 150.0,
-      customer: "Starbucks",
-      avatar: "https://upload.wikimedia.org/wikipedia/sco/d/d3/Starbucks_Corporation_Logo_2011.svg",
-      status: "entregado"
-    },
-    {
-      title: "Electricista",
-      description: "Arreglar enchufes de la casa que goteaban",
-      price: 60.0,
-      customer: "Carlos",
-      avatar: "https://pbs.twimg.com/profile_images/1757167385860075520/Quil4Jyf_400x400.jpg",
-      status: "completado"
-    }
-  ];
+  const [works, setWorks] = useState(store.myWorks);
+
+  // const works = [
+  //   {
+  //     title: "Escultura en Madera",
+  //     description: "Figura tallada a mano en madera de cedro, con acabado artesanal y detalles finos.",
+  //     price: 250.0,
+  //     customer: "IKEA",
+  //     avatar: "https://upload.wikimedia.org/wikipedia/commons/c/c5/Ikea_logo.svg",
+  //     status: "esperando confirmación"
+  //   },
+  //   {
+  //     title: "Tejido en Crochet",
+  //     description: "Manta hecha a mano con hilo de algodón, diseño colorido y único para decoración.",
+  //     price: 80.0,
+  //     customer: "Nike",
+  //     avatar: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg",
+  //     status: "en curso"
+  //   },
+  //   {
+  //     title: "Cerámica Pintada",
+  //     description: "Juego de platos y tazas de cerámica pintados a mano con motivos florales.",
+  //     price: 150.0,
+  //     customer: "Starbucks",
+  //     avatar: "https://upload.wikimedia.org/wikipedia/sco/d/d3/Starbucks_Corporation_Logo_2011.svg",
+  //     status: "entregado"
+  //   },
+  //   {
+  //     title: "Electricista",
+  //     description: "Arreglar enchufes de la casa que goteaban",
+  //     price: 60.0,
+  //     customer: "Carlos",
+  //     avatar: "https://pbs.twimg.com/profile_images/1757167385860075520/Quil4Jyf_400x400.jpg",
+  //     status: "completado"
+  //   }
+  // ];
+
+  useEffect(() => {
+    setWorks(store.myWorks);
+  }, [store.myWorks]);
 
   return (
     <>
@@ -54,15 +60,28 @@ export const JobsContent = () => {
         <div className="col-1">Precio</div>
         <div className="col-5">Estado</div>
       </div>
-
-      {services.map((s, idx) => (
+      {/*
+      client      :
+      "Carlos"
+      id      :
+      1
+      provider      :
+      "Daniela"
+      service      :
+      "Tu piscina siempre a punto"
+      start_date      :
+      "2025-09-05T04:32:53"
+      status      :
+      "esperando confirmación"
+      */}
+      {works.map((w, idx) => (
         <JobsCards
-          key={idx}
-          status={s.status}
-          customer={s.customer}
-          title={s.title}
-          price={s.price}
-          avatar={s.avatar}
+          key={w.id}
+          status={w.status}
+          customer={w.client.name}
+          title={w.service.title}
+          price={w.service.price}
+          avatar={w.client.photo_url}
         />
       ))}
     </>
