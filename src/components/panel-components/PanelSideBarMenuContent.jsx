@@ -1,17 +1,16 @@
 // PanelSideBarMenuContent.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useGlobalReducer from "../../hooks/useGlobalReducer";
 
 export const options = ["Trabajos", "Mensajes", "Servicios", "Perfil"];
 
 export const PanelSideBarMenuContent = () => {
+
+  const { store, dispatch } = useGlobalReducer()
+
   const [showConfirm, setShowConfirm] = useState(false);
   const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    navigate("/auth/login");
-  };
 
   return (
     <>
@@ -37,7 +36,7 @@ export const PanelSideBarMenuContent = () => {
 
         <button
           type="button"
-          className="nav-link text-danger mt-3"
+          className="nav-link btn btn-danger text-danger mt-3"
           onClick={() => setShowConfirm(true)}
         >
           Cerrar sesión
@@ -55,7 +54,7 @@ export const PanelSideBarMenuContent = () => {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">Confirmar</h5>
+                <h5 className="modal-title">Cerrar Sesión</h5>
                 <button type="button" className="btn-close" onClick={() => setShowConfirm(false)}></button>
               </div>
               <div className="modal-body">
@@ -65,7 +64,7 @@ export const PanelSideBarMenuContent = () => {
                 <button type="button" className="btn btn-secondary rounded-pill" onClick={() => setShowConfirm(false)}>
                   Cancelar
                 </button>
-                <button type="button" className="btn btn-danger rounded-pill" onClick={handleLogout}>
+                <button type="button" className="btn btn-danger rounded-pill" onClick={() => { setShowConfirm(false); dispatch({ type: "LOGOUT" }); navigate("/") }}>
                   Sí, salir
                 </button>
               </div>

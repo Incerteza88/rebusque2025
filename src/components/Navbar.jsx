@@ -11,6 +11,8 @@ export const Navbar = () => {
 
     const location = useLocation();
 
+    const [showConfirm, setShowConfirm] = useState(false);
+
     async function handleSubmit(e) {
         e.preventDefault()
 
@@ -41,8 +43,39 @@ export const Navbar = () => {
                 <li><Link className="dropdown-item pt-2" to="#">Mensajes</Link></li>
                 <li><Link className="dropdown-item pt-2" to="#">Notificaciones</Link></li>
                 <li><hr className="dropdown-divider mb-0" /></li>
-                <li><Link className="btn btn-danger w-100 rounded-top-0 py-2 ps-3 text-start" onClick={() => dispatch({ type: "LOGOUT" })}>Cerrar sesión</Link></li>
+                <li><span className="btn btn-danger w-100 rounded-top-0 py-2 ps-3 text-start" onClick={() => setShowConfirm(true)}>Cerrar sesión</span></li>
+
             </ul>
+
+            {showConfirm && (
+                <div
+                    className="modal fade show"
+                    style={{ display: "block", background: "rgba(0,0,0,0.5)" }}
+                    tabIndex="-1"
+                    role="dialog"
+                    aria-modal="true"
+                >
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Cerrar Sesión</h5>
+                                <button type="button" className="btn-close" onClick={() => setShowConfirm(false)}></button>
+                            </div>
+                            <div className="modal-body text-start">
+                                <p>¿Está seguro de que quiere cerrar la sesión?</p>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary rounded-pill" onClick={() => setShowConfirm(false)}>
+                                    Cancelar
+                                </button>
+                                <button type="button" className="btn btn-danger rounded-pill" onClick={() => { setShowConfirm(false); dispatch({ type: "LOGOUT" }); navigate("/") }}>
+                                    Sí, salir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
 
     const searchBar = location.pathname === "/discover" ? "" : location.pathname === "/" ? "" :
