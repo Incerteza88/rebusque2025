@@ -1,19 +1,23 @@
-import React from "react";
+import React, { use } from "react";
+import { updateWorkStatus } from "../../services/fetch";
+import { useNavigate } from "react-router";
 
 const STATUSES = {
     ESPERANDO: "esperando confirmación",
     EN_CURSO: "en curso",
     ENTREGADO: "entregado",
     COMPLETADO: "completado",
-    DENEGADO: "denegado",
+    DENEGADO: "cancelado",
 };
 
-export default function JobsAction({ authState, statusLabel, onChange }) {
+export default function JobsAction({ authState, statusLabel, onChange, work_id }) {
 
-    const acceptJob = () => onChange(STATUSES.EN_CURSO);
-    const denyJob = () => onChange(STATUSES.DENEGADO);
-    const deliverJob = () => onChange(STATUSES.ENTREGADO);
-    const confirmJob = () => onChange(STATUSES.COMPLETADO);
+    const navigate = useNavigate();
+
+    const acceptJob = () => updateWorkStatus(work_id, STATUSES.EN_CURSO).then(() => { onChange(STATUSES.EN_CURSO); navigate(0); });
+    const denyJob = () => updateWorkStatus(work_id, STATUSES.DENEGADO).then(() => { onChange(STATUSES.DENEGADO); navigate(0); });
+    const deliverJob = () => updateWorkStatus(work_id, STATUSES.ENTREGADO).then(() => { onChange(STATUSES.ENTREGADO); navigate(0); });
+    const confirmJob = () => updateWorkStatus(work_id, STATUSES.COMPLETADO).then(() => { onChange(STATUSES.COMPLETADO); navigate(0); });
 
     if (authState == 2 && statusLabel == STATUSES.ESPERANDO) {
         return (

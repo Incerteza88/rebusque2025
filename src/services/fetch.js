@@ -37,6 +37,7 @@ export async function validAuth() {
     console.error(error)
   }
 }
+
 export async function getWorks() {
   let token = localStorage.getItem("access_token")
   const myHeaders = new Headers();
@@ -54,6 +55,25 @@ export async function getWorks() {
     console.error(error)
   }
 }
+
+export async function updateWorkStatus(work_id, newStatus) {
+  let token = localStorage.getItem("access_token")
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${token}`)
+  myHeaders.append("Content-Type", "application/json")
+  const requestOptions = {
+    method: "PUT",
+    headers: myHeaders,
+    body: JSON.stringify({ status: newStatus })
+  };
+  try {
+    const response = await fetch(backendURL + `/contracts/${work_id}/status`, requestOptions);
+    return response
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 //obtener los servicios desde el backend
 export async function getServices(search, categories, min_price, max_price, rating) {
   categories ? categories = categories.join("-") : ""

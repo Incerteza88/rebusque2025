@@ -22,12 +22,13 @@ export const JobsContent = () => {
       <div className="row align-items-center w-100 fw-semibold fs-5 px-2 mb-2">
         <div className="col-3">{counterpartLabel}</div>
         <div className="col-3">Tarea</div>
-        <div className="col-1">Precio</div>
-        <div className="col-5">Estado</div>
+        <div className="col-2">Precio</div>
+        <div className="col-4">Estado</div>
       </div>
       {works.map((w, idx) => (
         <JobsCards
           key={w.id}
+          work_id={w.id}
           status={w.status}
           customer={w.client.name}
           title={w.service.title}

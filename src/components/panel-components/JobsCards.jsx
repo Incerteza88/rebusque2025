@@ -2,7 +2,7 @@ import React from 'react'
 import useGlobalReducer from '../../hooks/useGlobalReducer'
 import JobsAction from './JobsAction'
 
-function JobsCards({ status, customer, title, price, avatar }) {
+function JobsCards({ status, customer, title, price, avatar, work_id }) {
   const { store } = useGlobalReducer()
 
 
@@ -28,10 +28,11 @@ function JobsCards({ status, customer, title, price, avatar }) {
 
       <div className="col-3 text-truncate">{title}</div>
 
-      <div className="col-1">${Number(price).toFixed(2)}</div>
+      <div className="col-2">${Number(price).toFixed(2)}</div>
 
-      <div className="col-5 text-truncate">
+      <div className="col-4 text-truncate">
         <JobsAction
+          work_id={work_id}
           authState={store.authState}
           statusLabel={status}
           onChange={(newStatus) => {
