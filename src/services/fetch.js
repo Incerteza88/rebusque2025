@@ -38,7 +38,7 @@ export async function validAuth() {
   }
 }
 
-export async function getWorks() {
+export async function getProviderWorks() {
   let token = localStorage.getItem("access_token")
   const myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${token}`)
@@ -49,6 +49,24 @@ export async function getWorks() {
   };
   try {
     const response = await fetch(backendURL + "/provider/contracts", requestOptions);
+
+    return response
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function getClientWorks() {
+  let token = localStorage.getItem("access_token")
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${token}`)
+
+  const requestOptions = {
+    method: "GET",
+    headers: myHeaders
+  };
+  try {
+    const response = await fetch(backendURL + "/client/contracts", requestOptions);
 
     return response
   } catch (error) {
