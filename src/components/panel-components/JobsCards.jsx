@@ -1,6 +1,7 @@
 import React from 'react'
 import useGlobalReducer from '../../hooks/useGlobalReducer'
 import JobsAction from './JobsAction'
+import defaultPhoto from "../../assets/img/default_user.jpg"
 
 function JobsCards({ status, customer, title, price, avatar, work_id }) {
   const { store } = useGlobalReducer()
@@ -19,6 +20,10 @@ function JobsCards({ status, customer, title, price, avatar, work_id }) {
             <img
               className="w-100 h-100 object-fit-cover"
               src={avatar}
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null;
+                currentTarget.src = defaultPhoto;
+              }}
               alt="Avatar"
             />
           </div>
