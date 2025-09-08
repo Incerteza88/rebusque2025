@@ -121,7 +121,7 @@ export async function getServices(search, categories, min_price, max_price, rati
     categories: categories,
     min_price: min_price,
     max_price: max_price,
-    rating: rating
+    min_rating: rating
   }).toString()
 
   try {
