@@ -15,7 +15,7 @@ export const PanelSideBarTitle = () => {
                 <img src={userImage} width="60" height="60" className="rounded-5 border border-dark"
                     onError={({ currentTarget }) => {
                         currentTarget.onerror = null;
-                        currentTarget.src = defaultImage;
+                        currentTarget.src = defaultPhoto;
                     }} />
                 <div className="ms-2 inline-limit">
                     {userName}
