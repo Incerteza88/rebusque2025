@@ -134,7 +134,7 @@ export const Discover = () => {
                     <div className="row cols-2 mx-auto h-100 d-flex align-items-center">
                         <div className="col d-flex px-1" style={{ minWidth: "fit-content", maxWidth: "fit-content" }}>
                             <p className="col my-auto px-1 text-nowrap">Ordenar por:</p>
-                            <select id="sortBy" className="col form-select rounded-pill mx-auto text-nowrap" onChange={(e) => setSortBy(e.target.value)}>
+                            <select id="sortBy" className="col form-select rounded-pill mx-auto text-nowrap" onChange={(e) => setSortBy(e.target.value)} value={sortBy} >
                                 <option value="default">Por defecto</option>
                                 <option value="rating_up">Valoración ↑</option>
                                 <option value="rating_down">Valoración ↓</option>
