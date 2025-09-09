@@ -46,7 +46,7 @@ export const Navbar = () => {
             :
             <div className="dropend">
                 <button className="btn btn-primary rounded-5 dropdown-toggle py-0 ps-0" href="#" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-expanded="false">
-                    <img src={userImage}
+                    <img src={userImage === null ? defaultPhoto : userImage}
                         onError={({ currentTarget }) => {
                             currentTarget.onerror = null;
                             currentTarget.src = defaultPhoto;
