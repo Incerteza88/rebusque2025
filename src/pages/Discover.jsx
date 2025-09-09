@@ -16,8 +16,28 @@ export const Discover = () => {
     const [servicesList, setServicesList] = useState(store.services)
     const [sortedServices, setSortedServices] = useState([])
 
+    const [header, setHeader] = useState(
+        <div>
+            <div className="d-flex my-2">
+                <h3 className="text-nowrap">Categorías</h3>
+                <div className="text-bg-dark ms-2 w-100 align-self-center" style={{ height: "1px" }}> </div>
+            </div>
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 pb-1 flex-nowrap hide-scroll overflow-auto">
+                {store.categories.map((cat) => <div key={cat.id} onClick={() => setCheckedCategs([cat.id])}><CategoryCard id={cat.id} /></div>)}
+            </div>
+            <div className="d-flex mb-2 mt-4">
+                <h3 className="text-nowrap">Servicios recomendados</h3>
+                <div className="text-bg-dark ms-2 w-100 align-self-center" style={{ height: "1px" }}> </div>
+            </div>
+        </div>
+    )
+
     const [sortBy, setSortBy] = useState("default")
 
+    // const [distanceRange, setDistanceRange] = useState(10)
+    const [catRadio, setCatRadio] = useState(true)
+    const [checkedCategs, setCheckedCategs] = useState([])
+    const [ratingRange, setRatingRange] = useState(0)
     const [minPriceValue, setMinPriceValue] = useState()
     const [maxPriceValue, setMaxPriceValue] = useState()
     const [minPrice, setMinPrice] = useState()
@@ -26,12 +46,6 @@ export const Discover = () => {
         setMinPriceValue(e.minValue);
         setMaxPriceValue(e.maxValue);
     };
-
-
-    // const [distanceRange, setDistanceRange] = useState(10)
-    const [catRadio, setCatRadio] = useState(true)
-    const [checkedCategs, setCheckedCategs] = useState([])
-    const [ratingRange, setRatingRange] = useState(0)
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -85,7 +99,30 @@ export const Discover = () => {
         getServices(searchValue, checkedCategs, minPriceValue, maxPriceValue, ratingRange).then((servs) => dispatch({ type: 'setServices', payload: servs }))
     }, [])
     useEffect(() => filterSearch(), [store.searching, checkedCategs])
-    useEffect(() => setServicesList(store.services), [store.services])
+    useEffect(() => {
+        setServicesList(store.services)
+
+        if (searchValue === "" & catRadio === true & checkedCategs.length === 0) {
+
+            setHeader(
+                <div>
+                    <div className="d-flex my-2">
+                        <h3 className="text-nowrap">Categorías</h3>
+                        <div className="text-bg-dark ms-2 w-100 align-self-center" style={{ height: "1px" }}> </div>
+                    </div>
+                    <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 pb-1 flex-nowrap hide-scroll overflow-auto">
+                        {store.categories.map((cat) => <CategoryCard key={cat.id} id={cat.id} />)}
+                    </div>
+                    <div className="d-flex mb-2 mt-4">
+                        <h3 className="text-nowrap">Servicios recomendados</h3>
+                        <div className="text-bg-dark ms-2 w-100 align-self-center" style={{ height: "1px" }}> </div>
+                    </div>
+                </div>
+            )
+        } else {
+            setHeader(<div></div>)
+        }
+    }, [store.services])
 
     useEffect(() => sortServices(), [sortBy, servicesList]);
 
@@ -112,6 +149,29 @@ export const Discover = () => {
     }, [maxPrice, minPrice])
 
     useEffect(() => { filterSearch() }, [minPriceValue, maxPriceValue, ratingRange])
+    useEffect(() => {
+        if (searchValue === "" & catRadio === true & checkedCategs.length === 0) {
+
+            setHeader(
+
+                <div>
+                    <div className="d-flex my-2">
+                        <h3 className="text-nowrap">Categorías</h3>
+                        <div className="text-bg-dark ms-2 w-100 align-self-center" style={{ height: "1px" }}> </div>
+                    </div>
+                    <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 pb-1 flex-nowrap hide-scroll overflow-auto">
+                        {store.categories.map((cat) => <CategoryCard key={cat.id} id={cat.id} />)}
+                    </div>
+                    <div className="d-flex mb-2 mt-4">
+                        <h3 className="text-nowrap">Servicios recomendados</h3>
+                        <div className="text-bg-dark ms-2 w-100 align-self-center" style={{ height: "1px" }}> </div>
+                    </div>
+                </div>
+            )
+        } else {
+            setHeader(<div></div>)
+        }
+    }, [searchValue, catRadio, checkedCategs])
 
 
 
@@ -254,17 +314,7 @@ export const Discover = () => {
                     <button className="btn btn-dark py-2 rounded-pill text-nowrap" onClick={resetFilters}><p className="my-1">Reiniciar filtros</p></button>
                 </div>
             </div>
-            <div className="d-flex my-2">
-                <h3 className="text-nowrap">Categorías</h3>
-                <div className="text-bg-dark ms-2 w-100 align-self-center" style={{ height: "1px" }}> </div>
-            </div>
-            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 pb-1 flex-nowrap hide-scroll overflow-auto">
-                {store.categories.map((cat) => <CategoryCard key={cat.id} id={cat.id} />)}
-            </div>
-            <div className="d-flex mb-2 mt-4">
-                <h3 className="text-nowrap">Servicios recomendados</h3>
-                <div className="text-bg-dark ms-2 w-100 align-self-center" style={{ height: "1px" }}> </div>
-            </div>
+            {header}
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
                 {sortedServices.length >= 1 ?
                     sortedServices.map((s) => <ServiceCard key={s.id} id={s.id} />)
