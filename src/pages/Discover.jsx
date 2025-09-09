@@ -111,7 +111,7 @@ export const Discover = () => {
                         <div className="text-bg-dark ms-2 w-100 align-self-center" style={{ height: "1px" }}> </div>
                     </div>
                     <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 pb-1 flex-nowrap hide-scroll overflow-auto">
-                        {store.categories.map((cat) => <CategoryCard key={cat.id} id={cat.id} />)}
+                        {store.categories.map((cat) => <div key={cat.id} onClick={() => setCheckedCategs([cat.id])}><CategoryCard id={cat.id} /></div>)}
                     </div>
                     <div className="d-flex mb-2 mt-4">
                         <h3 className="text-nowrap">Servicios recomendados</h3>
