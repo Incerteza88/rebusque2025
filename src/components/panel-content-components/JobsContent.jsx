@@ -30,10 +30,10 @@ export const JobsContent = () => {
           key={w.id}
           work_id={w.id}
           status={w.status}
-          customer={store.authState == 1 ? w.provider.name : w.client.name}
+          customer={store.authState == 1 ? w.service.provider.name : w.client.name}
           title={w.service.title}
           price={w.service.price}
-          avatar={store.authState == 1 ? w.provider.photo_url : w.client.photo_url}
+          avatar={store.authState == 1 ? w.service.provider.photo_url : w.client.photo_url}
         />
       ))}
     </>
