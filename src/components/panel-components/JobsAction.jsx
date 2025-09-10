@@ -66,8 +66,20 @@ export default function JobsAction({ authState, statusLabel, onChange, work_id }
             onClick = confirmJob;
             disabled = false;
         } else if (statusLabel == STATUSES.COMPLETADO) {
-            text = "Trabajo completado";
-            disabled = true;
+            isWorkRated(work_id).then((result) => {
+                setRated(result.reviewed);
+            });
+
+            if (rated) {
+                text = "Trabajo completado";
+                disabled = true;
+            } else {
+                text = "Calificar trabajo";
+                disabled = false;
+                onClick = () => {
+                    setShowRating(true);
+                };
+            }
         }
     } else if (authState == 2) {
         if (statusLabel == STATUSES.EN_CURSO) {
