@@ -16,7 +16,6 @@ export function starsVisual(rating) {
                     <i className="bi bi-star text-warning"></i>
                     <i className="bi bi-star text-warning"></i>
                     <i className="bi bi-star text-warning"></i>
-                    <i className="bi bi-star text-warning"></i>
                 </span>
             );
         case x < 1:
@@ -24,7 +23,6 @@ export function starsVisual(rating) {
             return (
                 <span>
                     <i className="bi bi-star-half text-warning"></i>
-                    <i className="bi bi-star text-warning"></i>
                     <i className="bi bi-star text-warning"></i>
                     <i className="bi bi-star text-warning"></i>
                     <i className="bi bi-star text-warning"></i>
@@ -40,7 +38,6 @@ export function starsVisual(rating) {
                     <i className="bi bi-star text-warning"></i>
                     <i className="bi bi-star text-warning"></i>
                     <i className="bi bi-star text-warning"></i>
-                    <i className="bi bi-star text-warning"></i>
                 </span>
             );
         case x < 2:
@@ -49,7 +46,6 @@ export function starsVisual(rating) {
                 <span>
                     <i className="bi bi-star-fill text-warning"></i>
                     <i className="bi bi-star-half text-warning"></i>
-                    <i className="bi bi-star text-warning"></i>
                     <i className="bi bi-star text-warning"></i>
                     <i className="bi bi-star text-warning"></i>
                     <i className="bi bi-star text-warning"></i>
@@ -64,7 +60,6 @@ export function starsVisual(rating) {
                     <i className="bi bi-star text-warning"></i>
                     <i className="bi bi-star text-warning"></i>
                     <i className="bi bi-star text-warning"></i>
-                    <i className="bi bi-star text-warning"></i>
                 </span>
             );
         case x < 3:
@@ -74,7 +69,6 @@ export function starsVisual(rating) {
                     <i className="bi bi-star-fill text-warning"></i>
                     <i className="bi bi-star-fill text-warning"></i>
                     <i className="bi bi-star-half text-warning"></i>
-                    <i className="bi bi-star text-warning"></i>
                     <i className="bi bi-star text-warning"></i>
                     <i className="bi bi-star text-warning"></i>
                 </span>
@@ -88,7 +82,6 @@ export function starsVisual(rating) {
                     <i className="bi bi-star-fill text-warning"></i>
                     <i className="bi bi-star text-warning"></i>
                     <i className="bi bi-star text-warning"></i>
-                    <i className="bi bi-star text-warning"></i>
                 </span>
             );
         case x < 4:
@@ -100,14 +93,12 @@ export function starsVisual(rating) {
                     <i className="bi bi-star-fill text-warning"></i>
                     <i className="bi bi-star-half text-warning"></i>
                     <i className="bi bi-star text-warning"></i>
-                    <i className="bi bi-star text-warning"></i>
                 </span>
             );
         case x < 4.5:
 
             return (
                 <span>
-                    <i className="bi bi-star-fill text-warning"></i>
                     <i className="bi bi-star-fill text-warning"></i>
                     <i className="bi bi-star-fill text-warning"></i>
                     <i className="bi bi-star-fill text-warning"></i>
@@ -123,7 +114,6 @@ export function starsVisual(rating) {
                     <i className="bi bi-star-fill text-warning"></i>
                     <i className="bi bi-star-fill text-warning"></i>
                     <i className="bi bi-star-fill text-warning"></i>
-                    <i className="bi bi-star-fill text-warning"></i>
                     <i className="bi bi-star-half text-warning"></i>
                 </span>
             );
@@ -131,7 +121,6 @@ export function starsVisual(rating) {
         default:
             return (
                 <span>
-                    <i className="bi bi-star-fill text-warning"></i>
                     <i className="bi bi-star-fill text-warning"></i>
                     <i className="bi bi-star-fill text-warning"></i>
                     <i className="bi bi-star-fill text-warning"></i>

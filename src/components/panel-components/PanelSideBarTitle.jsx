@@ -12,7 +12,7 @@ export const PanelSideBarTitle = () => {
     return (
         <>
             <h5 className="offcanvas-title d-flex w-100 mb-3" id="offcanvasExampleLabel">
-                <img src={userImage} width="60" height="60" className="rounded-5 border border-dark"
+                <img src={userImage === null ? defaultPhoto : userImage} width="60" height="60" className="rounded-5 border border-dark"
                     onError={({ currentTarget }) => {
                         currentTarget.onerror = null;
                         currentTarget.src = defaultPhoto;

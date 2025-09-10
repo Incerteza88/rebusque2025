@@ -66,7 +66,22 @@ export default function JobsAction({ authState, statusLabel, onChange, work_id }
             onClick = confirmJob;
             disabled = false;
         } else if (statusLabel == STATUSES.COMPLETADO) {
-            text = "Trabajo completado";
+            isWorkRated(work_id).then((result) => {
+                setRated(result.reviewed);
+            });
+
+            if (rated) {
+                text = "Trabajo completado";
+                disabled = true;
+            } else {
+                text = "Calificar trabajo";
+                disabled = false;
+                onClick = () => {
+                    setShowRating(true);
+                };
+            }
+        } else if (statusLabel == STATUSES.DENEGADO) {   //PONERLO CON CLIENTE TAMBIEN
+            text = "Trabajo denegado";
             disabled = true;
         }
     } else if (authState == 2) {
@@ -140,7 +155,7 @@ export default function JobsAction({ authState, statusLabel, onChange, work_id }
                                 <button type="button" className="btn btn-secondary rounded-pill" onClick={() => setShowRating(false)}>
                                     Cancelar
                                 </button>
-                                <button type="button" className="btn btn-primary rounded-pill" onClick={() => { setShowRating(false); rateWork(work_id, rating, comment); navigate(0); }}>
+                                <button type="button" className="btn btn-primary rounded-pill" onClick={() => { setShowRating(false); rateWork(work_id, rating, comment); }}>
                                     Enviar
                                 </button>
                             </div>

@@ -21,7 +21,7 @@ const Dashboard = () => {
         if (response.status === 200) {
           response.json().then((data) => {
             dispatch({ type: "setMyWorks", payload: data })
-            console.log(data);
+            // console.log(data);
           })
         }
       })
@@ -30,7 +30,7 @@ const Dashboard = () => {
         if (response.status === 200) {
           response.json().then((data) => {
             dispatch({ type: "setMyWorks", payload: data })
-            console.log(data);
+            // console.log(data);
           })
         }
       })

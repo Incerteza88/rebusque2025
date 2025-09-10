@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import useGlobalReducer from "../../hooks/useGlobalReducer";
 import { Button, Modal } from "react-bootstrap";
 import { useState } from "react";
+import defaultPhoto from "../../assets/img/default_user.jpg"
 
 export const ServiceRow = ({ id }) => {
 
@@ -54,10 +55,10 @@ export const ServiceRow = ({ id }) => {
             <Modal show={show} onHide={handleCloseModal} className="rounded-5">
                 <Modal.Header closeButton>
                     <Modal.Title className="d-flex align-items-center gap-3">
-                        <img src={service.provider.photo_url === null ? "src/assets/img/default_user.jpg" : service.provider.photo_url} width="50" className="rounded-5 border border-dark"
+                        <img src={service.provider.photo_url === null ? defaultPhoto : service.provider.photo_url} width="50" className="rounded-5 border border-dark"
                             onError={({ currentTarget }) => {
                                 currentTarget.onerror = null;
-                                currentTarget.src = "src/assets/img/default_user.jpg";
+                                currentTarget.src = defaultPhoto;
                             }} />
                         <div>
                             {service.title}
