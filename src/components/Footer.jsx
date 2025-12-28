@@ -1,6 +1,6 @@
 import { Link } from "react-router";
-import logo from "../assets/Rebusque-logo.png";
-import title from "../assets/Rebusque-title.png";
+import logo from "../assets/ReBusque-logo.png";
+import title from "../assets/ReBusque-title.png";
 
 export const Footer = () => (
     <div className="border-top">
