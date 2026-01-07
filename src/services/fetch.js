@@ -1,4 +1,4 @@
-const backendURL = import.meta.env.VITE_BACKEND_URL || "https://c8gm3skn-3001.uks1.devtunnels.ms";
+const backendURL = import.meta.env.VITE_BACKEND_URL || "https://scaling-space-journey-jj9qg7pgjp4gf55gv-3001.app.github.dev";
 
 export const registerUser = async (payload) => {
   try {

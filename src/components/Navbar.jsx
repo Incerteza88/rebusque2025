@@ -1,8 +1,8 @@
 import { Link, useLocation, useNavigate } from "react-router";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useState } from "react";
-import logo from "../assets/Rebusque-logo.png";
-import title from "../assets/Rebusque-title.png";
+import logo from "../assets/ReBusque-logo.png";
+import title from "../assets/ReBusque-title.png";
 import defaultPhoto from "../assets/img/default_user.jpg"
 
 export const Navbar = () => {
